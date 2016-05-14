@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */; };
-		9F7CB5551CE6F6EF008030E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5541CE6F6EF008030E4 /* ViewController.swift */; };
-		9F7CB5581CE6F6EF008030E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB5561CE6F6EF008030E4 /* Main.storyboard */; };
 		9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */; };
-		9F7CB55D1CE6F6EF008030E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB55B1CE6F6EF008030E4 /* LaunchScreen.storyboard */; };
 		9F7CB5681CE6F6EF008030E4 /* iNoteCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5671CE6F6EF008030E4 /* iNoteCoreTests.swift */; };
 		9F7CB5731CE6F6EF008030E4 /* iNoteCoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5721CE6F6EF008030E4 /* iNoteCoreUITests.swift */; };
+		9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB5821CE6FA9A008030E4 /* Storyboard.storyboard */; };
+		9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */; };
+		9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5881CE70650008030E4 /* NoteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +36,7 @@
 /* Begin PBXFileReference section */
 		9F7CB54F1CE6F6EF008030E4 /* iNoteCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNoteCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9F7CB5541CE6F6EF008030E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9F7CB5571CE6F6EF008030E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9F7CB55C1CE6F6EF008030E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F7CB55E1CE6F6EF008030E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F7CB5631CE6F6EF008030E4 /* iNoteCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iNoteCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5671CE6F6EF008030E4 /* iNoteCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNoteCoreTests.swift; sourceTree = "<group>"; };
@@ -47,6 +44,9 @@
 		9F7CB56E1CE6F6EF008030E4 /* iNoteCoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iNoteCoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5721CE6F6EF008030E4 /* iNoteCoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNoteCoreUITests.swift; sourceTree = "<group>"; };
 		9F7CB5741CE6F6EF008030E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F7CB5821CE6FA9A008030E4 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
+		9F7CB5881CE70650008030E4 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */,
-				9F7CB5541CE6F6EF008030E4 /* ViewController.swift */,
-				9F7CB5561CE6F6EF008030E4 /* Main.storyboard */,
+				9F7CB5821CE6FA9A008030E4 /* Storyboard.storyboard */,
+				9F7CB5881CE70650008030E4 /* NoteViewController.swift */,
+				9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */,
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
-				9F7CB55B1CE6F6EF008030E4 /* LaunchScreen.storyboard */,
 				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
 			);
 			path = iNoteCore;
@@ -229,9 +229,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F7CB55D1CE6F6EF008030E4 /* LaunchScreen.storyboard in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
-				9F7CB5581CE6F6EF008030E4 /* Main.storyboard in Resources */,
+				9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,8 +255,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F7CB5551CE6F6EF008030E4 /* ViewController.swift in Sources */,
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
+				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
+				9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,25 +291,6 @@
 			targetProxy = 9F7CB56F1CE6F6EF008030E4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		9F7CB5561CE6F6EF008030E4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9F7CB5571CE6F6EF008030E4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9F7CB55B1CE6F6EF008030E4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9F7CB55C1CE6F6EF008030E4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9F7CB5751CE6F6EF008030E4 /* Debug */ = {
