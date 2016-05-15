@@ -10,33 +10,42 @@ import UIKit
 
 class NoteViewController: UIViewController {
 
-    var alert: UIAlertController!
-
+    var vigSegue = ""
+    
+    @IBOutlet weak var returnBtn: UIButton!
+    @IBOutlet weak var finishBtn: UIBarButtonItem!
+    @IBOutlet weak var detailTextView: UITextView!
+    
+    @IBAction func saveContent(sender: AnyObject) {
+        let content: String = detailTextView.text
+        let weather: String = "sunshine"
+        
+        let ct = Content(dict: ["noteID": vigSegue, "content": content, "weather": weather ])
+        ct.insertContent()
+        
+        // 收起输入键盘
+        detailTextView.resignFirstResponder()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        /*
-         定义弹框
-        */
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let okAction = UIAlertAction(title: "Ok", style: .Default) {
-            (action: UIAlertAction!) -> Void in
-            print("you choose ok")
+        var arrayM = [Content]()
+        print(vigSegue)
+        if vigSegue == "" {
+            
+        }else{
+            arrayM = Content.loadContents(Int(vigSegue)!)!
+            if arrayM.isEmpty{
+                detailTextView.text = ""
+            }else{
+                detailTextView.text =  arrayM[0].content
+                
+            }
         }
-        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) {
-            (action: UIAlertAction!) -> Void in
-            print("you choose delete")
-        }
-        
-        alert = UIAlertController(title: "simple alert", message: "this is a simple alert", preferredStyle: .Alert)
-        alert.addAction(cancelAction)
-        alert.addAction(okAction)
-        alert.addAction(deleteAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,5 +63,29 @@ class NoteViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func test(){
+        /*
+         定义弹框
+         */
+        var alert: UIAlertController!
+
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "Ok", style: .Default) {
+            (action: UIAlertAction!) -> Void in
+            print("you choose ok")
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) {
+            (action: UIAlertAction!) -> Void in
+            print("you choose delete")
+        }
+        
+        alert = UIAlertController(title: "simple alert", message: "this is a simple alert", preferredStyle: .Alert)
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        alert.addAction(deleteAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
 
 }

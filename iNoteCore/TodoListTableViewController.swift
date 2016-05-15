@@ -14,30 +14,57 @@ class TodoListTableViewController: UITableViewController {
 
     @IBAction func insertNewItem(sender: AnyObject) {
         
-        todoItems.insertObject(NSDate(), atIndex: 0);
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0);
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
+//        todoItems.insertObject(NSDate(), atIndex: 0);
+//        let indexPath = NSIndexPath(forRow: 0, inSection: 0);
+//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
     
         let dt: String = Tool.getCurrentDateStr()
         print(dt)
         
-        let t = Title(dict: ["noteID": 3, "title": dt, "dt": dt ])
+        var noteID: Int = Int(arc4random()) % 1000000
+        noteID = noteID + Int(dt)!
+        let t = Title(dict: ["noteID": noteID, "title": dt, "dt": dt ])
         
         if t.insertTtile() {
-            print ("插入title成功")
+//            print ("插入title成功")
+            todoItems.insertObject(t, atIndex: 0);
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0);
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
+
         }else {
             print ("插入title失败")
         }
-        let c = Content(dict: ["noteID": 3, "content": "jintian lajfalsjfdlsdflsdsdfsd", "weather": "qingtian" ])
+//        let c = Content(dict: ["noteID": 3, "content": "jintian lajfalsjfdlsdflsdsdfsd", "weather": "qingtian" ])
+//        
+//        if c.insertContent() {
+//            print ("插入content成功")
+//        }else {
+//            print ("插入content失败")
+//        }
         
-        if c.insertContent() {
-            print ("插入content成功")
-        }else {
-            print ("插入content失败")
-        }
+        
     }
     
-    
+    // 刷新主场景
+    func refresh(){
+
+        var arrayM = [Title]()
+        arrayM = Title.loadTitles()!
+        
+        if arrayM.isEmpty {
+            print ("没有数据")
+        }else{
+//            print ("有数据呦")
+        }
+ 
+        for tobj in arrayM{
+            todoItems.insertObject(tobj, atIndex: 0);
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0);
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
+            
+        }
+        
+    }
 
 
     
@@ -54,6 +81,12 @@ class TodoListTableViewController: UITableViewController {
         print("begin create table")
         SQLiteManager.sharedManager.openDB()
         print("end create table")
+        
+        // 刷新主界面
+        print("begin refresh")
+        refresh()
+        print("end refresh")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +104,6 @@ class TodoListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-//        return 0
         return todoItems.count
     }
 
@@ -80,9 +112,10 @@ class TodoListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ToDoCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        let item = todoItems[indexPath.row] as! NSDate
-        cell.textLabel!.text = item.description
-
+        let item = todoItems[indexPath.row] as! Title
+    
+        cell.textLabel!.text = String(item.noteID)
+        
         return cell
     }
     
@@ -123,14 +156,24 @@ class TodoListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+//        NoteViewController ＊destinationController = ［segue.destinationViewController］
+        let destinationController = segue.destinationViewController as! NoteViewController
+        
+        let path = self.tableView.indexPathForSelectedRow
+        let cell = self.tableView.cellForRowAtIndexPath(path!)
+        print ("激活了点击操作")
+        
+        destinationController.vigSegue = (cell?.textLabel?.text)!
+        
     }
-    */
+    
 
 }
