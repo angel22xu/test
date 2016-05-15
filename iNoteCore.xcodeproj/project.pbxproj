@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */; };
+		9F142DC21CE8146200470E7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC11CE8146200470E7C /* Tool.swift */; };
+		9F142DC41CE816BD00470E7C /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC31CE816BD00470E7C /* Title.swift */; };
+		9F142DC61CE816CA00470E7C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC51CE816CA00470E7C /* Content.swift */; };
 		9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */; };
 		9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */; };
 		9F7CB5681CE6F6EF008030E4 /* iNoteCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5671CE6F6EF008030E4 /* iNoteCoreTests.swift */; };
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
+		9F142DC11CE8146200470E7C /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		9F142DC31CE816BD00470E7C /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
+		9F142DC51CE816CA00470E7C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		9F7CB54F1CE6F6EF008030E4 /* iNoteCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNoteCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,10 +111,14 @@
 			isa = PBXGroup;
 			children = (
 				9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */,
+				9F142DC11CE8146200470E7C /* Tool.swift */,
 				9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */,
 				9F7CB5821CE6FA9A008030E4 /* Storyboard.storyboard */,
 				9F7CB5881CE70650008030E4 /* NoteViewController.swift */,
 				9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */,
+				9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */,
+				9F142DC31CE816BD00470E7C /* Title.swift */,
+				9F142DC51CE816CA00470E7C /* Content.swift */,
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
 				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
 			);
@@ -264,6 +276,10 @@
 			files = (
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
 				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
+				9F142DC61CE816CA00470E7C /* Content.swift in Sources */,
+				9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */,
+				9F142DC21CE8146200470E7C /* Tool.swift in Sources */,
+				9F142DC41CE816BD00470E7C /* Title.swift in Sources */,
 				9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,6 +498,7 @@
 				9F7CB5791CE6F6EF008030E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F7CB57A1CE6F6EF008030E4 /* Build configuration list for PBXNativeTarget "iNoteCoreTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +507,7 @@
 				9F7CB57C1CE6F6EF008030E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F7CB57D1CE6F6EF008030E4 /* Build configuration list for PBXNativeTarget "iNoteCoreUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +516,7 @@
 				9F7CB57F1CE6F6EF008030E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

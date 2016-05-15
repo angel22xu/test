@@ -9,57 +9,36 @@
 import UIKit
 
 class TodoListTableViewController: UITableViewController {
-    
+
     var todoItems = NSMutableArray()
-    
+
     @IBAction func insertNewItem(sender: AnyObject) {
-//        todoItems.insertObject(NSDate(), atIndex: 0)
-//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    
+        
         todoItems.insertObject(NSDate(), atIndex: 0);
         let indexPath = NSIndexPath(forRow: 0, inSection: 0);
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
     
+        let dt: String = Tool.getCurrentDateStr()
+        print(dt)
         
-    }
-    
-    
-    let DBFILE_NAME = "psList.sqlite3"
-    var db:COpaquePointer = nil
-    //获取sqlite3数据库文件位置
-    func applicationDocumentsDirectoryFile() ->String {
-        let  documentDirectory: NSArray = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let path = documentDirectory[0].stringByAppendingPathComponent(DBFILE_NAME) as String
-        NSLog("path : %@", path)
-        print(path)
-        return path
-    }
-    
-    //创建一个系统配置表
-    func getSysConfig()->Dictionary<String,String>{
-        var theResult:Dictionary<String,String>=Dictionary<String,String>()
-        let writableDBPath = self.applicationDocumentsDirectoryFile()
-        let cpath = writableDBPath.cStringUsingEncoding(NSUTF8StringEncoding)
+        let t = Title(dict: ["noteID": 3, "title": dt, "dt": dt ])
         
-        if sqlite3_open(cpath!, &db) != SQLITE_OK {
-            sqlite3_close(db)
-            assert(false, "数据库打开失败。")
-        } else {
-            //创建一个系统参数配置表，有3个字段，分别是 名字、值和备注
-            let sql = "CREATE TABLE IF NOT EXISTS  SysConfig (name TEXT PRIMARY KEY, value TEXT , comment TEXT)"
-            let cSql = sql.cStringUsingEncoding(NSUTF8StringEncoding)
-            
-            if (sqlite3_exec(db,cSql!, nil, nil, nil) != SQLITE_OK) {
-                sqlite3_close(db)
-                assert(false, "建表失败。")
-            }
-            sqlite3_close(db)
+        if t.insertTtile() {
+            print ("插入title成功")
+        }else {
+            print ("插入title失败")
         }
+        let c = Content(dict: ["noteID": 3, "content": "jintian lajfalsjfdlsdflsdsdfsd", "weather": "qingtian" ])
         
-        return theResult
+        if c.insertContent() {
+            print ("插入content成功")
+        }else {
+            print ("插入content失败")
+        }
     }
     
+    
+
 
     
 
@@ -73,7 +52,7 @@ class TodoListTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         print("begin create table")
-        getSysConfig()
+        SQLiteManager.sharedManager.openDB()
         print("end create table")
     }
 
