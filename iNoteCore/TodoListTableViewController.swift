@@ -164,15 +164,21 @@ class TodoListTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-//        NoteViewController ＊destinationController = ［segue.destinationViewController］
-        let destinationController = segue.destinationViewController as! NoteViewController
+        if(segue.identifier == "noteSegue"){
+            print("identifier1:  \(segue.identifier)")
+
+            let destinationController = segue.destinationViewController as! NoteViewController
         
-        let path = self.tableView.indexPathForSelectedRow
-        let cell = self.tableView.cellForRowAtIndexPath(path!)
-        print ("激活了点击操作")
-        
-        destinationController.vigSegue = (cell?.textLabel?.text)!
-        
+            let path = self.tableView.indexPathForSelectedRow
+            let cell = self.tableView.cellForRowAtIndexPath(path!)
+            print ("激活了点击操作")
+            destinationController.vigSegue = (cell?.textLabel?.text)!
+        }else if(segue.identifier == "settingSegue"){
+            print("identifier2:  \(segue.identifier)")
+
+            let destinationController = segue.destinationViewController as! SettingViewController
+
+        }
     }
     
 

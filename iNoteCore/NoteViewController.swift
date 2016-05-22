@@ -63,29 +63,5 @@ class NoteViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func test(){
-        /*
-         定义弹框
-         */
-        var alert: UIAlertController!
-
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let okAction = UIAlertAction(title: "Ok", style: .Default) {
-            (action: UIAlertAction!) -> Void in
-            print("you choose ok")
-        }
-        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) {
-            (action: UIAlertAction!) -> Void in
-            print("you choose delete")
-        }
-        
-        alert = UIAlertController(title: "simple alert", message: "this is a simple alert", preferredStyle: .Alert)
-        alert.addAction(cancelAction)
-        alert.addAction(okAction)
-        alert.addAction(deleteAction)
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-    }
 
 }
