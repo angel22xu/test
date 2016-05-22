@@ -14,6 +14,9 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+//        print(Tool.getDocumentPath())
+        print(Tool.getRandomStringOfLength(10))
     }
 
     override func didReceiveMemoryWarning() {

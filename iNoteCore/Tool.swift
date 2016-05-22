@@ -40,4 +40,32 @@ class Tool: NSObject {
         return dateString2
     }
     
+    
+    // 获取document路径
+    static func getDocumentPath()->NSString{
+        
+        let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last! as NSString
+        
+        return documentPath
+    }
+    
+    
+    
+    /**
+     生成随机字符串,
+     
+     - parameter length: 生成的字符串的长度
+     
+     - returns: 随机生成的字符串
+     */
+    static func getRandomStringOfLength(length: Int) -> String {
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var ranStr = ""
+        for _ in 0..<length {
+            let index = Int(arc4random_uniform(UInt32(characters.characters.count)))
+            ranStr.append(characters[characters.startIndex.advancedBy(index)])
+        }
+        return ranStr
+        
+    }
 }

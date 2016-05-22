@@ -27,7 +27,7 @@ class SQLiteManager {
      */
     func openDB(dbName: String = DBFILE_NAME) {
         // 获取沙盒路径
-        let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last! as NSString
+        let documentPath = Tool.getDocumentPath()
         
         // 获取数据库完整路径
         let path = documentPath.stringByAppendingPathComponent(dbName)

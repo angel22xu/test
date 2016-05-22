@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Todo List-->
@@ -53,6 +54,7 @@
         <!--Setting View Controller-->
         <scene sceneID="AV3-t3-kHg">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TdQ-tB-cqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="CJe-vm-Tjn" customClass="SettingViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4av-Ni-dxT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -61,7 +63,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Lu4-sc-TGn"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TdQ-tB-cqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="223" y="-879"/>
         </scene>
@@ -74,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text" textAlignment="natural" id="K2M-hD-Gvm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="525"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -84,18 +85,23 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem id="m3p-bk-L9o"/>
-                        <barButtonItem title="Photo" width="60" id="WKp-YD-UyH"/>
-                        <barButtonItem title="Record" width="60" id="IG3-mb-x7N"/>
-                        <barButtonItem title="Video" width="60" id="pjA-O2-wYv"/>
+                        <barButtonItem title="Vedio" width="60" id="pjA-O2-wYv"/>
                         <barButtonItem title="Pen" width="60" id="QTN-cH-cEa"/>
+                        <barButtonItem title="Record" width="60" id="IG3-mb-x7N"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="J90-Ix-kpm">
-                            <connections>
-                                <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Save" id="J90-Ix-kpm">
+                                <connections>
+                                    <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Photo" width="60" id="WKp-YD-UyH">
+                                <connections>
+                                    <action selector="fromPhotograph:" destination="Lez-pQ-SQw" id="47Z-Or-GYk"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="detailTextView" destination="K2M-hD-Gvm" id="zVg-eE-jSI"/>
