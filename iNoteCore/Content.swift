@@ -17,7 +17,7 @@ class Content : NSObject {
     // 标题
     var content: String?
     
-    //时间
+    //天气
     var weather: String?
     
     // 字典转模型
@@ -29,35 +29,15 @@ class Content : NSObject {
     
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {}
     
-    /**
-     将对象更新到数据库
-     - returns: 是否插入成功
-     */
-    func updateContent() -> Bool {
-        // 拼接sql语句, String类型需要用''引起来
-        var sql = "UPDATE DataConfig SET content='\(content!)' WHERE noteID=\(noteID);"
-        
-        print("更新sql: \(sql)")
-        
-        // 使用单例插入数据
-        if(SQLiteManager.sharedManager.execSQL(sql) == false){
-            let sql = "REPLACE INTO DataConfig (noteID, content, weather) VALUES (\(noteID), '\(content!)', '\(weather!)');"
-            print("更新无效后插入sql: \(sql)")
-
-            return SQLiteManager.sharedManager.execSQL(sql)
-        }else{
-            print ("更新成功")
-            return false
-
-        }
-    }
     
     /**
      将对象添加到数据库
      - returns: 是否插入成功
      */
-    func insertContent() -> Bool {
+    func updateContent() -> Bool {
         // 拼接sql语句, String类型需要用''引起来
+        print ("noteID: \(noteID), content: \(content!), weather: \(weather!)")
+
         let sql = "REPLACE INTO DataConfig (noteID, content, weather) VALUES (\(noteID), '\(content!)', '\(weather!)');"
         
         print("插入sql: \(sql)")

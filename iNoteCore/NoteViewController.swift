@@ -8,25 +8,82 @@
 
 import UIKit
 
+
 class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     var vigSegue = ""
+    
+    var gString =  NSMutableAttributedString()
+    var gTextAttachment = MediaTextAttachment()
+    
+    
     
     @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
     
+    let size:Float = 64.0
+
+    
     @IBAction func saveContent(sender: AnyObject) {
-        let content: String = detailTextView.text
+        
+        //  TODO    这行代码会有bug，不能直接这样获取文本
+        let content: String = detailTextView.textStorage.getPlainString()
+        // TODO  获取detailTextView上的所有数据信息（图片，文字，视频，音频)
+        
+        
+        
+        print("saveContent, \(content)")
         let weather: String = "sunshine"
         
         let ct = Content(dict: ["noteID": vigSegue, "content": content, "weather": weather ])
-        ct.insertContent()
+        ct.updateContent()
         
         // 收起输入键盘
         detailTextView.resignFirstResponder()
         
+        
     }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        
+        gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
+        var arrayM = [Content]()
+        print(vigSegue)
+        if vigSegue == "" {
+            
+        }else{
+            arrayM = Content.loadContents(Int(vigSegue)!)!
+            if arrayM.isEmpty{
+                detailTextView.text = ""
+            }else{
+                // 解析数据库读取出来的内容
+                // TODO
+                analysis_adv(arrayM[0].content!)
+                
+            }
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     /*
      拍照功能
@@ -69,49 +126,34 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //原始图片
             image = info[UIImagePickerControllerOriginalImage] as! UIImage
         }
-        print("imagePickerController")
-        
-        //            detailTextView?
-//        let imageV = UIImageView(image: UIImage(named: "video"))
-        
-        // 获取textview光标的位置
-//        var cursorPosition: CGFloat = 0
-//        if ((detailTextView.selectedTextRange) != nil) {
-////            cursorPosition = [detailTextView caretRectForPosition:textView.selectedTextRange.start].origin.y;
-//            
-//            cursorPosition = detailTextView.caretRectForPosition(detailTextView.selectedTextRange!.start).origin.y
-//        } else {
-//        }
 
         let selectRange = detailTextView.selectedRange
         
         print("length: \(selectRange.length), localtion: \(selectRange.location)")
         
-        let imageV = UIImageView(image: image)
-        let path = UIBezierPath(rect: CGRectMake(0, CGFloat(selectRange.location), imageV.frame.width, imageV.frame.height))
-        detailTextView.textContainer.exclusionPaths = [path]
-        detailTextView.addSubview(imageV)
-        
         let currentDateStr: String = Tool.getCurrentDateStr()
         let randStr: String = Tool.getRandomStringOfLength(2)
-        
         let imageName: String = currentDateStr + randStr + ".png"
-        print("imageName: \(imageName)")
         
+        
+        // 存储媒体文件标识
+        gTextAttachment.mediaTag = "![" + imageName + "]"
+        
+        gTextAttachment.image = scaleImage(image)
+        
+        let textAttachmentString = NSAttributedString(attachment: gTextAttachment)
+        let countString:Int = detailTextView.text.characters.count
+        
+        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), countString: \(countString), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location)")
+        
+        detailTextView.textStorage.insertAttributedString(textAttachmentString, atIndex: detailTextView.selectedRange.location)
+
+
+        detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+
+
         //  保存图片
         self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
-        
-        //  文件名
-        
-        
-        // 同步图片信息到数据库
-        var content: String = detailTextView.text
-        content = content + "![\(imageName)]"
-        // 对content追加图片信息
-        
-        let ct = Content(dict: ["noteID": vigSegue, "content": content])
-        ct.updateContent()
-
         
     }
     
@@ -138,125 +180,115 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 获取沙盒路径
         let documentPath = Tool.getDocumentPath()
         let fullPath: String = documentPath.stringByAppendingPathComponent(imageName)
-        print("fullPath, \(fullPath)")
 
         // 将图片写入文件
         imageData.writeToFile(fullPath, atomically: false)
     }
     
     // 解析内容，是图片的话显示图片
-    func analysis(content: String){
-        print("analysis: \(content)")
+    func analysis_adv(content: String){
+        print("analysis_adv: \(content)")
         
+        // 存储内容的字符
+        var mojiStr = String()
         var imageNameStr = String()
-
+        
         // 显示图片准备
         let documentPath = Tool.getDocumentPath()
         var fullPath = String()
-        var imageV: UIImageView
-        var path: UIBezierPath
+
         
+        //左括号
+        let leftBrachket: String = "["
+        //右括号
+        let rightBrachket: String = "]"
+        //叹号
+        let exclamationMark: String = "!"
         
-        // 开始分析
-        for (var index = 0; index < content.characters.count; index += 1){
+        var rangeStr: String
+        var rightRangeStr: String
+        
+        var index: Int = 0
+        
+        while index < content.characters.count{
             
-            print("index: \(index)")
-            var startIndex = content.startIndex.advancedBy(index)
-            var endIndex = content.startIndex.advancedBy(index+1)
-            var range = Range<String.Index>(start: startIndex, end: endIndex)
-            var rangeStr = content.substringWithRange(range)
-            print("rangeStr: \(rangeStr)")
+            rangeStr = getSubstring(content, iStart: index, iEnd: index + 1)
+//            print("index: \(index),  rangeStr: \(rangeStr)")
+            
+            // 叹号
+            if (rangeStr == exclamationMark){
+                rangeStr = getSubstring(content, iStart: index + 1, iEnd: index + 2)
+                rightRangeStr = getSubstring(content, iStart: index + 22, iEnd: index + 23)
 
-            if (rangeStr == "!"){
-                startIndex = content.startIndex.advancedBy(index+1)
-                endIndex = content.startIndex.advancedBy(index+2)
-                range = Range<String.Index>(start: startIndex, end: endIndex)
-                rangeStr = content.substringWithRange(range)
-
-                print("rangeStr1: \(rangeStr)")
+                print("rangeStr1: \(rangeStr), rightRangeStr: \(rightBrachket)")
                 
-                if(rangeStr == "["){
-                    startIndex = content.startIndex.advancedBy(index+2)
-                    endIndex = content.startIndex.advancedBy(index+22)
-                    range = Range<String.Index>(start: startIndex, end: endIndex)
-                    rangeStr = content.substringWithRange(range)
-                    
-                    imageNameStr = rangeStr
-                    print("rangeStr2: \(rangeStr)")
+                // 判断是否左括号右括号
+                if(rangeStr == leftBrachket && rightRangeStr == rightBrachket){
+                    print ("there is a picture")
 
+                    rangeStr = getSubstring(content, iStart: index + 2, iEnd: index + 22)
+
+                    imageNameStr = rangeStr
                     
                     // 页面上显示图片
                     fullPath = documentPath.stringByAppendingPathComponent(imageNameStr)
-                    imageV = UIImageView(image: UIImage(named:  fullPath))
-                    path = UIBezierPath(rect: CGRectMake(0, 0, imageV.frame.width, imageV.frame.height))
-                    detailTextView.textContainer.exclusionPaths = [path]
-                    detailTextView.addSubview(imageV)
+                    // 虾面使用新的方法来显示图片
+
+                    gTextAttachment.image = scaleImage(UIImage(named:  fullPath)!)
+                    let countString:Int = detailTextView.text.characters.count
+                    
+                    
+                    gString.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: countString)
+                    detailTextView.attributedText  = gString
+                    
+                    index += 23
+                    
+                    
+                }
+                else{ // 是文本内容
+                    mojiStr += rangeStr
+//                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
+                    
+                    gString.insertAttributedString(NSAttributedString.init(string: rangeStr), atIndex: index)
+                    
+                    detailTextView.attributedText = gString
+                    
+                    // index必须位于最后
+                    index += 1
                     
                 }
                 
-                
-
             }
-            
-        }
-        
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        var arrayM = [Content]()
-        print(vigSegue)
-        if vigSegue == "" {
-            
-        }else{
-            arrayM = Content.loadContents(Int(vigSegue)!)!
-            if arrayM.isEmpty{
-                detailTextView.text = ""
-            }else{
-                detailTextView.text =  arrayM[0].content
+            else{ // 是文本内容
+                mojiStr += rangeStr
+//                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
                 
-                print("内容： \(arrayM[0].content)")
-                // 解析数据库读取出来的内容
-                // TODO
-                analysis(arrayM[0].content!)
+                gString.insertAttributedString(NSAttributedString.init(string: rangeStr), atIndex: index)
+                    
+                detailTextView.attributedText = gString
                 
+                // index必须位于最后
+                index += 1
             }
         }
         
-        
-        // 测试begin
-//        let documentPath = Tool.getDocumentPath()
-//        let fullPath: String = documentPath.stringByAppendingPathComponent("currentImage.png")
-//        
-//        let imageV = UIImageView(image: UIImage(named:  fullPath))
-//        let path = UIBezierPath(rect: CGRectMake(0, 0, imageV.frame.width, imageV.frame.height))
-//        detailTextView.textContainer.exclusionPaths = [path]
-//        detailTextView.addSubview(imageV)
-
-        // 测试end
-        
-        
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //  获取字符串中的某个字符
+    func getSubstring(content: String, iStart: Int, iEnd: Int) -> String{
+        let startIndex = content.startIndex.advancedBy(iStart)
+        let endIndex = content.startIndex.advancedBy(iEnd)
+        let range = Range<String.Index>(start: startIndex, end: endIndex)
+        return content.substringWithRange(range)
     }
-    */
+    
+    func scaleImage(image:UIImage)->UIImage{
+        UIGraphicsBeginImageContext(CGSizeMake(self.view.bounds.size.width, image.size.height*(self.view.bounds.size.width/image.size.width)))
+        image.drawInRect(CGRectMake(0, 0, self.view.bounds.size.width, image.size.height*(self.view.bounds.size.width/image.size.width)))
+        let scaledimage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledimage
+        
+    }
 
 }

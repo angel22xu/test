@@ -20,6 +20,7 @@
 		9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */; };
 		9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5881CE70650008030E4 /* NoteViewController.swift */; };
 		9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */; };
+		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		9F7CB5881CE70650008030E4 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite-bridging-Header.h"; path = "../sqlite-bridging-Header.h"; sourceTree = "<group>"; };
+		9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTextAttachment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				9F142DC51CE816CA00470E7C /* Content.swift */,
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
 				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
+				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			files = (
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
 				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
+				9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */,
 				9F142DC61CE816CA00470E7C /* Content.swift in Sources */,
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,
 				9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */,
