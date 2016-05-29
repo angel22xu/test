@@ -42,16 +42,21 @@ extension NSAttributedString {
     func getPlainString()->String{
         let plainString = NSMutableString(string: self.string)
         
-        print("getPlainString: \(plainString)")
         
         var  base = 0
         let ranges =  NSMakeRange(0, self.length)
+        
+        print("getPlainString: \(plainString), length: \(self.length)")
+
         self.enumerateAttribute(NSAttachmentAttributeName, inRange:ranges, options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired)
         { (value, range, error) -> Void in
             if (value != nil) {
                 if value is MediaTextAttachment{
                     let makeRange = NSMakeRange(range.location+base, range.length)
                     let  media = value as! MediaTextAttachment
+                    
+                    print("media.mediaTag!: \(media.mediaTag!)")
+
                     plainString.replaceCharactersInRange(makeRange, withString: media.mediaTag! as String)
                     base = base + (media.mediaTag?.length)!-1
                 }

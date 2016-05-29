@@ -67,6 +67,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 
             }
         }
+//        detailTextView.editable = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,9 +128,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             image = info[UIImagePickerControllerOriginalImage] as! UIImage
         }
 
-        let selectRange = detailTextView.selectedRange
+//        let selectRange = detailTextView.selectedRange
         
-        print("length: \(selectRange.length), localtion: \(selectRange.location)")
+//        print("length: \(selectRange.length), localtion: \(selectRange.location)")
         
         let currentDateStr: String = Tool.getCurrentDateStr()
         let randStr: String = Tool.getRandomStringOfLength(2)
@@ -141,17 +142,27 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         gTextAttachment.image = scaleImage(image)
         
-        let textAttachmentString = NSAttributedString(attachment: gTextAttachment)
-        let countString:Int = detailTextView.text.characters.count
+//        let textAttachmentString = NSAttributedString(attachment: gTextAttachment)
+//        let countString:Int = detailTextView.text.characters.count
         
-        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), countString: \(countString), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location)")
+        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location)")
         
-        detailTextView.textStorage.insertAttributedString(textAttachmentString, atIndex: detailTextView.selectedRange.location)
+        
+        let selectedRange = detailTextView.selectedRange
+        
+        detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
 
 
-        detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+        detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
 
+        resetTextStyle()
+        print("detailTextView.textStorage: \(detailTextView.textStorage.getPlainString())")
+        
+        // 计算新的光标位置，并恢复光标的位置
+        let newSelectedRange = NSMakeRange(selectedRange.location+1, 0)
+        detailTextView.selectedRange = newSelectedRange
 
+        
         //  保存图片
         self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
         
@@ -210,6 +221,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         var index: Int = 0
         
+        var showTextFlag = false
+        var showMediaFlag = false
+        
         while index < content.characters.count{
             
             rangeStr = getSubstring(content, iStart: index, iEnd: index + 1)
@@ -235,11 +249,18 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     // 虾面使用新的方法来显示图片
 
                     gTextAttachment.image = scaleImage(UIImage(named:  fullPath)!)
-                    let countString:Int = detailTextView.text.characters.count
+//                    let countString:Int = detailTextView.text.characters.count
                     
                     
-                    gString.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: countString)
-                    detailTextView.attributedText  = gString
+//                    gString.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: countString)
+//                    detailTextView.attributedText  = gString
+                    
+                    detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: detailTextView.selectedRange.location)
+                                        
+                    detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+
+                    
+                    showMediaFlag = true
                     
                     index += 23
                     
@@ -247,28 +268,42 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }
                 else{ // 是文本内容
                     mojiStr += rangeStr
-//                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
-                    
-                    gString.insertAttributedString(NSAttributedString.init(string: rangeStr), atIndex: index)
-                    
-                    detailTextView.attributedText = gString
-                    
+                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
+                    showTextFlag = true
+
                     // index必须位于最后
                     index += 1
                     
                 }
                 
+                
             }
             else{ // 是文本内容
                 mojiStr += rangeStr
-//                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
-                
-                gString.insertAttributedString(NSAttributedString.init(string: rangeStr), atIndex: index)
-                    
-                detailTextView.attributedText = gString
-                
+                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
+                showTextFlag = true
                 // index必须位于最后
                 index += 1
+            }
+            
+            
+            if showTextFlag && showMediaFlag {
+                
+                print ("show text flag: \(mojiStr)")
+//                gString.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: index)
+//                
+//                detailTextView.attributedText = gString
+                
+                detailTextView.textStorage.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: detailTextView.selectedRange.location)
+                print ("show text flag 1111111111: \(mojiStr)")
+
+                detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+
+                print ("show text flag 2222222222: \(mojiStr)")
+                
+                mojiStr = ""
+                showTextFlag = false
+                showMediaFlag = false
             }
         }
         
@@ -288,6 +323,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let scaledimage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return scaledimage
+        
+    }
+
+    //设置textView的字体属性
+    func resetTextStyle(){
+        let wholeRange:NSRange = NSMakeRange(0, detailTextView.textStorage.length)
+        detailTextView.textStorage.removeAttribute(NSFontAttributeName, range: wholeRange)
+        detailTextView.textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: wholeRange)
         
     }
 
