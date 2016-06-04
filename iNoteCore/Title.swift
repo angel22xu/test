@@ -19,6 +19,9 @@ class Title : NSObject {
     //时间
     var dt: String?
     
+    //删除标志, 0默认值，1表示扔进垃圾箱的数据
+    var delFlag: Int = 0
+    
     // 字典转模型
     init(dict: [String: AnyObject]) {
         super.init()
@@ -34,7 +37,7 @@ class Title : NSObject {
      */
     func insertTtile() -> Bool {
         // 拼接sql语句, String类型需要用''引起来
-        let sql = "INSERT INTO IndexConfig (noteID, title, dt) VALUES (\(noteID), '\(title!)', '\(dt!)');"
+        let sql = "INSERT INTO IndexConfig (noteID, title, dt, delFlag) VALUES (\(noteID), '\(title!)', '\(dt!)', \(delFlag));"
         
         print("插入sql: \(sql)")
         
@@ -57,6 +60,22 @@ class Title : NSObject {
         return SQLiteManager.sharedManager.execSQL(sql)
     }
 
+    /**
+     更新模型数据到数据库, 改变删除标志
+     returns:  是否更新成功
+     */
+    func updateStaus() -> Bool {
+        // 断言
+        assert(noteID > 0, "noteID 不正确")
+        
+        // 生成sql语句
+        let sql = "UPDATE IndexConfig set delFlag = \(delFlag), dt = \(dt!) WHERE noteID = \(noteID)"
+        
+        // 执行sql
+        return SQLiteManager.sharedManager.execSQL(sql)
+    }
+    
+    
     /**
      删除模型对应数据库中的记录
      returns: 是否删除成功
@@ -112,11 +131,38 @@ class Title : NSObject {
      */
     class func loadTitles() -> [Title]? {
         // 1. 成成sql语句
-        let sql = "SELECT noteID, title, dt FROM IndexConfig;"
+        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=0 ORDER BY dt DESC;"
         
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
 //            print("没有查询到数据")
+            return nil
+        }
+        
+        // 定义存放模型的数组
+        var arrayM = [Title]()
+        
+        // 3. 遍历数组，字典转模型
+        for dict in array {
+            let temp = Title(dict: dict)
+            
+            // 将对象添加到数组
+            arrayM.append(temp)
+        }
+        
+        return arrayM
+    }
+    /**
+     查找已经被删除的对象
+     - returns: Title数组
+     */
+    class func loadDeletedTitles() -> [Title]? {
+        // 1. 成成sql语句
+        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=1;"
+        
+        // 2.执行sql语句,返回查询结果
+        guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
+            //            print("没有查询到数据")
             return nil
         }
         

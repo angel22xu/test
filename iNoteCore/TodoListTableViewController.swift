@@ -11,6 +11,8 @@ import UIKit
 class TodoListTableViewController: UITableViewController {
 
     var todoItems = NSMutableArray()
+    var arrayM = [Title]()
+
 
     @IBAction func insertNewItem(sender: AnyObject) {
         
@@ -48,7 +50,7 @@ class TodoListTableViewController: UITableViewController {
     // 刷新主场景
     func refresh(){
 
-        var arrayM = [Title]()
+//        var arrayM = [Title]()
         arrayM = Title.loadTitles()!
         
         if arrayM.isEmpty {
@@ -57,10 +59,15 @@ class TodoListTableViewController: UITableViewController {
 //            print ("有数据呦")
         }
  
+        var index = 0
         for tobj in arrayM{
-            todoItems.insertObject(tobj, atIndex: 0);
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0);
+            print("refresh index: \(index), noteID: \(tobj.noteID)")
+            
+            todoItems.insertObject(tobj, atIndex: index);
+            let indexPath = NSIndexPath(forRow: index, inSection: 0);
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
+            
+            index += 1
             
         }
         
@@ -115,6 +122,8 @@ class TodoListTableViewController: UITableViewController {
         let item = todoItems[indexPath.row] as! Title
     
         cell.textLabel!.text = String(item.noteID)
+        print ("item.dt: \(item.dt!)")
+        cell.detailTextLabel?.text = Tool.formatDt(item.dt!)
         
         return cell
     }
@@ -133,8 +142,17 @@ class TodoListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            let t = todoItems[indexPath.row] as! Title
+            print("删除操作: \(indexPath.row), noteID:\(t.noteID)")
+            
+            // 删除标志改为1，表示扔进垃圾桶，方便恢复
+            t.delFlag = 1
+            t.updateStaus()
+            
             todoItems.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

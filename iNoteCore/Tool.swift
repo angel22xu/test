@@ -68,4 +68,36 @@ class Tool: NSObject {
         return ranStr
         
     }
+    
+    //处理时间字符串,yyyyMMddHHmmss
+    static func formatDt(dtStr: String)-> String{
+
+        
+        //  获取当前时间
+        let currentDate = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let dateComponents = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month,
+        NSCalendarUnit.Year, NSCalendarUnit.WeekOfYear, NSCalendarUnit.Hour, NSCalendarUnit.Minute,NSCalendarUnit.Second, NSCalendarUnit.Nanosecond], fromDate: currentDate)
+
+        // 数据库保存的时间
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        let date = formatter.dateFromString(dtStr)
+        let dateComponents1 = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month,
+            NSCalendarUnit.Year, NSCalendarUnit.WeekOfYear, NSCalendarUnit.Hour, NSCalendarUnit.Minute,NSCalendarUnit.Second, NSCalendarUnit.Nanosecond], fromDate: date!)
+        
+        print("dateComponents.day: \(dateComponents.day), dateComponents1.day: \(dateComponents1.day), dtStr: \(dtStr)")
+        
+        //时间比较，今天的话，就显示具体小时分钟
+        if (dateComponents.year == dateComponents1.year) && (dateComponents.month == dateComponents1.month) && (dateComponents.day == dateComponents1.day){
+            return  "Today \(dateComponents1.hour):\(dateComponents1.minute)"
+        }else if (dateComponents.year == dateComponents1.year) && (dateComponents.month == dateComponents1.month) && (dateComponents.day - dateComponents1.day == 1) {
+            return  "Yesterday \(dateComponents1.hour):\(dateComponents1.minute)"
+        }else{
+            formatter.dateFormat = "MMMM dd, yyyy"
+            let convertedDate = formatter.stringFromDate(date!)
+            return convertedDate
+        }
+        
+    }
 }
