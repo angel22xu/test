@@ -9,7 +9,7 @@
 import UIKit
 
 
-class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate{
 
     var vigSegue = ""
     
@@ -123,7 +123,28 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      拍照功能
      */
     @IBAction func fromPhotograph(sender: AnyObject) {
-        if (UIImagePickerController.isSourceTypeAvailable(.Camera)){
+        
+        detailTextView.resignFirstResponder()
+        var sheet: UIActionSheet
+        
+        
+        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+            sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil,otherButtonTitles: "From album", "Take photo")
+        }else{
+            sheet = UIActionSheet(title:nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "From album")
+        }
+        sheet.showInView(self.view)
+    }
+
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        var sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        if(buttonIndex != 0){
+            if(buttonIndex==1){                                     //相册
+                sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                detailTextView.resignFirstResponder()
+            }else{
+                sourceType = UIImagePickerControllerSourceType.Camera
+            }
             // 创建图片控制器
             let picker = UIImagePickerController()
             
@@ -131,7 +152,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             picker.delegate = self
             
             // 只是来源
-            picker.sourceType = UIImagePickerControllerSourceType.Camera
+            picker.sourceType = sourceType
             
             //允许编辑
             picker.allowsEditing = true
@@ -188,17 +209,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 设置图片
         gTextAttachment.image = scaleImage(image)
         
-//        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location), detailTextView.textStorage before: \(detailTextView.textStorage.getPlainString())")
-        
-        
         let selectedRange = detailTextView.selectedRange
         
         detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
-
-
         detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
-        print("detailTextView.textStorage after: \(detailTextView.textStorage.getPlainString())")
-
         
         // 重置格式
         resetTextStyle()
