@@ -6,7 +6,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Todo List-->
+        <!--Note-->
         <scene sceneID="vUr-BH-Pzf">
             <objects>
                 <tableViewController id="Oaf-sQ-hcK" customClass="TodoListTableViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,7 +49,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Todo List" id="RCI-wX-2PF">
+                    <navigationItem key="navigationItem" title="Note" id="RCI-wX-2PF">
                         <barButtonItem key="leftBarButtonItem" title="Setting" id="p7U-As-tLf">
                             <connections>
                                 <segue destination="CJe-vm-Tjn" kind="push" identifier="settingSegue" id="cXz-rK-7pS"/>

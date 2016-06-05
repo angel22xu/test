@@ -50,11 +50,15 @@ class Title : NSObject {
      returns:  是否更新成功
      */
     func updateTitle() -> Bool {
+        print ("update title sql title: \(title), noteID: \(noteID)")
+
         // 断言
         assert(noteID > 0, "noteID 不正确")
         
         // 生成sql语句
-        let sql = "UPDATE IndexConfig set title = \(title!), dt = \(dt!) WHERE noteID = \(noteID)"
+        let sql = "UPDATE IndexConfig set title = '\(title!)', dt = \(dt!) WHERE noteID = \(noteID)"
+        
+        print ("update title sql: \(sql)")
         
         // 执行sql
         return SQLiteManager.sharedManager.execSQL(sql)

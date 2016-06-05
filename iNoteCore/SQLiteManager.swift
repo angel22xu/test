@@ -31,7 +31,7 @@ class SQLiteManager {
         
         // 获取数据库完整路径
         let path = documentPath.stringByAppendingPathComponent(dbName)
-        print(path)
+        print("db path: \(path)")
         /*
          参数:
          1.fileName: 数据库完整路径
@@ -57,17 +57,25 @@ class SQLiteManager {
 //        print("打开数据库成功")
         
         // 创建一个索引表，有2个字段，日记ID，标题, 日期
-        let sql1 = "CREATE TABLE IF NOT EXISTS  IndexConfig (noteID INTEGER PRIMARY KEY, title TEXT, dt TEXT, delFlag INTEGER)"
+        let sql1 = "CREATE TABLE IF  NOT EXISTS  IndexConfig (noteID INTEGER PRIMARY KEY, title TEXT, dt TEXT, delFlag INTEGER)"
 
         
         //创建一个数据表，有3个字段，分别是 日记ID、内容，天气
-        let sql2 = "CREATE TABLE IF NOT EXISTS  DataConfig (noteID INTEGER PRIMARY KEY, content TEXT ,  weather TEXT)"
+        let sql2 = "CREATE TABLE IF  NOT EXISTS  DataConfig (noteID INTEGER PRIMARY KEY, content TEXT ,  weather TEXT)"
+
+//        let sql1 = "CREATE TABLE IF NOT EXISTS  IndexConfig (noteID INTEGER PRIMARY KEY, title TEXT, dt TEXT, delFlag INTEGER)"
+//        
+//        
+//        //创建一个数据表，有3个字段，分别是 日记ID、内容，天气
+//        let sql2 = "CREATE TABLE IF NOT EXISTS  DataConfig (noteID INTEGER PRIMARY KEY, content TEXT ,  weather TEXT)"
 
         
         if createTable(sql1) && createTable(sql2){
-//            print("打开数据表成功")
+            print("打开数据表成功")
         } else {
             print("打开数据表失败")
+            dropTable("DROP TABLE IndexConfig")
+            dropTable("DROP TABLE DataConfig")
         }
     }
 
@@ -98,6 +106,16 @@ class SQLiteManager {
         
         
 //        print("sql: \(sql)")
+        
+        // 执行sql
+        return execSQL(sql)
+    }
+
+    // MARK: - 创建数据表
+    private func dropTable(sql: String) -> Bool {
+        
+        
+        //        print("sql: \(sql)")
         
         // 执行sql
         return execSQL(sql)

@@ -14,9 +14,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var vigSegue = ""
     
     var gString =  NSMutableAttributedString()
-    var gTextAttachment = MediaTextAttachment()
     
-    
+//    var gTextAttachment = MediaTextAttachment()
+
     
     @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
@@ -39,6 +39,25 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let ct = Content(dict: ["noteID": vigSegue, "content": content, "weather": weather ])
         ct.updateContent()
         
+        // 获取第一行文字，作为标题保存在 indexConfig表里
+        let dt: String = Tool.getCurrentDateStr()
+        var title = detailTextView.text
+        print ("title111111: \(title)")
+
+        if title.characters.count < 15{
+            print ("if title.characters.count: \(title.characters.count)")
+
+        }else{
+            print ("else title.characters.count: \(title.characters.count)")
+
+            title = (title as NSString).substringToIndex(15) +  "・・・"
+        }
+        
+        print ("title22222: \(title)")
+        let t = Title(dict: ["noteID": vigSegue, "title": title, "dt": dt ])
+        t.updateTitle()
+        
+        
         // 收起输入键盘
         detailTextView.resignFirstResponder()
         
@@ -53,7 +72,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
         var arrayM = [Content]()
-        print(vigSegue)
+        print("vigSegue: \(vigSegue)")
         if vigSegue == "" {
             
         }else{
@@ -68,6 +87,21 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
 //        detailTextView.editable = false
+        detailTextView.backgroundColor = UIColor.grayColor()
+        resetTextStyle()
+        
+        // 自定义事件
+//        UIGestureRecognizer类用于手势识别，它的子类有主要有六个分别是：
+//        UITapGestureRecognizer（轻击一下）
+//        UIPinchGestureRecognizer（两指控制的缩放）
+//        UIRotationGestureRecognizer（旋转）
+//        UISwipeGestureRecognizer（滑动，快速移动）
+//        UIPanGestureRecognizer（拖移，慢慢移动）
+//        UILongPressGestureRecognizer（长按）
+        
+        // TODO 注册事件不好用，有待调试
+        detailTextView.addGestureRecognizer(UILongPressGestureRecognizer(target: detailTextView, action: #selector(NoteViewController.handleTap(_:))))
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,8 +137,21 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //允许编辑
             picker.allowsEditing = true
             
+            let version = UIDevice.currentDevice().systemVersion
+           
+            if(Float(version) > 8.0){
+                print("version:\(version)")
+                
+                ////bug：Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.  未解决
+
+                picker.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            }
+            
+            
             //打开相机
             self.presentViewController(picker, animated: true, completion:{()-> Void in })
+            print("detailTextView.textStorage in fromPhotograph: \(detailTextView.textStorage.getPlainString())")
+
             
         }else{
                 print("I can not find the camera.")
@@ -119,6 +166,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         picker.dismissViewControllerAnimated(true, completion: nil)
         var image: UIImage!
         
+        let gTextAttachment = MediaTextAttachment()
+        print("detailTextView.textStorage before: \(detailTextView.textStorage.getPlainString())")
+
+
         // 判断，图片是否允许修改
         if (picker.allowsEditing){
             //裁剪后图片
@@ -127,25 +178,20 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //原始图片
             image = info[UIImagePickerControllerOriginalImage] as! UIImage
         }
-
-//        let selectRange = detailTextView.selectedRange
-        
-//        print("length: \(selectRange.length), localtion: \(selectRange.location)")
         
         let currentDateStr: String = Tool.getCurrentDateStr()
         let randStr: String = Tool.getRandomStringOfLength(2)
         let imageName: String = currentDateStr + randStr + ".png"
         
+
         
-        // 存储媒体文件标识
+        // 设图片标志（这里设置图片标志，主要是为了：表情转换字符串时 操作更简单）
         gTextAttachment.mediaTag = "![" + imageName + "]"
         
+        // 设置图片
         gTextAttachment.image = scaleImage(image)
         
-//        let textAttachmentString = NSAttributedString(attachment: gTextAttachment)
-//        let countString:Int = detailTextView.text.characters.count
-        
-        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location)")
+//        print("imageName: \(imageName), currentDateStr: \(currentDateStr), randStr: \(randStr), detailTextView.selectedRange.location: \(detailTextView.selectedRange.location), detailTextView.textStorage before: \(detailTextView.textStorage.getPlainString())")
         
         
         let selectedRange = detailTextView.selectedRange
@@ -154,9 +200,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
 
         detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
+        print("detailTextView.textStorage after: \(detailTextView.textStorage.getPlainString())")
 
+        
+        // 重置格式
         resetTextStyle()
-        print("detailTextView.textStorage: \(detailTextView.textStorage.getPlainString())")
+
         
         // 计算新的光标位置，并恢复光标的位置
         let newSelectedRange = NSMakeRange(selectedRange.location+1, 0)
@@ -164,6 +213,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         
         //  保存图片
+        // TODO  大小要重新定义
         self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
         
     }
@@ -221,8 +271,17 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         var index: Int = 0
         
+        // 显示文字标识，会不断重置
         var showTextFlag = false
+        // 文字数，不断累加
+        var txtCnt: Int = 0
+        
+        // 显示多媒体标识，会不断重置
         var showMediaFlag = false
+        var mediaCnt: Int = 0
+        
+        var gTextAttachment = MediaTextAttachment()
+
         
         while index < content.characters.count{
             
@@ -263,16 +322,18 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     showMediaFlag = true
                     
                     index += 23
+                    mediaCnt += 1
                     
                     
                 }
                 else{ // 是文本内容
                     mojiStr += rangeStr
-                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
+//                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
                     showTextFlag = true
 
                     // index必须位于最后
                     index += 1
+                    txtCnt += 1
                     
                 }
                 
@@ -280,26 +341,27 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
             else{ // 是文本内容
                 mojiStr += rangeStr
-                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
+//                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
                 showTextFlag = true
                 // index必须位于最后
                 index += 1
+                txtCnt += 1
             }
             
             
-            if showTextFlag && showMediaFlag {
+            if (showTextFlag && showMediaFlag) || (showTextFlag && txtCnt > 0) {
                 
-                print ("show text flag: \(mojiStr)")
+//                print ("show text flag: \(mojiStr)")
 //                gString.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: index)
 //                
 //                detailTextView.attributedText = gString
                 
                 detailTextView.textStorage.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: detailTextView.selectedRange.location)
-                print ("show text flag 1111111111: \(mojiStr)")
+//                print ("show text flag 1111111111: \(mojiStr)")
 
                 detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
 
-                print ("show text flag 2222222222: \(mojiStr)")
+//                print ("show text flag 2222222222: \(mojiStr)")
                 
                 mojiStr = ""
                 showTextFlag = false
@@ -334,4 +396,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
 
+    func handleTap(sender: UILongPressGestureRecognizer) {
+        print ("handleTap")
+        if sender.state == .Ended {
+            print("收回键盘")
+            detailTextView.resignFirstResponder()
+        }
+        sender.cancelsTouchesInView = false
+    }
 }
