@@ -183,8 +183,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let randStr: String = Tool.getRandomStringOfLength(2)
         let imageName: String = currentDateStr + randStr + ".png"
         
-
-        
         // 设图片标志（这里设置图片标志，主要是为了：表情转换字符串时 操作更简单）
         gTextAttachment.mediaTag = "![" + imageName + "]"
         
@@ -280,7 +278,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         var showMediaFlag = false
         var mediaCnt: Int = 0
         
-        var gTextAttachment = MediaTextAttachment()
 
         
         while index < content.characters.count{
@@ -297,30 +294,25 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 
                 // 判断是否左括号右括号
                 if(rangeStr == leftBrachket && rightRangeStr == rightBrachket){
-                    print ("there is a picture")
+                    let gTextAttachment = MediaTextAttachment()
+
 
                     rangeStr = getSubstring(content, iStart: index + 2, iEnd: index + 22)
 
                     imageNameStr = rangeStr
-                    
+                    print ("there is a picture imageNameStr: \(imageNameStr)")
+
                     // 页面上显示图片
                     fullPath = documentPath.stringByAppendingPathComponent(imageNameStr)
-                    // 虾面使用新的方法来显示图片
-
+                    //下面使用新的方法来显示图片
+                    
                     gTextAttachment.image = scaleImage(UIImage(named:  fullPath)!)
-//                    let countString:Int = detailTextView.text.characters.count
-                    
-                    
-//                    gString.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: countString)
-//                    detailTextView.attributedText  = gString
                     
                     detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: detailTextView.selectedRange.location)
                                         
                     detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
-
                     
                     showMediaFlag = true
-                    
                     index += 23
                     mediaCnt += 1
                     
@@ -328,20 +320,15 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }
                 else{ // 是文本内容
                     mojiStr += rangeStr
-//                    print("else 1111   index: \(index),  mojiStr: \(mojiStr)")
                     showTextFlag = true
 
                     // index必须位于最后
                     index += 1
                     txtCnt += 1
-                    
                 }
-                
-                
             }
             else{ // 是文本内容
                 mojiStr += rangeStr
-//                print("else 2222 index: \(index),  mojiStr: \(mojiStr)")
                 showTextFlag = true
                 // index必须位于最后
                 index += 1
@@ -351,18 +338,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             if (showTextFlag && showMediaFlag) || (showTextFlag && txtCnt > 0) {
                 
-//                print ("show text flag: \(mojiStr)")
-//                gString.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: index)
-//                
-//                detailTextView.attributedText = gString
-                
                 detailTextView.textStorage.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: detailTextView.selectedRange.location)
-//                print ("show text flag 1111111111: \(mojiStr)")
-
                 detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
-
-//                print ("show text flag 2222222222: \(mojiStr)")
-                
                 mojiStr = ""
                 showTextFlag = false
                 showMediaFlag = false
