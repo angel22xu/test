@@ -16,7 +16,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var gString =  NSMutableAttributedString()
     
 //    var gTextAttachment = MediaTextAttachment()
-
+    //  屏幕大小 TODO 改成动态读取
+    let SCREEN_WIDTH = CGFloat(320)
+    let SCREEN_HEIGHT = CGFloat(480)
     
     @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
@@ -42,18 +44,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 获取第一行文字，作为标题保存在 indexConfig表里
         let dt: String = Tool.getCurrentDateStr()
         var title = detailTextView.text
-        print ("title111111: \(title)")
 
         if title.characters.count < 15{
-            print ("if title.characters.count: \(title.characters.count)")
-
         }else{
-            print ("else title.characters.count: \(title.characters.count)")
-
             title = (title as NSString).substringToIndex(15) +  "・・・"
         }
         
-        print ("title22222: \(title)")
         let t = Title(dict: ["noteID": vigSegue, "title": title, "dt": dt ])
         t.updateTitle()
         
@@ -88,7 +84,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
 //        detailTextView.editable = false
         detailTextView.backgroundColor = UIColor.grayColor()
-        resetTextStyle()
+//        resetTextStyle()
+        
+//        detailTextView.scrollEnabled = false
+//        detailTextView.becomeFirstResponder()
         
         // 自定义事件
 //        UIGestureRecognizer类用于手势识别，它的子类有主要有六个分别是：
@@ -100,7 +99,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        UILongPressGestureRecognizer（长按）
         
         // TODO 注册事件不好用，有待调试
-        detailTextView.addGestureRecognizer(UILongPressGestureRecognizer(target: detailTextView, action: #selector(NoteViewController.handleTap(_:))))
+//        detailTextView.addGestureRecognizer(UILongPressGestureRecognizer(target: detailTextView, action: #selector(NoteViewController.handleTap(_:))))
         
     }
     
@@ -306,6 +305,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     fullPath = documentPath.stringByAppendingPathComponent(imageNameStr)
                     //下面使用新的方法来显示图片
                     
+                    gTextAttachment.mediaTag = "![" + imageNameStr + "]"
                     gTextAttachment.image = scaleImage(UIImage(named:  fullPath)!)
                     
                     detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: detailTextView.selectedRange.location)
@@ -371,6 +371,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.textStorage.removeAttribute(NSFontAttributeName, range: wholeRange)
         detailTextView.textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: wholeRange)
         
+//        detailTextView.scrollRangeToVisible(NSMakeRange(detailTextView.textStorage.length, 1))
+        
     }
 
     func handleTap(sender: UILongPressGestureRecognizer) {
@@ -380,5 +382,58 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             detailTextView.resignFirstResponder()
         }
         sender.cancelsTouchesInView = false
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("NoteViewControllerのviewWillAppearが呼ばれた")
+        
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHidden:", name: UIKeyboardWillHideNotification, object: nil)
+
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print("NoteViewControllerのviewDidAppearが呼ばれた")
+        
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("NoteViewControllerのviewWillDisappearが呼ばれた")
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("NoteViewControllerのviewDidDisappearが呼ばれた")
+    }
+    
+    func keyboardWillShow(aNotification: NSNotification){
+
+        
+        let userInfo: NSDictionary? = aNotification.userInfo
+        let aValue: NSValue? = userInfo?.objectForKey(UIKeyboardFrameEndUserInfoKey) as? NSValue
+        let keyboardRect = aValue?.CGRectValue()
+        
+        
+        let keyboardHeight = keyboardRect?.size.height
+        
+        var frame = detailTextView!.frame
+        var offset = frame.origin.y + 32 - (self.view.frame.size.height - keyboardHeight!)
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            if offset > 0{
+                self.view.frame = CGRectMake(0, -offset, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+            }
+        })
+    }
+    
+    func keyboardWillHidden(notification: NSNotification){
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.frame = CGRectMake(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        })
     }
 }

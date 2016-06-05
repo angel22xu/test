@@ -58,7 +58,7 @@ class Title : NSObject {
         // 生成sql语句
         let sql = "UPDATE IndexConfig set title = '\(title!)', dt = \(dt!) WHERE noteID = \(noteID)"
         
-        print ("update title sql: \(sql)")
+//        print ("update title sql: \(sql)")
         
         // 执行sql
         return SQLiteManager.sharedManager.execSQL(sql)
