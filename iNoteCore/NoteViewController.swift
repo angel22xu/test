@@ -9,7 +9,7 @@
 import UIKit
 
 
-class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate{
+class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextViewDelegate{
 
     var vigSegue = ""
     
@@ -23,6 +23,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
+    
     
     let size:Float = 64.0
 
@@ -86,7 +87,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.backgroundColor = UIColor.grayColor()
 //        resetTextStyle()
         
-//        detailTextView.scrollEnabled = false
+        detailTextView.scrollEnabled = true
 //        detailTextView.becomeFirstResponder()
         
         // 自定义事件
@@ -401,53 +402,133 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidDisappear(animated)
         print("NoteViewControllerのviewWillAppearが呼ばれた")
         
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
 
         
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("NoteViewControllerのviewDidAppearが呼ばれた")
+//        print("NoteViewControllerのviewDidAppearが呼ばれた")
         
         
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        print("NoteViewControllerのviewWillDisappearが呼ばれた")
+//        print("NoteViewControllerのviewWillDisappearが呼ばれた")
 //        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
 //        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("NoteViewControllerのviewDidDisappearが呼ばれた")
+//        print("NoteViewControllerのviewDidDisappearが呼ばれた")
     }
     
-    func keyboardWillShow(aNotification: NSNotification){
-
-        
-        let userInfo: NSDictionary? = aNotification.userInfo
-        let aValue: NSValue? = userInfo?.objectForKey(UIKeyboardFrameEndUserInfoKey) as? NSValue
-        let keyboardRect = aValue?.CGRectValue()
-        
-        
-        let keyboardHeight = keyboardRect?.size.height
-        
-        var frame = detailTextView!.frame
-        var offset = frame.origin.y + 32 - (self.view.frame.size.height - keyboardHeight!)
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            if offset > 0{
-                self.view.frame = CGRectMake(0, -offset, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-            }
-        })
+//    func keyboardWillShow(aNotification: NSNotification){
+//
+//        
+//        let userInfo: NSDictionary? = aNotification.userInfo
+//        let aValue: NSValue? = userInfo?.objectForKey(UIKeyboardFrameEndUserInfoKey) as? NSValue
+//        let keyboardRect = aValue?.CGRectValue()
+//        
+//        
+//        let keyboardHeight = keyboardRect?.size.height
+//        
+//        var frame = detailTextView!.frame
+//        var offset = frame.origin.y + 32 - (self.view.frame.size.height - keyboardHeight!)
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+//            if offset > 0{
+//                self.view.frame = CGRectMake(0, -offset, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+//            }
+//        })
+//    }
+//    
+//    func keyboardWillHidden(notification: NSNotification){
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+//            self.view.frame = CGRectMake(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+//        })
+//    }
+    var bool:Bool = true
+    func handleKeyboardWillShowNotification(notification: NSNotification) {
+        if bool {
+            keyboardWillChangeFrameWithNotification(notification, showsKeyboard: true)
+            print("---show")
+            bool = !bool
+        }
+    }
+    func handleKeyboardWillHideNotification(notification: NSNotification) {
+        if !bool {
+            keyboardWillChangeFrameWithNotification(notification, showsKeyboard: false)
+            print("---hide")
+            bool = !bool
+            
+        }
+    }
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func keyboardWillHidden(notification: NSNotification){
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.frame = CGRectMake(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-        })
+    func keyboardWillChangeFrameWithNotification(notification: NSNotification, showsKeyboard: Bool) {
+        print("4")
+        
+        let userInfo = notification.userInfo!
+        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        // Convert the keyboard frame from screen to view coordinates.
+        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        let keyboardViewBeginFrame = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
+        let keyboardViewEndFrame = view.convertRect(keyboardScreenEndFrame, fromView: view.window)
+        print(keyboardViewBeginFrame.origin.y)
+        print(keyboardViewEndFrame.origin.y)
+        var originDelta = abs((keyboardViewEndFrame.origin.y - keyboardViewBeginFrame.origin.y))
+        print("the origin:\(originDelta)")
+        // The text view should be adjusted, update the constant for this constraint.
+        var frame = detailTextView.frame
+        if showsKeyboard {
+//            textViewBottomLayoutGuideConstraint.constant += (originDelta)
+            frame.size.height += (originDelta)
+            detailTextView.frame = frame
+//            self.toolBarLayOut.constant += originDelta
+        }else {
+//            textViewBottomLayoutGuideConstraint.constant -= (originDelta)
+            frame.size.height -= (originDelta)
+            detailTextView.frame = frame
+//            self.toolBarLayOut.constant -= originDelta
+        }
+        UIView.animateWithDuration(animationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.view.layoutIfNeeded()
+            }, completion: nil)
+        
+        // Scroll to the selected text once the keyboard frame changes.
+        detailTextView.scrollRangeToVisible(detailTextView.selectedRange)              //让TextView滑到光标所在地方
+    }
+    /*
+     //UITextViewDelegate
+     */
+    
+    /*
+     // 实现默认提示文字效果：点击文字则会自动消失。
+     */
+    
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+//        if !isThereHavedata {
+//            detailTextView.text = ""
+//            detailTextView.textColor = UIColor.blackColor()
+//            isThereHavedata = true
+//        }
+        return true
+    }
+    
+    /*
+     // 让TextView滑到光标所在地方
+     */
+    
+    func textViewDidChange(textView: UITextView) {
+        detailTextView.scrollRangeToVisible(detailTextView.selectedRange)
     }
 }

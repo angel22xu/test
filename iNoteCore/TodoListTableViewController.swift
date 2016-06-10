@@ -37,6 +37,8 @@ class TodoListTableViewController: UITableViewController {
     func clear(){
         todoItems.removeAllObjects()
         arrayM.removeAll()
+        
+        self.tableView.reloadData()
     }
     
     // 刷新主场景
@@ -189,24 +191,29 @@ class TodoListTableViewController: UITableViewController {
    
     override func viewWillAppear(animated: Bool) {
         super.viewDidDisappear(animated)
-//        print("TodoListTableViewControllerのviewWillAppearが呼ばれた")
+        print("TodoListTableViewControllerのviewWillAppearが呼ばれた")
+        self.clear()
+        self.refresh()
+
 
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        print("TodoListTableViewControllerのviewDidAppearが呼ばれた")
+        print("TodoListTableViewControllerのviewDidAppearが呼ばれた")
 
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        print("TodoListTableViewControllerのviewWillDisappearが呼ばれた")
+        print("TodoListTableViewControllerのviewWillDisappearが呼ばれた")
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-//        print("TodoListTableViewControllerのviewDidDisappearが呼ばれた")
+        print("TodoListTableViewControllerのviewDidDisappearが呼ばれた")
+        self.clear()
+
     }
 
 }
