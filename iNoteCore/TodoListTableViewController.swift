@@ -168,7 +168,7 @@ class TodoListTableViewController: UITableViewController {
         }else if(segue.identifier == "settingSegue"){
             print("identifier2:  \(segue.identifier)")
 
-            let destinationController = segue.destinationViewController as! SettingViewController
+            _ = segue.destinationViewController as! SettingViewController
 
         }
     }
