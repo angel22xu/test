@@ -36,12 +36,7 @@ class Content : NSObject {
      */
     func updateContent() -> Bool {
         // 拼接sql语句, String类型需要用''引起来
-//        print ("noteID: \(noteID), content: \(content!), weather: \(weather!)")
-
         let sql = "REPLACE INTO DataConfig (noteID, content, weather) VALUES (\(noteID), '\(content!)', '\(weather!)');"
-        
-//        print("插入sql: \(sql)")
-        
         // 使用单例插入数据
         return SQLiteManager.sharedManager.execSQL(sql)
     }
@@ -53,7 +48,6 @@ class Content : NSObject {
         // 1. 成成sql语句
         let sql = "SELECT noteID, content, weather FROM DataConfig WHERE noteID=\(noteID);"
         
-        print(sql)
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
             print("没有查询content到数据")

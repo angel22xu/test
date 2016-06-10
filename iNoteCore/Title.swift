@@ -39,8 +39,6 @@ class Title : NSObject {
         // 拼接sql语句, String类型需要用''引起来
         let sql = "INSERT INTO IndexConfig (noteID, title, dt, delFlag) VALUES (\(noteID), '\(title!)', '\(dt!)', \(delFlag));"
         
-        print("插入sql: \(sql)")
-        
         // 使用单例插入数据
         return SQLiteManager.sharedManager.execSQL(sql)
     }
@@ -50,15 +48,11 @@ class Title : NSObject {
      returns:  是否更新成功
      */
     func updateTitle() -> Bool {
-        print ("update title sql title: \(title), noteID: \(noteID)")
-
         // 断言
         assert(noteID > 0, "noteID 不正确")
         
         // 生成sql语句
         let sql = "UPDATE IndexConfig set title = '\(title!)', dt = \(dt!) WHERE noteID = \(noteID)"
-        
-//        print ("update title sql: \(sql)")
         
         // 执行sql
         return SQLiteManager.sharedManager.execSQL(sql)
@@ -94,40 +88,7 @@ class Title : NSObject {
         return SQLiteManager.sharedManager.execSQL(sql)
     }
     
-    /**
-     // 插入大批量数据
-     */
-    func testManyInsert() {
-        
-        // 开始插入时间
-        let startTime = CFAbsoluteTimeGetCurrent()
-        
-        // 开启事务
-        SQLiteManager.sharedManager.execSQL("BEGIN TRANSACTION")
-        
-        // 插入10000条数据
-        for i in 0..<10000 {
-            // 创建对象
-            let p = Title(dict: ["noteID": 2324, "title": "20121205", "dt": "20121205"])
-            
-            // 如果没有手动开启事务,默认执行每条INSERT / UPDATE/ DELETE语句会自动开启事务.执行完毕后自动提交事务
-            // 插入数据
-            p.insertTtile()
-            
-            // 模拟事务失败
-            if i == 1000 {
-                // 回滚事务.回到开启事务时的状态
-                SQLiteManager.sharedManager.execSQL("ROLLBACK TRANSACTION")
-                break
-            }
-        }
-        
-        // 提交事务, 不管成功还是失败都需要提交事务
-        SQLiteManager.sharedManager.execSQL("COMMIT TRANSACTION")
-        
-        let endTime = CFAbsoluteTimeGetCurrent()
-        print("消耗时间: \(endTime - startTime)")
-    }
+
     
     /**
      查找对象
@@ -139,7 +100,7 @@ class Title : NSObject {
         
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
-//            print("没有查询到数据")
+            print("没有查询到数据")
             return nil
         }
         
@@ -166,7 +127,7 @@ class Title : NSObject {
         
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
-            //            print("没有查询到数据")
+            print("没有查询到数据")
             return nil
         }
         

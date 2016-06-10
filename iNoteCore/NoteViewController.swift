@@ -15,7 +15,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var gString =  NSMutableAttributedString()
     
-//    var gTextAttachment = MediaTextAttachment()
     //  屏幕大小 TODO 改成动态读取
     let SCREEN_WIDTH = CGFloat(320)
     let SCREEN_HEIGHT = CGFloat(480)
@@ -24,9 +23,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
     
-    
     let size:Float = 64.0
-
+    
+    // 键盘高度
+    var keyHeight = CGFloat()
     
     @IBAction func saveContent(sender: AnyObject) {
         
@@ -34,9 +34,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let content: String = detailTextView.textStorage.getPlainString()
         // TODO  获取detailTextView上的所有数据信息（图片，文字，视频，音频)
         
-        
-        
-        print("saveContent, \(content)")
         let weather: String = "sunshine"
         
         let ct = Content(dict: ["noteID": vigSegue, "content": content, "weather": weather ])
@@ -54,7 +51,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let t = Title(dict: ["noteID": vigSegue, "title": title, "dt": dt ])
         t.updateTitle()
         
-        
         // 收起输入键盘
         detailTextView.resignFirstResponder()
         
@@ -69,7 +65,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
         var arrayM = [Content]()
-        print("vigSegue: \(vigSegue)")
         if vigSegue == "" {
             
         }else{
@@ -78,14 +73,13 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 detailTextView.text = ""
             }else{
                 // 解析数据库读取出来的内容
-                // TODO
                 analysis_adv(arrayM[0].content!)
                 
             }
         }
 //        detailTextView.editable = false
-        detailTextView.backgroundColor = UIColor.grayColor()
-//        resetTextStyle()
+        //设置格式
+        resetTextStyle()
         
         detailTextView.scrollEnabled = true
 //        detailTextView.becomeFirstResponder()
@@ -99,8 +93,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        UIPanGestureRecognizer（拖移，慢慢移动）
 //        UILongPressGestureRecognizer（长按）
         
-        // TODO 注册事件不好用，有待调试
-//        detailTextView.addGestureRecognizer(UILongPressGestureRecognizer(target: detailTextView, action: #selector(NoteViewController.handleTap(_:))))
+//        let centerDefault = NSNotificationCenter.defaultCenter()
+//        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         
     }
     
@@ -108,6 +102,40 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func keyboardWillShow(aNotification: NSNotification){
+        
+        print("keyboardWillShow")
+        let userinfo: NSDictionary = aNotification.userInfo!
+        let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
+        let keyboardRec = nsValue?.CGRectValue()
+        let height = keyboardRec?.size.height
+        self.keyHeight = height!
+        UIView.animateWithDuration(0.5, animations: {
+            var frame = self.view.frame
+            frame.origin.y = -self.keyHeight
+            self.view.frame = frame
+            }, completion: nil)
+    }
+    
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        print("textViewShouldEndEditing")
+
+        UIView.animateWithDuration(0.5, animations: {
+            
+            var frame = self.view.frame
+            
+            frame.origin.y = 0
+            
+            self.view.frame = frame
+            
+            }, completion: nil)
+        
+        return true
+        
+    }
+    
     
     
     /*
@@ -171,7 +199,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             //打开相机
             self.presentViewController(picker, animated: true, completion:{()-> Void in })
-            print("detailTextView.textStorage in fromPhotograph: \(detailTextView.textStorage.getPlainString())")
 
             
         }else{
@@ -188,14 +215,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         var image: UIImage!
         
         let gTextAttachment = MediaTextAttachment()
-        print("detailTextView.textStorage before: \(detailTextView.textStorage.getPlainString())")
-
 
         // 判断，图片是否允许修改
         if (picker.allowsEditing){
+            print("裁剪后图片")
             //裁剪后图片
             image = info[UIImagePickerControllerEditedImage] as! UIImage
         }else{
+            print("原始图片")
             //原始图片
             image = info[UIImagePickerControllerOriginalImage] as! UIImage
         }
@@ -225,21 +252,18 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         
         //  保存图片
-        // TODO  大小要重新定义
-        self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
+//        self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
+        self.saveImage(image, newSize: CGSize(width: image.size.width, height: image.size.height), percent: 1, imageName: imageName)
         
     }
     
     // 当用户取消时，调用该方法
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        print("imagePickerControllerDidCancel")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //保存图片至沙盒
     func saveImage(currentImage: UIImage, newSize: CGSize, percent: CGFloat, imageName: String){
-        
-        print("saveImage, \(imageName)")
         //压缩图片尺寸
         UIGraphicsBeginImageContext(newSize)
         currentImage.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
@@ -297,15 +321,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         while index < content.characters.count{
             
             rangeStr = getSubstring(content, iStart: index, iEnd: index + 1)
-//            print("index: \(index),  rangeStr: \(rangeStr)")
-            
             // 叹号
             if (rangeStr == exclamationMark){
                 rangeStr = getSubstring(content, iStart: index + 1, iEnd: index + 2)
                 rightRangeStr = getSubstring(content, iStart: index + 22, iEnd: index + 23)
-
-                print("rangeStr1: \(rangeStr), rightRangeStr: \(rightBrachket)")
-                
                 // 判断是否左括号右括号
                 if(rangeStr == leftBrachket && rightRangeStr == rightBrachket){
                     let gTextAttachment = MediaTextAttachment()
@@ -384,149 +403,32 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func resetTextStyle(){
         let wholeRange:NSRange = NSMakeRange(0, detailTextView.textStorage.length)
         detailTextView.textStorage.removeAttribute(NSFontAttributeName, range: wholeRange)
+        
+        //设置字体大小
         detailTextView.textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: wholeRange)
         
-//        detailTextView.scrollRangeToVisible(NSMakeRange(detailTextView.textStorage.length, 1))
+        //设置背景颜色
+        detailTextView.backgroundColor = UIColor.grayColor()
+        
+//        detailTextView.translatesAutoresizingMaskIntoConstraints = false
         
     }
 
-    func handleTap(sender: UILongPressGestureRecognizer) {
-        print ("handleTap")
-        if sender.state == .Ended {
-            print("收回键盘")
-            detailTextView.resignFirstResponder()
-        }
-        sender.cancelsTouchesInView = false
-    }
     override func viewWillAppear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("NoteViewControllerのviewWillAppearが呼ばれた")
-        
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
-
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        print("NoteViewControllerのviewDidAppearが呼ばれた")
-        
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        print("NoteViewControllerのviewWillDisappearが呼ばれた")
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-//        print("NoteViewControllerのviewDidDisappearが呼ばれた")
     }
-    
-//    func keyboardWillShow(aNotification: NSNotification){
-//
-//        
-//        let userInfo: NSDictionary? = aNotification.userInfo
-//        let aValue: NSValue? = userInfo?.objectForKey(UIKeyboardFrameEndUserInfoKey) as? NSValue
-//        let keyboardRect = aValue?.CGRectValue()
-//        
-//        
-//        let keyboardHeight = keyboardRect?.size.height
-//        
-//        var frame = detailTextView!.frame
-//        var offset = frame.origin.y + 32 - (self.view.frame.size.height - keyboardHeight!)
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-//            if offset > 0{
-//                self.view.frame = CGRectMake(0, -offset, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-//            }
-//        })
-//    }
-//    
-//    func keyboardWillHidden(notification: NSNotification){
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-//            self.view.frame = CGRectMake(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-//        })
-//    }
-    var bool:Bool = true
-    func handleKeyboardWillShowNotification(notification: NSNotification) {
-        if bool {
-            keyboardWillChangeFrameWithNotification(notification, showsKeyboard: true)
-            print("---show")
-            bool = !bool
-        }
-    }
-    func handleKeyboardWillHideNotification(notification: NSNotification) {
-        if !bool {
-            keyboardWillChangeFrameWithNotification(notification, showsKeyboard: false)
-            print("---hide")
-            bool = !bool
-            
-        }
-    }
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func keyboardWillChangeFrameWithNotification(notification: NSNotification, showsKeyboard: Bool) {
-        print("4")
-        
-        let userInfo = notification.userInfo!
-        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        // Convert the keyboard frame from screen to view coordinates.
-        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        
-        let keyboardViewBeginFrame = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
-        let keyboardViewEndFrame = view.convertRect(keyboardScreenEndFrame, fromView: view.window)
-        print(keyboardViewBeginFrame.origin.y)
-        print(keyboardViewEndFrame.origin.y)
-        var originDelta = abs((keyboardViewEndFrame.origin.y - keyboardViewBeginFrame.origin.y))
-        print("the origin:\(originDelta)")
-        // The text view should be adjusted, update the constant for this constraint.
-        var frame = detailTextView.frame
-        if showsKeyboard {
-//            textViewBottomLayoutGuideConstraint.constant += (originDelta)
-            frame.size.height += (originDelta)
-            detailTextView.frame = frame
-//            self.toolBarLayOut.constant += originDelta
-        }else {
-//            textViewBottomLayoutGuideConstraint.constant -= (originDelta)
-            frame.size.height -= (originDelta)
-            detailTextView.frame = frame
-//            self.toolBarLayOut.constant -= originDelta
-        }
-        UIView.animateWithDuration(animationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
-            self.view.layoutIfNeeded()
-            }, completion: nil)
-        
-        // Scroll to the selected text once the keyboard frame changes.
-        detailTextView.scrollRangeToVisible(detailTextView.selectedRange)              //让TextView滑到光标所在地方
-    }
-    /*
-     //UITextViewDelegate
-     */
-    
-    /*
-     // 实现默认提示文字效果：点击文字则会自动消失。
-     */
-    
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-//        if !isThereHavedata {
-//            detailTextView.text = ""
-//            detailTextView.textColor = UIColor.blackColor()
-//            isThereHavedata = true
-//        }
-        return true
-    }
-    
-    /*
-     // 让TextView滑到光标所在地方
-     */
     
     func textViewDidChange(textView: UITextView) {
         detailTextView.scrollRangeToVisible(detailTextView.selectedRange)

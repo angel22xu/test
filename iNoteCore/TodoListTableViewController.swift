@@ -17,7 +17,6 @@ class TodoListTableViewController: UITableViewController {
     @IBAction func insertNewItem(sender: AnyObject) {
     
         let dt: String = Tool.getCurrentDateStr()
-        print(dt)
         
         var noteID: Int = Int(arc4random()) % 1000000
         noteID = noteID + Int(dt)!
@@ -53,12 +52,9 @@ class TodoListTableViewController: UITableViewController {
  
         var index = 0
         for tobj in arrayM{
-//            print("refresh index: \(index), noteID: \(tobj.noteID)")
-            
             todoItems.insertObject(tobj, atIndex: index);
             let indexPath = NSIndexPath(forRow: index, inSection: 0);
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
-            
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic);
             index += 1
             
         }
@@ -70,22 +66,10 @@ class TodoListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-//         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        print("begin create table")
         SQLiteManager.sharedManager.openDB()
-        print("end create table")
         
         // 刷新主界面
-        print("begin refresh")
         refresh()
-        print("end refresh")
-        
         self.tableView.rowHeight = 66
 
     }
@@ -191,7 +175,6 @@ class TodoListTableViewController: UITableViewController {
    
     override func viewWillAppear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("TodoListTableViewControllerのviewWillAppearが呼ばれた")
         self.clear()
         self.refresh()
 
@@ -200,18 +183,15 @@ class TodoListTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("TodoListTableViewControllerのviewDidAppearが呼ばれた")
 
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        print("TodoListTableViewControllerのviewWillDisappearが呼ばれた")
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("TodoListTableViewControllerのviewDidDisappearが呼ばれた")
         self.clear()
 
     }
