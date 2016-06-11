@@ -98,7 +98,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2M-hD-Gvm">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2M-hD-Gvm">
                                 <rect key="frame" x="20" y="20" width="600" height="756"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -127,7 +127,6 @@
                         </variation>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Vedio" width="60" id="pjA-O2-wYv"/>
                         <barButtonItem title="Pen" width="60" id="QTN-cH-cEa"/>
                         <barButtonItem title="Record" width="60" id="IG3-mb-x7N"/>
                     </toolbarItems>
@@ -143,6 +142,11 @@
                                     <action selector="fromPhotograph:" destination="Lez-pQ-SQw" id="47Z-Or-GYk"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Video" width="60" id="pjA-O2-wYv">
+                                <connections>
+                                    <action selector="takeVideo:" destination="Lez-pQ-SQw" id="DMV-bI-jYR"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -152,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xd6-I3-w3o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="417" y="-157.5"/>
+            <point key="canvasLocation" x="483" y="-181.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="omC-Gt-PJ7">

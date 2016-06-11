@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import MobileCoreServices
+import AssetsLibrary
 
 class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextViewDelegate{
 
@@ -93,8 +94,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        UIPanGestureRecognizer（拖移，慢慢移动）
 //        UILongPressGestureRecognizer（长按）
         
-//        let centerDefault = NSNotificationCenter.defaultCenter()
-//        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        let centerDefault = NSNotificationCenter.defaultCenter()
+        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+
         
     }
     
@@ -103,11 +106,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Dispose of any resources that can be recreated.
     }
     
-    
+    // 监听键盘显示事件
     func keyboardWillShow(aNotification: NSNotification){
         
         print("keyboardWillShow")
+        //将通知的用户信息取出,转化为字典类型，里面所存的就是我们所需的信息:键盘动画的时长、时间曲线;键盘的位置、高度信息
         let userinfo: NSDictionary = aNotification.userInfo!
+        
+        //取出键盘位置信息
         let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
         let keyboardRec = nsValue?.CGRectValue()
         let height = keyboardRec?.size.height
@@ -119,25 +125,22 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }, completion: nil)
     }
     
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
-        print("textViewShouldEndEditing")
-
+    // 监听键盘隐藏事件
+    func keyboardWillHide(aNotification: NSNotification){
+        
+        print("keyboardWillHide")
+//        let userinfo: NSDictionary = aNotification.userInfo!
+//        let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
+//        let keyboardRec = nsValue?.CGRectValue()
+//        let height = keyboardRec?.size.height
+//        self.keyHeight = height!
         UIView.animateWithDuration(0.5, animations: {
-            
             var frame = self.view.frame
-            
             frame.origin.y = 0
-            
             self.view.frame = frame
-            
             }, completion: nil)
-        
-        return true
-        
     }
-    
-    
-    
+
     /*
      // MARK: - Navigation
      
@@ -147,6 +150,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      // Pass the selected object to the new view controller.
      }
      */
+    
+    //拍视频
+    @IBAction func takeVideo(sender: AnyObject) {
+    }
+    
     
     /*
      拍照功能
@@ -158,7 +166,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
-            sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil,otherButtonTitles: "From album", "Take photo")
+            sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil,otherButtonTitles: "From album", "Take photo", "Take video")
         }else{
             sheet = UIActionSheet(title:nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "From album")
         }
@@ -167,16 +175,23 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         var sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        
+        print("buttonIndex:\(buttonIndex)")
+        // 创建图片控制器
+        let picker = UIImagePickerController()
+
+        
         if(buttonIndex != 0){
             if(buttonIndex==1){                                     //相册
                 sourceType = UIImagePickerControllerSourceType.PhotoLibrary
                 detailTextView.resignFirstResponder()
-            }else{
+            }else if(buttonIndex == 2){   //  相机
                 sourceType = UIImagePickerControllerSourceType.Camera
+            }else{   // 视频
+                sourceType = UIImagePickerControllerSourceType.Camera
+                picker.mediaTypes = [kUTTypeMovie as String]
+//                picker.showsCameraControls = true
             }
-            // 创建图片控制器
-            let picker = UIImagePickerController()
-            
             // 设置代理
             picker.delegate = self
             
@@ -212,49 +227,75 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     */
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker.dismissViewControllerAnimated(true, completion: nil)
-        var image: UIImage!
-        
+       
+        print("picker.mediaTypes: \(picker.mediaTypes)")
         let gTextAttachment = MediaTextAttachment()
-
-        // 判断，图片是否允许修改
-        if (picker.allowsEditing){
-            print("裁剪后图片")
-            //裁剪后图片
-            image = info[UIImagePickerControllerEditedImage] as! UIImage
-        }else{
-            print("原始图片")
-            //原始图片
-            image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        }
-        
         let currentDateStr: String = Tool.getCurrentDateStr()
         let randStr: String = Tool.getRandomStringOfLength(2)
         let imageName: String = currentDateStr + randStr + ".png"
-        
-        // 设图片标志（这里设置图片标志，主要是为了：表情转换字符串时 操作更简单）
-        gTextAttachment.mediaTag = "![" + imageName + "]"
-        
-        // 设置图片
-        gTextAttachment.image = scaleImage(image)
-        
-        let selectedRange = detailTextView.selectedRange
-        
-        detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
-        detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
-        
-        // 重置格式
-        resetTextStyle()
 
-        
-        // 计算新的光标位置，并恢复光标的位置
-        let newSelectedRange = NSMakeRange(selectedRange.location+1, 0)
-        detailTextView.selectedRange = newSelectedRange
+        if(picker.mediaTypes == ["public.image"]){   // 拍照，图片相关
+            var image: UIImage!
+            
 
+            // 判断，图片是否允许修改
+            if (picker.allowsEditing){
+                print("裁剪后图片")
+                //裁剪后图片
+                image = info[UIImagePickerControllerEditedImage] as! UIImage
+            }else{
+                print("原始图片")
+                //原始图片
+                image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            }
+            
+            
+            // 设图片标志（这里设置图片标志，主要是为了：表情转换字符串时 操作更简单）
+            gTextAttachment.mediaTag = "![" + imageName + "]"
+            
+            // 设置图片
+            gTextAttachment.image = scaleImage(image)
+ 
+            let selectedRange = detailTextView.selectedRange
+            
+            detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
+
+            detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
+            
+            // 重置格式
+            resetTextStyle()
+            
+            
+            // 计算新的光标位置，并恢复光标的位置
+            let newSelectedRange = NSMakeRange(selectedRange.location+1, 0)
+            detailTextView.selectedRange = newSelectedRange
         
-        //  保存图片
-//        self.saveImage(image, newSize: CGSize(width: 256, height: 256), percent: 0.5, imageName: imageName)
-        self.saveImage(image, newSize: CGSize(width: image.size.width, height: image.size.height), percent: 1, imageName: imageName)
-        
+            
+            //  TODO 跟画质有没有关系保存图片
+            self.saveImage(image, newSize: CGSize(width: image.size.width, height: image.size.height), percent: 1, imageName: imageName)
+            
+        }else if(picker.mediaTypes == ["public.movie"]){   // 视频
+            if let url = info[UIImagePickerControllerMediaURL] as? NSURL {
+                // 端末のカメラロールに保存する
+                UISaveVideoAtPathToSavedPhotosAlbum(url.path!, self, #selector(NoteViewController.video(_:didFinishSavingWithError:contextInfo:)), nil)
+                
+                
+                print("url: \(url.path)")
+                
+                
+            }
+        }else{
+            print("picker.mediaTypes: \(picker.mediaTypes) is not found")
+        }
+    }
+    
+    func video(videoPath: String, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutablePointer<Void>) {
+        print("video: \(videoPath)")
+        if (error != nil) {
+            print("動画の保存に失敗しました。")
+        } else {
+            print("動画の保存に成功しました。")
+        }
     }
     
     // 当用户取消时，调用该方法
