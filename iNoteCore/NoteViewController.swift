@@ -62,8 +62,41 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        initTextView()
+    
+        // 键盘上追加一个完成Done按钮
+        initToolBar()
+     
+        //设置格式
+        resetTextStyle()
+    }
+    
+    // 键盘上追加一个完成Done按钮
+    func initToolBar(){
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(NoteViewController.donePressed))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        toolBar.sizeToFit()
         
+        self.detailTextView.delegate = self
+        self.detailTextView.inputAccessoryView = toolBar
+        
+    }
+    
+    // 收起输入键盘
+    func donePressed(){
+        detailTextView.resignFirstResponder()
+    }
+
+    
+    
+    func initTextView(){
         gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
         var arrayM = [Content]()
         if vigSegue == "" {
@@ -78,28 +111,17 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 
             }
         }
-//        detailTextView.editable = false
-        //设置格式
-        resetTextStyle()
         
         detailTextView.scrollEnabled = true
-//        detailTextView.becomeFirstResponder()
-        
-        // 自定义事件
-//        UIGestureRecognizer类用于手势识别，它的子类有主要有六个分别是：
-//        UITapGestureRecognizer（轻击一下）
-//        UIPinchGestureRecognizer（两指控制的缩放）
-//        UIRotationGestureRecognizer（旋转）
-//        UISwipeGestureRecognizer（滑动，快速移动）
-//        UIPanGestureRecognizer（拖移，慢慢移动）
-//        UILongPressGestureRecognizer（长按）
         
         let centerDefault = NSNotificationCenter.defaultCenter()
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
-
-        
     }
+    
+    
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -117,6 +139,13 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
         let keyboardRec = nsValue?.CGRectValue()
         let height = keyboardRec?.size.height
+        print("keybord height:\(height)")
+        print("self.view.frame height:\(self.view.frame.origin.y)")
+        print("self.detailTextView.selectedRange.location:\(self.detailTextView.selectedRange.location)")
+        print("self.detailTextView.selectedRange.length:\(self.detailTextView.selectedRange.length)")
+
+        print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
+
         self.keyHeight = height!
         UIView.animateWithDuration(0.5, animations: {
             var frame = self.view.frame
