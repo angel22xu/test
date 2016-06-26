@@ -10,6 +10,12 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    @IBOutlet weak var btnLanguage: UIButton!
+    @IBOutlet weak var btnShare: UIButton!
+    @IBOutlet weak var btnMailto: UIButton!
+    @IBOutlet weak var btnHelp: UIButton!
+    @IBOutlet weak var btnReview: UIButton!
+    
     @IBAction func setLanguage(sender: AnyObject) {
         print("setLanguage")
     }
@@ -42,8 +48,20 @@ class SettingViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-//        print(Tool.getDocumentPath())
-        print(Tool.getRandomStringOfLength(10))
+        print(NSLocalizedString("language", comment: "语言"))
+   
+//        "LANGUAGE" = "言語";
+//        "SHARE" = "シェア";
+//        "MAILTO" = "問い合わせ";
+//        "HELP" = "ヘルプ";
+//        "REVIEW" = "レビュー";
+
+        btnLanguage.setTitle(NSLocalizedString("LANGUAGE", comment: "语言"), forState: UIControlState.Normal)
+        btnShare.setTitle(NSLocalizedString("SHARE", comment: "分享"), forState: UIControlState.Normal)
+        btnMailto.setTitle(NSLocalizedString("MAILTO", comment: "联系开发者"), forState: UIControlState.Normal)
+        btnHelp.setTitle(NSLocalizedString("HELP", comment: "帮助"), forState: UIControlState.Normal)
+        btnReview.setTitle(NSLocalizedString("REVIEW", comment: "评分"), forState: UIControlState.Normal)
+        
     }
 
     override func didReceiveMemoryWarning() {

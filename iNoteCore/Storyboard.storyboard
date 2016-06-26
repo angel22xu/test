@@ -123,7 +123,7 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="language"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="47" y="96" width="63" height="30"/>
+                                    <rect key="frame" x="48" y="96" width="63" height="30"/>
                                 </variation>
                                 <connections>
                                     <action selector="setLanguage:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="N00-VO-2XJ"/>
@@ -151,6 +151,13 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Lu4-sc-TGn"/>
+                    <connections>
+                        <outlet property="btnHelp" destination="mTr-An-vip" id="0eX-h5-CFH"/>
+                        <outlet property="btnLanguage" destination="zr1-gS-ZGP" id="e4J-XV-KoC"/>
+                        <outlet property="btnMailto" destination="bgq-ke-Btz" id="EjB-0s-v7N"/>
+                        <outlet property="btnReview" destination="90c-fR-jOV" id="78D-cK-dHh"/>
+                        <outlet property="btnShare" destination="ceU-CC-Xyh" id="WBf-OE-aSQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdQ-tB-cqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
