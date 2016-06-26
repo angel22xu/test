@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0585AE1D1FD54800FD592C /* todolist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0585AD1D1FD54800FD592C /* todolist */; };
 		9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */; };
 		9F142DC21CE8146200470E7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC11CE8146200470E7C /* Tool.swift */; };
 		9F142DC41CE816BD00470E7C /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC31CE816BD00470E7C /* Title.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F0585AD1D1FD54800FD592C /* todolist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todolist; sourceTree = "<group>"; };
 		9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		9F142DC11CE8146200470E7C /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		9F142DC31CE816BD00470E7C /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		9F7CB5461CE6F6EF008030E4 = {
 			isa = PBXGroup;
 			children = (
+				9F0585AD1D1FD54800FD592C /* todolist */,
 				9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */,
 				9F7CB5511CE6F6EF008030E4 /* iNoteCore */,
 				9F7CB5661CE6F6EF008030E4 /* iNoteCoreTests */,
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0585AE1D1FD54800FD592C /* todolist in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
 				9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */,
 			);

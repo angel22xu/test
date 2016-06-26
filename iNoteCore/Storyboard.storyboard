@@ -78,13 +78,83 @@
                     <view key="view" contentMode="scaleToFill" id="4av-Ni-dxT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceU-CC-Xyh">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="share"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="56" y="146" width="38" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="shareToFriend:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="Kj5-y3-9hV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgq-ke-Btz">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="mailto"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="54" y="206" width="42" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="mailToDeveloper:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="AGB-Am-WN3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTr-An-vip">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="help"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="62" y="270" width="32" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="help:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="O6W-zL-zHE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90c-fR-jOV">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="review"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="53" y="319" width="45" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="review:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="F0c-vb-VVo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr1-gS-ZGP">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="language"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="47" y="96" width="63" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="setLanguage:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="N00-VO-2XJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ceU-CC-Xyh"/>
+                                <exclude reference="bgq-ke-Btz"/>
+                                <exclude reference="mTr-An-vip"/>
+                                <exclude reference="90c-fR-jOV"/>
+                                <exclude reference="zr1-gS-ZGP"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ceU-CC-Xyh"/>
+                                <include reference="bgq-ke-Btz"/>
+                                <include reference="mTr-An-vip"/>
+                                <include reference="90c-fR-jOV"/>
+                                <include reference="zr1-gS-ZGP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Lu4-sc-TGn"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdQ-tB-cqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="418.125" y="-928.52112676056333"/>
+            <point key="canvasLocation" x="417" y="-929.25"/>
         </scene>
         <!--Note View Controller-->
         <scene sceneID="Fyw-oK-ThL">
@@ -98,10 +168,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K2M-hD-Gvm">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2M-hD-Gvm">
                                 <rect key="frame" x="20" y="20" width="600" height="756"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="756"/>
@@ -110,7 +180,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="756"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="-1" y="64" width="402" height="692"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="0.0" y="64" width="400" height="628"/>
                                 </variation>
                             </textView>
                         </subviews>

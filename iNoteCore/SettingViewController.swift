@@ -10,6 +10,33 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    @IBAction func setLanguage(sender: AnyObject) {
+        print("setLanguage")
+    }
+    @IBAction func help(sender: AnyObject) {
+        print("help")
+    }
+    
+    //商店评分
+    @IBAction func review(sender: AnyObject) {
+//        let url : NSURL = NSURL(string: "itms-apps://itunes.apple.com/app/id980864870")!
+        let url : NSURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=980864870&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!
+
+        if(UIApplication.sharedApplication().canOpenURL(url)){
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    // 联系开发者
+    @IBAction func mailToDeveloper(sender: AnyObject) {
+        let url = NSURL(string: "mailto:xuxiaomin024@gmail.com")
+        UIApplication.sharedApplication().openURL(url!)
+    }
+    @IBAction func shareToFriend(sender: AnyObject) {
+        print("shareToFriend")
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

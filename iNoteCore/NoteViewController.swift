@@ -16,10 +16,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var gString =  NSMutableAttributedString()
     
-    //  屏幕大小 TODO 改成动态读取
-    let SCREEN_WIDTH = CGFloat(320)
-    let SCREEN_HEIGHT = CGFloat(480)
-    
     @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
@@ -96,6 +92,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     
     
+    
     func initTextView(){
         gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
         var arrayM = [Content]()
@@ -114,6 +111,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         detailTextView.scrollEnabled = true
         
+        // 添加监听事件
         let centerDefault = NSNotificationCenter.defaultCenter()
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
@@ -146,12 +144,16 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
 
-        self.keyHeight = height!
-        UIView.animateWithDuration(0.5, animations: {
-            var frame = self.view.frame
-            frame.origin.y = -self.keyHeight
-            self.view.frame = frame
-            }, completion: nil)
+        
+//        self.detailTextView.selectedRange.
+        
+        
+//        self.keyHeight = height!
+//        UIView.animateWithDuration(0.5, animations: {
+//            var frame = self.view.frame
+//            frame.origin.y = -self.keyHeight
+//            self.view.frame = frame
+//            }, completion: nil)
     }
     
     // 监听键盘隐藏事件
@@ -481,6 +483,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.backgroundColor = UIColor.grayColor()
         
 //        detailTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        /// top, left, bottom, right
+        detailTextView.contentInset = UIEdgeInsetsMake(-5.0, 0, -5.0, 50.0)
         
     }
 
