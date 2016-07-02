@@ -5,10 +5,10 @@
   Created by xuxiaomin on 16/7/2.
   Copyright © 2016年 xuxiaomin. All rights reserved.
 */
-"SHARE" = "シェア";
+"SHARE" = "友達に教える";
 "MAILTO" = "問い合わせ";
 "HELP" = "ヘルプ";
-"REVIEW" = "レビュー";
+"REVIEW" = "レビューをする";
 
 "SETTING" = "設定";
 "NEW" = "新規";
@@ -22,3 +22,5 @@
 "DONE" = "完了";
 
 
+"SUBJECT" = "ご意見・ご要望";
+"BODY" = "###以下にご記入ください###\n\n\n\n\n\n\n\n###お客様の情報###\n・OSのバージョン:%@\n・アプリバージョン:%@";

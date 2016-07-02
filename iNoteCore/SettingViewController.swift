@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingViewController: UIViewController {
+class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnMailto: UIButton!
@@ -32,9 +33,29 @@ class SettingViewController: UIViewController {
     
     // 联系开发者
     @IBAction func mailToDeveloper(sender: AnyObject) {
-        let url = NSURL(string: "mailto:xuxiaomin024@gmail.com")
-        UIApplication.sharedApplication().openURL(url!)
+        
+        let infoDictionary = NSBundle.mainBundle().infoDictionary
+        let shortVersion: String? = infoDictionary! ["CFBundleShortVersionString"] as? String
+       
+        // 应用版本号
+        let majorVersion = (shortVersion != nil) ? shortVersion! : "0.0"
+        //系统版本号
+        let systemVersion = UIDevice.currentDevice().systemVersion
+
+        let body = NSString(format: NSLocalizedString("BODY", comment: "邮件内容"), systemVersion, majorVersion)
+        
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients([Constant.EMAIL])
+        mailComposerVC.setSubject(NSLocalizedString("SUBJECT", comment: "邮件标题"))
+        mailComposerVC.setMessageBody(body as String, isHTML: false)
+        self.presentViewController(mailComposerVC, animated: true, completion: nil)
     }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func shareToFriend(sender: AnyObject) {
         print("shareToFriend")
     }

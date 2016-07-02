@@ -23,6 +23,7 @@
 		9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */; };
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
+		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		9FE886031D27854C00B10091 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9FE886061D27855200B10091 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9FE886071D27B26000B10091 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
 				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
 				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
+				9FE886071D27B26000B10091 /* Constant.swift */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,
 				9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */,
 				9F142DC21CE8146200470E7C /* Tool.swift in Sources */,
+				9FE886081D27B26000B10091 /* Constant.swift in Sources */,
 				9F142DC41CE816BD00470E7C /* Title.swift in Sources */,
 				9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */,
 			);
