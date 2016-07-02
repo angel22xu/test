@@ -9,7 +9,10 @@
 import UIKit
 
 class TodoListTableViewController: UITableViewController {
+    @IBOutlet weak var itemSetting: UIBarButtonItem!
+    @IBOutlet weak var noteNaviItem: UINavigationItem!
 
+    @IBOutlet weak var itemNew: UIBarButtonItem!
     var todoItems = NSMutableArray()
     var arrayM = [Title]()
 
@@ -71,6 +74,11 @@ class TodoListTableViewController: UITableViewController {
         // 刷新主界面
         refresh()
         self.tableView.rowHeight = 66
+
+        itemSetting.title = NSLocalizedString("SETTING", comment: "设定")
+        itemNew.title = NSLocalizedString("NEW", comment: "写日记")
+
+        noteNaviItem.title = NSLocalizedString("TITLE", comment: "日记标题")
 
     }
 

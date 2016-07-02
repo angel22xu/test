@@ -5,8 +5,20 @@
   Created by xuxiaomin on 16/7/2.
   Copyright © 2016年 xuxiaomin. All rights reserved.
 */
-"LANGUAGE" = "言語";
 "SHARE" = "シェア";
 "MAILTO" = "問い合わせ";
 "HELP" = "ヘルプ";
 "REVIEW" = "レビュー";
+
+"SETTING" = "設定";
+"NEW" = "新規";
+"TITLE" = "私の日記";
+
+"SAVE" = "保存";
+"PHOTE" = "写真を撮る";
+"FROM_ALBUM" = "ファとライブラリ";
+"TAKE_PHOTE" = "写真を撮る";
+"CANCEL" = "キャンセル";
+"DONE" = "完了";
+
+

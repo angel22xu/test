@@ -20,6 +20,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
     
+    @IBOutlet weak var photeBtn: UIBarButtonItem!
     let size:Float = 64.0
     
     // 键盘高度
@@ -65,6 +66,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      
         //设置格式
         resetTextStyle()
+        
+        finishBtn.title = NSLocalizedString("SAVE", comment: "保存")
+        photeBtn.title = NSLocalizedString("PHOTE", comment: "拍照")
+
     }
     
     // 键盘上追加一个完成Done按钮
@@ -73,7 +78,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         toolBar.barStyle = UIBarStyle.Default
         toolBar.translucent = true
         toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(NoteViewController.donePressed))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "完成"), style: UIBarButtonItemStyle.Done, target: self, action: #selector(NoteViewController.donePressed))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
@@ -195,11 +200,15 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.resignFirstResponder()
         var sheet: UIActionSheet
         
+//        "SAVE" = "Save"
+//        "PHOTE" = "Phote"
+//        "FROM_ALBUM" = "From album"
+//        "TAKE_PHOTE" = "Take phote"
         
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
-            sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil,otherButtonTitles: "From album", "Take photo", "Take video")
+            sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: NSLocalizedString("CANCEL", comment: "取消"), destructiveButtonTitle: nil,otherButtonTitles: NSLocalizedString("FROM_ALBUM", comment: "从相册选择"), NSLocalizedString("TAKE_PHOTE", comment: "拍照"))
         }else{
-            sheet = UIActionSheet(title:nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "From album")
+            sheet = UIActionSheet(title:nil, delegate: self, cancelButtonTitle: NSLocalizedString("CANCEL", comment: "取消"), destructiveButtonTitle: nil, otherButtonTitles: NSLocalizedString("FROM_ALBUM", comment: "从相册选择"))
         }
         sheet.showInView(self.view)
     }

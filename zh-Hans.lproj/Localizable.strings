@@ -5,9 +5,19 @@
   Created by xuxiaomin on 16/7/2.
   Copyright © 2016年 xuxiaomin. All rights reserved.
 */
-"LANGUAGE" = "语言";
 "SHARE" = "分享";
 "MAILTO" = "联系开发者";
 "HELP" = "帮助";
 "REVIEW" = "我要评论";
+
+"SETTING" = "设置";
+"NEW" = "新建";
+"TITLE" = "超级日记";
+
+"SAVE" = "保存";
+"PHOTE" = "拍照";
+"FROM_ALBUM" = "从相册选取";
+"TAKE_PHOTE" = "拍照";
+"CANCEL" = "取消";
+"DONE" = "完成";
 
