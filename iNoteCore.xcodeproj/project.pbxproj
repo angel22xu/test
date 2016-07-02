@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F0000961D20076F005A4DBE /* Localicable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F0000981D20076F005A4DBE /* Localicable.strings */; };
 		9F0585AE1D1FD54800FD592C /* todolist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0585AD1D1FD54800FD592C /* todolist */; };
 		9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */; };
 		9F142DC21CE8146200470E7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC11CE8146200470E7C /* Tool.swift */; };
@@ -23,6 +22,7 @@
 		9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5881CE70650008030E4 /* NoteViewController.swift */; };
 		9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */; };
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
+		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,9 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9F0000971D20076F005A4DBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localicable.strings; sourceTree = "<group>"; };
-		9F00009A1D200793005A4DBE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localicable.strings"; sourceTree = "<group>"; };
-		9F00009B1D2007A4005A4DBE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localicable.strings; sourceTree = "<group>"; };
 		9F0585AD1D1FD54800FD592C /* todolist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todolist; sourceTree = "<group>"; };
 		9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		9F142DC11CE8146200470E7C /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
@@ -68,6 +65,9 @@
 		9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite-bridging-Header.h"; path = "../sqlite-bridging-Header.h"; sourceTree = "<group>"; };
 		9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTextAttachment.swift; sourceTree = "<group>"; };
+		9FE886031D27854C00B10091 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9FE886061D27855200B10091 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +121,7 @@
 		9F7CB5511CE6F6EF008030E4 /* iNoteCore */ = {
 			isa = PBXGroup;
 			children = (
+				9FE886041D27854C00B10091 /* Localizable.strings */,
 				9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */,
 				9F142DC11CE8146200470E7C /* Tool.swift */,
 				9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */,
@@ -132,7 +133,6 @@
 				9F142DC31CE816BD00470E7C /* Title.swift */,
 				9F142DC51CE816CA00470E7C /* Content.swift */,
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
-				9F0000981D20076F005A4DBE /* Localicable.strings */,
 				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
 				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
 			);
@@ -265,8 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F0585AE1D1FD54800FD592C /* todolist in Resources */,
+				9FE886021D27854C00B10091 /* Localizable.strings in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
-				9F0000961D20076F005A4DBE /* Localicable.strings in Resources */,
 				9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,14 +336,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9F0000981D20076F005A4DBE /* Localicable.strings */ = {
+		9FE886041D27854C00B10091 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9F0000971D20076F005A4DBE /* en */,
-				9F00009A1D200793005A4DBE /* zh-Hans */,
-				9F00009B1D2007A4005A4DBE /* ja */,
+				9FE886031D27854C00B10091 /* en */,
+				9FE886051D27855000B10091 /* zh-Hans */,
+				9FE886061D27855200B10091 /* ja */,
 			);
-			name = Localicable.strings;
+			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

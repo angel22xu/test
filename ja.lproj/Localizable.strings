@@ -1,12 +1,10 @@
 /* 
-  Localicable.strings
+  Localizable.strings
   iNoteCore
 
-  Created by xuxiaomin on 16/6/26.
+  Created by xuxiaomin on 16/7/2.
   Copyright © 2016年 xuxiaomin. All rights reserved.
 */
-//日文资源
-
 "LANGUAGE" = "言語";
 "SHARE" = "シェア";
 "MAILTO" = "問い合わせ";
