@@ -63,6 +63,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let path = NSBundle.mainBundle().pathForResource("bk", ofType: "jpeg")
+        print("path:\(path)")
+
         initTextView()
     
         // 键盘上追加一个完成Done按钮
@@ -119,7 +122,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         detailTextView.scrollEnabled = true
         detailTextView.selectedRange = NSMakeRange(0, 0)
-        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "bk"))
+        
+        // 设置背景主题
+        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "note_bk\(theme)"))
         
         
         

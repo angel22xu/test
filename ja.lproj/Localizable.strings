@@ -9,6 +9,7 @@
 "MAILTO" = "問い合わせ";
 "HELP" = "ヘルプ";
 "REVIEW" = "レビューをする";
+"THEME" = "テーマを変更";
 
 "SETTING" = "設定";
 "NEW" = "新規";
@@ -25,3 +26,8 @@
 "SUBJECT" = "ご意見・ご要望";
 "BODY" = "###以下にご記入ください###\n\n\n\n\n\n\n\n###お客様の情報###\n・OSのバージョン:%@\n・アプリバージョン:%@";
 "NOTETIMEFORMAT" = "yyyy年MM月dd日 HH:mm";
+
+"THEME_ALERT_TITLE" = "テーマ変更";
+"THEME_ALERT_MSG" = "テーマを変更しましょうか?";
+"THEME_ALERT_CANCEL" = "キャンセール";
+"THEME_ALERT_OK" = "確認";

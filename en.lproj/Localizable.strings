@@ -9,6 +9,9 @@
 "MAILTO" = "Mailto";
 "HELP" = "Help";
 "REVIEW" = "Review";
+"THEME" = "Change Theme";
+
+
 
 "SETTING" = "Setting";
 "NEW" = "New";
@@ -24,4 +27,11 @@
 "SUBJECT" = "Advice & Needs";
 "BODY" = "###Please write in the following###\n\n\n\n\n\n\n\n###Client Information###\n・OS Version:%@\n・Application Version:%@";
 "NOTETIMEFORMAT" = "yyyy/MM/dd HH:mm";
+
+
+"THEME_ALERT_TITLE" = "Change the theme";
+"THEME_ALERT_MSG" = "It will change the theme ?";
+"THEME_ALERT_CANCEL" = "Cancel";
+"THEME_ALERT_OK" = "OK";
+
 

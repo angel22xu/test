@@ -70,6 +70,11 @@ class TodoListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SQLiteManager.sharedManager.openDB()
+
+
+        
+//        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: <#T##String#>)
+//            .setStrin("1", forKey: "theme")
         
         // 刷新主界面
         refresh()
@@ -79,6 +84,10 @@ class TodoListTableViewController: UITableViewController {
         itemNew.title = NSLocalizedString("NEW", comment: "写日记")
 
         noteNaviItem.title = NSLocalizedString("TITLE", comment: "日记标题")
+        
+        // 设置背景主题
+        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(theme)"))
 
     }
 

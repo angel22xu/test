@@ -9,6 +9,7 @@
 "MAILTO" = "联系开发者";
 "HELP" = "帮助";
 "REVIEW" = "我要评论";
+"THEME" = "更换主题";
 
 "SETTING" = "设置";
 "NEW" = "新建";
@@ -24,3 +25,8 @@
 "SUBJECT" = "您的意见・您的需求";
 "BODY" = "###请您在下面记入###\n\n\n\n\n\n\n\n###客户端信息###\n・OS系统版本号:%@\n・应用版本号:%@";
 "NOTETIMEFORMAT" = "yyyy年MM月dd日 HH:mm";
+
+"THEME_ALERT_TITLE" = "更换主题";
+"THEME_ALERT_MSG" = "确定要更换吗?";
+"THEME_ALERT_CANCEL" = "取消";
+"THEME_ALERT_OK" = "确定";

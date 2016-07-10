@@ -15,8 +15,46 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var btnMailto: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var btnReview: UIButton!
+    @IBOutlet weak var btnTheme: UIButton!
     
 
+    @IBAction func changeTheme(sender: AnyObject) {
+        let alertView = UIAlertView()
+        alertView.title = NSLocalizedString("THEME_ALERT_TITLE", comment: "标题")
+        alertView.message = NSLocalizedString("THEME_ALERT_MSG", comment: "内容")
+        alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_CANCEL", comment: "取消"))
+        alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_OK", comment: "确定"))
+        alertView.cancelButtonIndex=0
+        alertView.delegate=self;
+        alertView.show()
+        
+    
+    }
+    
+    
+    func alertView(alertView:UIAlertView, clickedButtonAtIndex buttonIndex: Int){
+        if(buttonIndex==alertView.cancelButtonIndex){
+        }
+        else
+        {
+            let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+            
+            let themeList: NSMutableArray = [1, 2, 3, 4, 5]
+            
+            // 从剩下的主题中挑选
+            themeList.removeObject(theme)
+            let randomIndex = Int(arc4random_uniform(UInt32(themeList.count)))
+            
+            NSUserDefaults.standardUserDefaults().setInteger(themeList[randomIndex] as! Int, forKey: "theme")
+            
+            // 设置背景主题
+            self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(themeList[randomIndex] as! Int)"))
+
+            
+        }
+    }
+    
+    
     @IBAction func help(sender: AnyObject) {
         print("help")
     }
@@ -69,11 +107,35 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         btnShare.setTitle(NSLocalizedString("SHARE", comment: "分享"), forState: UIControlState.Normal)
         btnMailto.setTitle(NSLocalizedString("MAILTO", comment: "联系开发者"), forState: UIControlState.Normal)
         btnHelp.setTitle(NSLocalizedString("HELP", comment: "帮助"), forState: UIControlState.Normal)
+        btnTheme.setTitle(NSLocalizedString("THEME", comment: "主题"), forState: UIControlState.Normal)
         btnReview.setTitle(NSLocalizedString("REVIEW", comment: "评分"), forState: UIControlState.Normal)
         
         
+        btnShare.backgroundColor = UIColor.whiteColor()
+        btnShare.layer.cornerRadius = 5
+
+        btnMailto.backgroundColor = UIColor.whiteColor()
+        btnMailto.layer.cornerRadius = 5
+        
+        btnHelp.backgroundColor = UIColor.whiteColor()
+        btnHelp.layer.cornerRadius = 5
+        
+        btnTheme.backgroundColor = UIColor.whiteColor()
+        btnTheme.layer.cornerRadius = 5
+
+        btnReview.backgroundColor = UIColor.whiteColor()
+        btnReview.layer.cornerRadius = 5
+
+        
         //x, y, width, height
-        btnShare.frame=CGRectMake(10, 150, 500, 30)
+//        btnShare.frame=CGRectMake(10, 150, 500, 30)
+        
+        
+        // 设置背景主题
+        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(theme)"))
+
+        
 
     }
 

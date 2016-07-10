@@ -16,6 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 设定默认主题
+        let theme: Int? = NSUserDefaults.standardUserDefaults().valueForKey("theme") as? Int
+        
+        if(theme != nil){
+            print("theme is \(theme)")
+        }else{
+            print ("theme is nil")
+            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "theme")
+        }
+        
         return true
     }
 
