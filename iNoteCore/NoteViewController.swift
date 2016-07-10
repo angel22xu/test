@@ -118,7 +118,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         detailTextView.scrollEnabled = true
-//        noteUpdateTime.text = "2016年12月03日 16:38"
+        detailTextView.selectedRange = NSMakeRange(0, 0)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "bk"))
+        
+        
+        
         noteUpdateTime.text = Tool.formatDt1(noteTime)
         
         // 添加监听事件
@@ -197,20 +201,26 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let keyboardRec = nsValue?.CGRectValue()
         let height = keyboardRec?.size.height
         print("keybord height:\(height)")
-        print("self.view.frame height:\(self.view.frame.origin.y)")
-        print("self.detailTextView.selectedRange.location:\(self.detailTextView.selectedRange.location)")
-        print("self.detailTextView.selectedRange.length:\(self.detailTextView.selectedRange.length)")
+//        print("self.view.frame height:\(self.view.frame.origin.y)")
+//        print("self.detailTextView.selectedRange.location:\(self.detailTextView.selectedRange.location)")
+//        print("self.detailTextView.selectedRange.length:\(self.detailTextView.selectedRange.length)")
 
-        print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
+//        print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
+
+
+        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
+        print("y:\(cursorY)")
 
         
-        
+        print("size: \(detailTextView.textStorage.size().height)")
         
         self.keyHeight = height!
         UIView.animateWithDuration(0.5, animations: {
-            var frame = self.view.frame
-            frame.origin.y = -self.keyHeight
-            self.view.frame = frame
+            if(cursorY > self.keyHeight - 70){
+                var frame = self.view.frame
+                frame.origin.y = -self.keyHeight
+                self.view.frame = frame
+            }
             }, completion: nil)
     }
     
@@ -568,15 +578,23 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func textViewDidChange(textView: UITextView) {
-        detailTextView.scrollRangeToVisible(detailTextView.selectedRange)
-        
-        let size: CGSize = detailTextView.sizeThatFits(CGSizeMake(CGRectGetWidth(detailTextView.frame), CGFloat(MAXFLOAT)))
-        
-        print("textViewDidChange, \(size.height)")
         
         
-        var frame: CGRect = detailTextView.frame
-        frame.size.height = size.height
-        detailTextView.frame = frame
+//        var  cursorPosition: CGFloat;
+
+//        if ((detailTextView.selectedTextRange) != nil) {
+////            cursorPosition = detaicaretRectForPosition:textView.selectedTextRange.start].origin.y;
+//            cursorPosition = detailTextView.caretRectForPosition(detailTextView.selectedTextRange!.start).origin.y
+//        } else {
+//            cursorPosition = 0;
+//        }
+        
+//        print("cursorPosition: \(cursorPosition)")
+        
     }
+    
+    
+
+    
+    
 }
