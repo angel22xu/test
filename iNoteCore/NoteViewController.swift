@@ -12,7 +12,10 @@ import AssetsLibrary
 
 class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextViewDelegate{
 
+    //日志ID, 主键, 从上个页面传过来
     var vigSegue = ""
+    //日志时间, 从上个页面传过来
+    var noteTime = ""
     
     var gString =  NSMutableAttributedString()
     
@@ -21,6 +24,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var detailTextView: UITextView!
     
     @IBOutlet weak var photeBtn: UIBarButtonItem!
+    @IBOutlet weak var noteUpdateTime: UILabel!
     let size:Float = 64.0
     
     // 键盘高度
@@ -110,11 +114,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }else{
                 // 解析数据库读取出来的内容
                 analysis_adv(arrayM[0].content!)
-                
             }
         }
         
         detailTextView.scrollEnabled = true
+//        noteUpdateTime.text = "2016年12月03日 16:38"
+        noteUpdateTime.text = Tool.formatDt1(noteTime)
         
         // 添加监听事件
         let centerDefault = NSNotificationCenter.defaultCenter()
@@ -130,6 +135,55 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func keyBoardWillShow(note:NSNotification) {
+        
+        let userInfo  = note.userInfo
+        let keyBoardBounds = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+        let animations:(() -> Void) = {
+            
+            self.detailTextView.transform = CGAffineTransformMakeTranslation(0,-deltaY)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
+            
+            UIView.animateWithDuration(duration, delay: 0, options:options, animations: animations, completion: nil)
+            
+        }else {
+            
+            animations()
+        }
+        
+    }
+    
+    
+    func keyBoardWillHide1(note:NSNotification) {
+        
+        let userInfo  = note.userInfo
+        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            
+            self.detailTextView.transform = CGAffineTransformIdentity
+            
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
+            
+            UIView.animateWithDuration(duration, delay: 0, options:options, animations: animations, completion: nil)
+            
+        }else{
+            
+            animations()
+        }
+        
+    }
+    
     
     // 监听键盘显示事件
     func keyboardWillShow(aNotification: NSNotification){
@@ -150,15 +204,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
 
         
-//        self.detailTextView.selectedRange.
         
         
-//        self.keyHeight = height!
-//        UIView.animateWithDuration(0.5, animations: {
-//            var frame = self.view.frame
-//            frame.origin.y = -self.keyHeight
-//            self.view.frame = frame
-//            }, completion: nil)
+        self.keyHeight = height!
+        UIView.animateWithDuration(0.5, animations: {
+            var frame = self.view.frame
+            frame.origin.y = -self.keyHeight
+            self.view.frame = frame
+            }, completion: nil)
     }
     
     // 监听键盘隐藏事件
@@ -489,12 +542,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: wholeRange)
         
         //设置背景颜色
-        detailTextView.backgroundColor = UIColor.grayColor()
+//        detailTextView.backgroundColor = UIColor.grayColor()
         
 //        detailTextView.translatesAutoresizingMaskIntoConstraints = false
         
         /// top, left, bottom, right
-        detailTextView.contentInset = UIEdgeInsetsMake(-5.0, 0, -5.0, 50.0)
+//        detailTextView.contentInset = UIEdgeInsetsMake(-5.0, 0, -5.0, 50.0)
         
     }
 
@@ -516,5 +569,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func textViewDidChange(textView: UITextView) {
         detailTextView.scrollRangeToVisible(detailTextView.selectedRange)
+        
+        let size: CGSize = detailTextView.sizeThatFits(CGSizeMake(CGRectGetWidth(detailTextView.frame), CGFloat(MAXFLOAT)))
+        
+        print("textViewDidChange, \(size.height)")
+        
+        
+        var frame: CGRect = detailTextView.frame
+        frame.size.height = size.height
+        detailTextView.frame = frame
     }
 }

@@ -23,6 +23,5 @@
 
 "SUBJECT" = "Advice & Needs";
 "BODY" = "###Please write in the following###\n\n\n\n\n\n\n\n###Client Information###\n・OS Version:%@\n・Application Version:%@";
-
-
+"NOTETIMEFORMAT" = "yyyy/MM/dd HH:mm";
 

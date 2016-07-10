@@ -101,4 +101,17 @@ class Tool: NSObject {
         }
         
     }
+    //处理时间字符串,yyyyMMddHHmmss
+    static func formatDt1(dtStr: String)-> String{
+        // 数据库保存的时间
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        let date = formatter.dateFromString(dtStr)
+        
+    
+        formatter.dateFormat = NSLocalizedString("NOTETIMEFORMAT", comment: "日期格式")
+        let convertedDate = formatter.stringFromDate(date!)
+        return convertedDate
+        
+    }
 }

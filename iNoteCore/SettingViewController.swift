@@ -65,15 +65,7 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        print(NSLocalizedString("language", comment: "语言"))
    
-//        "LANGUAGE" = "言語";
-//        "SHARE" = "シェア";
-//        "MAILTO" = "問い合わせ";
-//        "HELP" = "ヘルプ";
-//        "REVIEW" = "レビュー";
-
         btnShare.setTitle(NSLocalizedString("SHARE", comment: "分享"), forState: UIControlState.Normal)
         btnMailto.setTitle(NSLocalizedString("MAILTO", comment: "联系开发者"), forState: UIControlState.Normal)
         btnHelp.setTitle(NSLocalizedString("HELP", comment: "帮助"), forState: UIControlState.Normal)

@@ -24,3 +24,4 @@
 
 "SUBJECT" = "ご意見・ご要望";
 "BODY" = "###以下にご記入ください###\n\n\n\n\n\n\n\n###お客様の情報###\n・OSのバージョン:%@\n・アプリバージョン:%@";
+"NOTETIMEFORMAT" = "yyyy年MM月dd日 HH:mm";

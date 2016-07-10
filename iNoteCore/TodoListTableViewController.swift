@@ -172,6 +172,9 @@ class TodoListTableViewController: UITableViewController {
             let t = todoItems[path!.row] as! Title
             
             destinationController.vigSegue = String(t.noteID)
+//            destinationController.noteUpdateTime.text! = "2016年12月03日 16:38"
+            destinationController.noteTime = t.dt!
+
             
         }else if(segue.identifier == "settingSegue"){
             print("identifier2:  \(segue.identifier)")
