@@ -13,6 +13,8 @@
 		9F142DC41CE816BD00470E7C /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC31CE816BD00470E7C /* Title.swift */; };
 		9F142DC61CE816CA00470E7C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC51CE816CA00470E7C /* Content.swift */; };
 		9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */; };
+		9F72F0E51D338CFE00B24555 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0E41D338CFE00B24555 /* Info.plist */; };
+		9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0EA1D338D9400B24555 /* InfoPlist.strings */; };
 		9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */; };
 		9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */; };
 		9F7CB5681CE6F6EF008030E4 /* iNoteCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5671CE6F6EF008030E4 /* iNoteCoreTests.swift */; };
@@ -50,10 +52,13 @@
 		9F142DC31CE816BD00470E7C /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		9F142DC51CE816CA00470E7C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		9F72F0E41D338CFE00B24555 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F72F0E91D338D9400B24555 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9F72F0EB1D338D9500B24555 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		9F72F0EC1D338D9800B24555 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F7CB54F1CE6F6EF008030E4 /* iNoteCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNoteCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9F7CB55E1CE6F6EF008030E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F7CB5631CE6F6EF008030E4 /* iNoteCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iNoteCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7CB5671CE6F6EF008030E4 /* iNoteCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNoteCoreTests.swift; sourceTree = "<group>"; };
 		9F7CB5691CE6F6EF008030E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +128,8 @@
 		9F7CB5511CE6F6EF008030E4 /* iNoteCore */ = {
 			isa = PBXGroup;
 			children = (
+				9F72F0EA1D338D9400B24555 /* InfoPlist.strings */,
+				9F72F0E41D338CFE00B24555 /* Info.plist */,
 				9FE886041D27854C00B10091 /* Localizable.strings */,
 				9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */,
 				9F142DC11CE8146200470E7C /* Tool.swift */,
@@ -135,7 +142,6 @@
 				9F142DC31CE816BD00470E7C /* Title.swift */,
 				9F142DC51CE816CA00470E7C /* Content.swift */,
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
-				9F7CB55E1CE6F6EF008030E4 /* Info.plist */,
 				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
 				9FE886071D27B26000B10091 /* Constant.swift */,
 			);
@@ -268,8 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F0585AE1D1FD54800FD592C /* todolist in Resources */,
+				9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */,
 				9FE886021D27854C00B10091 /* Localizable.strings in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
+				9F72F0E51D338CFE00B24555 /* Info.plist in Resources */,
 				9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +348,17 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9F72F0EA1D338D9400B24555 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F72F0E91D338D9400B24555 /* en */,
+				9F72F0EB1D338D9500B24555 /* zh-Hans */,
+				9F72F0EC1D338D9800B24555 /* ja */,
+			);
+			name = InfoPlist.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		9FE886041D27854C00B10091 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
