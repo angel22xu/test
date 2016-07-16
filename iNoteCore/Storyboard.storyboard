@@ -74,10 +74,91 @@
             </objects>
             <point key="canvasLocation" x="-388.125" y="-521.83098591549287"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Uwj-eF-I1P">
+            <objects>
+                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Mmw-oq-FHS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9fm-fn-sXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1174.5" y="-929.25"/>
+        </scene>
+        <!--Page Item Controller-->
+        <scene sceneID="chQ-ym-7s9">
+            <objects>
+                <viewController storyboardIdentifier="ItemController" id="aZG-Hz-jcV" customClass="PageItemController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G5t-6f-xe3"/>
+                        <viewControllerLayoutGuide type="bottom" id="DmL-yO-ILk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cCn-qe-J1r">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UkQ-Ro-dQU">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="rAB-Ag-qtU"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="rAB-Ag-qtU"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="rAB-Ag-qtU"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="DmL-yO-ILk" firstAttribute="top" secondItem="UkQ-Ro-dQU" secondAttribute="bottom" constant="100" id="IyD-Sx-FcV"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="centerY" secondItem="cCn-qe-J1r" secondAttribute="centerY" id="fbH-oy-ELX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UkQ-Ro-dQU" secondAttribute="trailing" constant="40" id="gHf-uq-IhP"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="centerX" secondItem="cCn-qe-J1r" secondAttribute="centerX" id="iHb-we-r9g"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="top" secondItem="G5t-6f-xe3" secondAttribute="bottom" constant="100" id="mPw-GW-24b"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="leading" secondItem="cCn-qe-J1r" secondAttribute="leadingMargin" constant="40" id="whU-xv-2mN"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="UkQ-Ro-dQU"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="fbH-oy-ELX"/>
+                                <exclude reference="gHf-uq-IhP"/>
+                                <exclude reference="iHb-we-r9g"/>
+                                <exclude reference="mPw-GW-24b"/>
+                                <exclude reference="whU-xv-2mN"/>
+                                <exclude reference="IyD-Sx-FcV"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="UkQ-Ro-dQU"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="fbH-oy-ELX"/>
+                                <include reference="gHf-uq-IhP"/>
+                                <include reference="iHb-we-r9g"/>
+                                <include reference="mPw-GW-24b"/>
+                                <include reference="whU-xv-2mN"/>
+                                <include reference="IyD-Sx-FcV"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="contentImageView" destination="UkQ-Ro-dQU" id="zn3-Jo-R5c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HLY-pU-D82" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1843.5" y="-929.25"/>
+        </scene>
         <!--Setting View Controller-->
         <scene sceneID="AV3-t3-kHg">
             <objects>
-                <viewController id="CJe-vm-Tjn" customClass="SettingViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingStoryBoard" id="CJe-vm-Tjn" customClass="SettingViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GFj-8T-EUu"/>
                         <viewControllerLayoutGuide type="bottom" id="Br8-eq-PSE"/>
@@ -334,7 +415,7 @@
         <!--Navigation Controller-->
         <scene sceneID="omC-Gt-PJ7">
             <objects>
-                <navigationController id="aaH-eZ-sFF" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Main" id="aaH-eZ-sFF" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1tP-HW-WLT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

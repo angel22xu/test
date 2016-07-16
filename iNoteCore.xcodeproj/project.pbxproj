@@ -12,6 +12,7 @@
 		9F142DC21CE8146200470E7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC11CE8146200470E7C /* Tool.swift */; };
 		9F142DC41CE816BD00470E7C /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC31CE816BD00470E7C /* Title.swift */; };
 		9F142DC61CE816CA00470E7C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC51CE816CA00470E7C /* Content.swift */; };
+		9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */; };
 		9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */; };
 		9F72F0E51D338CFE00B24555 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0E41D338CFE00B24555 /* Info.plist */; };
 		9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0EA1D338D9400B24555 /* InfoPlist.strings */; };
@@ -51,6 +52,7 @@
 		9F142DC11CE8146200470E7C /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		9F142DC31CE816BD00470E7C /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		9F142DC51CE816CA00470E7C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9F72F0E41D338CFE00B24555 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F72F0E91D338D9400B24555 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				9F7CB5591CE6F6EF008030E4 /* Assets.xcassets */,
 				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
 				9FE886071D27B26000B10091 /* Constant.swift */,
+				9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
 				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
 				9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */,
+				9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */,
 				9F142DC61CE816CA00470E7C /* Content.swift in Sources */,
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,
 				9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */,

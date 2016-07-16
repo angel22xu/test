@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnMailto: UIButton!
@@ -17,48 +17,128 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var btnReview: UIButton!
     @IBOutlet weak var btnTheme: UIButton!
     
+    var currentPage:Int = 0
+    var viewControllers = NSMutableArray()
+    
+    // MARK: - Variables
+    private var pageViewController: UIPageViewController?
+    
+    // Initialize it right away here
+    private let contentImages = ["main_bk1",
+                                 "main_bk2",
+                                 "main_bk3",
+                                 "main_bk4",
+                                 "main_bk5",]
 
     @IBAction func changeTheme(sender: AnyObject) {
-        let alertView = UIAlertView()
-        alertView.title = NSLocalizedString("THEME_ALERT_TITLE", comment: "标题")
-        alertView.message = NSLocalizedString("THEME_ALERT_MSG", comment: "内容")
-        alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_CANCEL", comment: "取消"))
-        alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_OK", comment: "确定"))
-        alertView.cancelButtonIndex=0
-        alertView.delegate=self;
-        alertView.show()
+        createPageViewController()
+        setupPageControl()
         
-    
     }
     
-    
-    func alertView(alertView:UIAlertView, clickedButtonAtIndex buttonIndex: Int){
-        if(buttonIndex==alertView.cancelButtonIndex){
+    private func createPageViewController() {
+        
+        let pageController = self.storyboard!.instantiateViewControllerWithIdentifier("PageController") as! UIPageViewController
+        pageController.dataSource = self
+        
+        if contentImages.count > 0 {
+            let firstController = getItemController(0)!
+            let startingViewControllers = [firstController]
+            
+            // 主题更换页面不显示默认的返回按钮
+            self.navigationItem.setHidesBackButton(true, animated: false)
+            
+            pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         }
-        else
-        {
-            let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-            
-            let themeList: NSMutableArray = [1, 2, 3, 4, 5]
-            
-            // 从剩下的主题中挑选
-            themeList.removeObject(theme)
-            let randomIndex = Int(arc4random_uniform(UInt32(themeList.count)))
-            
-            NSUserDefaults.standardUserDefaults().setInteger(themeList[randomIndex] as! Int, forKey: "theme")
-            
-            // 设置背景主题
-            self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(themeList[randomIndex] as! Int)"))
+        
+        pageViewController = pageController
+        addChildViewController(pageViewController!)
+        self.view.addSubview(pageViewController!.view)
+        pageViewController!.didMoveToParentViewController(self)
+    }
+    
+    private func setupPageControl() {
+        let appearance = UIPageControl.appearance()
+        appearance.pageIndicatorTintColor = UIColor.grayColor()
+        appearance.currentPageIndicatorTintColor = UIColor.whiteColor()
+        appearance.backgroundColor = UIColor.darkGrayColor()
+    }
+    
+    // MARK: - UIPageViewControllerDataSource
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        
+        let itemController = viewController as! PageItemController
+        
+        if itemController.itemIndex > 0 {
+            return getItemController(itemController.itemIndex-1)
+        }
+        
+        return nil
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        
+        let itemController = viewController as! PageItemController
+        
+        if itemController.itemIndex+1 < contentImages.count {
+            return getItemController(itemController.itemIndex+1)
+        }
+        
+        return nil
+    }
+    
+    private func getItemController(itemIndex: Int) -> PageItemController? {
+        
+        if itemIndex < contentImages.count {
+            let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as! PageItemController
+            pageItemController.itemIndex = itemIndex
+            pageItemController.imageName = contentImages[itemIndex]
+            return pageItemController
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Page Indicator
+    
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return contentImages.count
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return 0
+    }
+    
+    // MARK: - Additions
+    
+    func currentControllerIndex() -> Int {
+        
+        let pageItemController = self.currentController()
+        
+        if let controller = pageItemController as? PageItemController {
+            return controller.itemIndex
+        }
+        
+        return -1
+    }
+    
+    func currentController() -> UIViewController? {
+        
+        if self.pageViewController?.viewControllers?.count > 0 {
+            return self.pageViewController?.viewControllers![0]
+        }
+        
+        return nil
+    }
+    
 
-            
-        }
-    }
     
     
     @IBAction func help(sender: AnyObject) {
         print("help")
     }
-    
+
     //商店评分
     @IBAction func review(sender: AnyObject) {
 //        let url : NSURL = NSURL(string: "itms-apps://itunes.apple.com/app/id980864870")!
