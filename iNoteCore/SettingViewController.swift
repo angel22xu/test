@@ -9,9 +9,7 @@
 import UIKit
 import MessageUI
 
-//class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
+class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate{
     
     @IBOutlet weak var settingNavi: UINavigationItem!
     @IBOutlet weak var btnShare: UIButton!
@@ -31,7 +29,6 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
 
     //商店评分
     @IBAction func review(sender: AnyObject) {
-//        let url : NSURL = NSURL(string: "itms-apps://itunes.apple.com/app/id980864870")!
         let url : NSURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=980864870&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!
 
         if(UIApplication.sharedApplication().canOpenURL(url)){
@@ -72,6 +69,11 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 初始化界面
+        initPage()
+    }
+
+    private func initPage(){
         // 主题更换页面显示默认的返回按钮
         self.navigationItem.setHidesBackButton(false, animated: false)
         settingNavi.title = NSLocalizedString("SETTING_TITLE", comment: "设定标题")
@@ -83,7 +85,7 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         
         btnShare.backgroundColor = UIColor.whiteColor()
         btnShare.layer.cornerRadius = 5
-
+        
         btnMailto.backgroundColor = UIColor.whiteColor()
         btnMailto.layer.cornerRadius = 5
         
@@ -92,18 +94,22 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         
         btnTheme.backgroundColor = UIColor.whiteColor()
         btnTheme.layer.cornerRadius = 5
-
+        
         btnReview.backgroundColor = UIColor.whiteColor()
         btnReview.layer.cornerRadius = 5
-
-        // 设置背景主题
+        
+        // 设定背景图片
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(theme)"))
-    }
+//        Tool.addBackground(self.view, named: "setting_bk\(theme)")
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "setting_bk\(theme)")!)
 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        
     }
     
     // MARK: - Navigation
@@ -113,8 +119,19 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
             _ = segue.destinationViewController as! ThemePageViewController
             
         }
-
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
 
+        // 设定背景图片
+        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "setting_bk\(theme)")!)
+
+
+    }
 }

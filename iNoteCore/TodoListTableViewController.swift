@@ -85,10 +85,9 @@ class TodoListTableViewController: UITableViewController {
 
         noteNaviItem.title = NSLocalizedString("TITLE", comment: "日记标题")
         
-        // 设置背景主题
-        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(theme)"))
-
+        // 设定背景主题
+//        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+//        Tool.addBackground(self.view, named: "main_bk\(theme)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,7 +96,6 @@ class TodoListTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -194,7 +192,7 @@ class TodoListTableViewController: UITableViewController {
     }
    
     override func viewWillAppear(animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewWillAppear(animated)
         self.clear()
         self.refresh()
 

@@ -123,11 +123,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.scrollEnabled = true
         detailTextView.selectedRange = NSMakeRange(0, 0)
         
-        // 设置背景主题
+        // 设定背景主题
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-        self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "note_bk\(theme)"))
-        
-        
+        Tool.addBackground(self.view, named: "note_bk\(theme)")
         
         noteUpdateTime.text = Tool.formatDt1(noteTime)
         

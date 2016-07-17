@@ -76,8 +76,9 @@ class PageItemController: UIViewController {
         }
         else
         {
-            let  themeID = (imageName as NSString).substringWithRange(NSMakeRange(7, 1))
+            let themeID = (imageName as NSString).substringWithRange(NSMakeRange(7, 1))
             NSUserDefaults.standardUserDefaults().setInteger(Int(themeID)! , forKey: "theme")
+            
         }
     }
 

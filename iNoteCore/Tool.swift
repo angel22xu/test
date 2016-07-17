@@ -6,6 +6,7 @@
 //  Copyright © 2016年 xuxiaomin. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class Tool: NSObject {
@@ -113,5 +114,23 @@ class Tool: NSObject {
         let convertedDate = formatter.stringFromDate(date!)
         return convertedDate
         
+    }
+    
+    // 设置背景
+    static func addBackground(view: UIView, named: String) {
+        
+        // screen width and height:
+        let width = UIScreen.mainScreen().bounds.size.width
+        let height = UIScreen.mainScreen().bounds.size.height
+        
+        // 设置背景主题
+        let imageViewBackground = UIImageView(frame: CGRectMake(0, 0, width, height))
+        imageViewBackground.image = UIImage(named: named)
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIViewContentMode.ScaleAspectFill
+        
+        view.addSubview(imageViewBackground)
+        view.sendSubviewToBack(imageViewBackground)
     }
 }
