@@ -11,7 +11,7 @@
         <!--Note-->
         <scene sceneID="vUr-BH-Pzf">
             <objects>
-                <tableViewController id="Oaf-sQ-hcK" customClass="TodoListTableViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="noteStoryBoard" id="Oaf-sQ-hcK" customClass="TodoListTableViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rjo-j5-kNA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,10 +74,10 @@
             </objects>
             <point key="canvasLocation" x="-388.125" y="-521.83098591549287"/>
         </scene>
-        <!--Page View Controller-->
+        <!--Theme Page View Controller-->
         <scene sceneID="Uwj-eF-I1P">
             <objects>
-                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Mmw-oq-FHS" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Mmw-oq-FHS" customClass="ThemePageViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9fm-fn-sXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1174.5" y="-929.25"/>
@@ -91,6 +91,7 @@
                         <viewControllerLayoutGuide type="bottom" id="DmL-yO-ILk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cCn-qe-J1r">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UkQ-Ro-dQU">
@@ -125,12 +126,12 @@
                                 <exclude reference="UkQ-Ro-dQU"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="IyD-Sx-FcV"/>
                                 <exclude reference="fbH-oy-ELX"/>
                                 <exclude reference="gHf-uq-IhP"/>
                                 <exclude reference="iHb-we-r9g"/>
                                 <exclude reference="mPw-GW-24b"/>
                                 <exclude reference="whU-xv-2mN"/>
-                                <exclude reference="IyD-Sx-FcV"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -138,12 +139,12 @@
                                 <include reference="UkQ-Ro-dQU"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="IyD-Sx-FcV"/>
                                 <exclude reference="fbH-oy-ELX"/>
                                 <include reference="gHf-uq-IhP"/>
                                 <include reference="iHb-we-r9g"/>
                                 <include reference="mPw-GW-24b"/>
                                 <include reference="whU-xv-2mN"/>
-                                <include reference="IyD-Sx-FcV"/>
                             </mask>
                         </variation>
                     </view>
@@ -155,7 +156,7 @@
             </objects>
             <point key="canvasLocation" x="1843.5" y="-929.25"/>
         </scene>
-        <!--Setting View Controller-->
+        <!--Setting-->
         <scene sceneID="AV3-t3-kHg">
             <objects>
                 <viewController storyboardIdentifier="settingStoryBoard" id="CJe-vm-Tjn" customClass="SettingViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
@@ -200,6 +201,7 @@
                                 <state key="normal" title="theme"/>
                                 <connections>
                                     <action selector="changeTheme:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="GOg-q0-wnn"/>
+                                    <segue destination="Mmw-oq-FHS" kind="show" identifier="themeSegue" id="4cC-Lh-bm6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -301,13 +303,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Lu4-sc-TGn"/>
+                    <navigationItem key="navigationItem" title="Setting" id="Lu4-sc-TGn"/>
                     <connections>
                         <outlet property="btnHelp" destination="mTr-An-vip" id="0eX-h5-CFH"/>
                         <outlet property="btnMailto" destination="bgq-ke-Btz" id="EjB-0s-v7N"/>
                         <outlet property="btnReview" destination="90c-fR-jOV" id="78D-cK-dHh"/>
                         <outlet property="btnShare" destination="ceU-CC-Xyh" id="WBf-OE-aSQ"/>
                         <outlet property="btnTheme" destination="Eka-eh-MW6" id="JNq-jn-cEK"/>
+                        <outlet property="settingNavi" destination="Lu4-sc-TGn" id="u91-Wp-umO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdQ-tB-cqT" userLabel="First Responder" sceneMemberID="firstResponder"/>

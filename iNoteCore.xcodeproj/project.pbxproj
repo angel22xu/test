@@ -24,6 +24,7 @@
 		9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */; };
 		9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5881CE70650008030E4 /* NoteViewController.swift */; };
 		9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */; };
+		9F9CC9261D3B8D4F008C400B /* ThemePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */; };
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
@@ -72,6 +73,7 @@
 		9F7CB5881CE70650008030E4 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite-bridging-Header.h"; path = "../sqlite-bridging-Header.h"; sourceTree = "<group>"; };
+		9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePageViewController.swift; sourceTree = "<group>"; };
 		9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTextAttachment.swift; sourceTree = "<group>"; };
 		9FE886031D27854C00B10091 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */,
 				9FE886071D27B26000B10091 /* Constant.swift */,
 				9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */,
+				9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				9FE886081D27B26000B10091 /* Constant.swift in Sources */,
 				9F142DC41CE816BD00470E7C /* Title.swift in Sources */,
 				9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */,
+				9F9CC9261D3B8D4F008C400B /* ThemePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

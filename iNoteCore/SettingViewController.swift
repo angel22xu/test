@@ -9,130 +9,20 @@
 import UIKit
 import MessageUI
 
-class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+//class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    
+    @IBOutlet weak var settingNavi: UINavigationItem!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnMailto: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var btnReview: UIButton!
     @IBOutlet weak var btnTheme: UIButton!
     
-    var currentPage:Int = 0
-    var viewControllers = NSMutableArray()
-    
-    // MARK: - Variables
-    private var pageViewController: UIPageViewController?
-    
-    // Initialize it right away here
-    private let contentImages = ["main_bk1",
-                                 "main_bk2",
-                                 "main_bk3",
-                                 "main_bk4",
-                                 "main_bk5",]
-
     @IBAction func changeTheme(sender: AnyObject) {
-        createPageViewController()
-        setupPageControl()
-        
+        print ("changeTheme")
     }
-    
-    private func createPageViewController() {
-        
-        let pageController = self.storyboard!.instantiateViewControllerWithIdentifier("PageController") as! UIPageViewController
-        pageController.dataSource = self
-        
-        if contentImages.count > 0 {
-            let firstController = getItemController(0)!
-            let startingViewControllers = [firstController]
-            
-            // 主题更换页面不显示默认的返回按钮
-            self.navigationItem.setHidesBackButton(true, animated: false)
-            
-            pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-        }
-        
-        pageViewController = pageController
-        addChildViewController(pageViewController!)
-        self.view.addSubview(pageViewController!.view)
-        pageViewController!.didMoveToParentViewController(self)
-    }
-    
-    private func setupPageControl() {
-        let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor.grayColor()
-        appearance.currentPageIndicatorTintColor = UIColor.whiteColor()
-        appearance.backgroundColor = UIColor.darkGrayColor()
-    }
-    
-    // MARK: - UIPageViewControllerDataSource
-    
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        
-        let itemController = viewController as! PageItemController
-        
-        if itemController.itemIndex > 0 {
-            return getItemController(itemController.itemIndex-1)
-        }
-        
-        return nil
-    }
-    
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        
-        let itemController = viewController as! PageItemController
-        
-        if itemController.itemIndex+1 < contentImages.count {
-            return getItemController(itemController.itemIndex+1)
-        }
-        
-        return nil
-    }
-    
-    private func getItemController(itemIndex: Int) -> PageItemController? {
-        
-        if itemIndex < contentImages.count {
-            let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as! PageItemController
-            pageItemController.itemIndex = itemIndex
-            pageItemController.imageName = contentImages[itemIndex]
-            return pageItemController
-        }
-        
-        return nil
-    }
-    
-    // MARK: - Page Indicator
-    
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return contentImages.count
-    }
-    
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
-    }
-    
-    // MARK: - Additions
-    
-    func currentControllerIndex() -> Int {
-        
-        let pageItemController = self.currentController()
-        
-        if let controller = pageItemController as? PageItemController {
-            return controller.itemIndex
-        }
-        
-        return -1
-    }
-    
-    func currentController() -> UIViewController? {
-        
-        if self.pageViewController?.viewControllers?.count > 0 {
-            return self.pageViewController?.viewControllers![0]
-        }
-        
-        return nil
-    }
-    
-
     
     
     @IBAction func help(sender: AnyObject) {
@@ -181,15 +71,15 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-   
+        
+        // 主题更换页面显示默认的返回按钮
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        settingNavi.title = NSLocalizedString("SETTING_TITLE", comment: "设定标题")
         btnShare.setTitle(NSLocalizedString("SHARE", comment: "分享"), forState: UIControlState.Normal)
         btnMailto.setTitle(NSLocalizedString("MAILTO", comment: "联系开发者"), forState: UIControlState.Normal)
         btnHelp.setTitle(NSLocalizedString("HELP", comment: "帮助"), forState: UIControlState.Normal)
         btnTheme.setTitle(NSLocalizedString("THEME", comment: "主题"), forState: UIControlState.Normal)
         btnReview.setTitle(NSLocalizedString("REVIEW", comment: "评分"), forState: UIControlState.Normal)
-        
         
         btnShare.backgroundColor = UIColor.whiteColor()
         btnShare.layer.cornerRadius = 5
@@ -206,17 +96,9 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         btnReview.backgroundColor = UIColor.whiteColor()
         btnReview.layer.cornerRadius = 5
 
-        
-        //x, y, width, height
-//        btnShare.frame=CGRectMake(10, 150, 500, 30)
-        
-        
         // 设置背景主题
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
         self.view.backgroundColor = UIColor(patternImage: UIImage(imageLiteral: "setting_bk\(theme)"))
-
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -224,15 +106,15 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if(segue.identifier == "themeSegue"){
+            print("identifier1:  \(segue.identifier)")
+            _ = segue.destinationViewController as! ThemePageViewController
+            
+        }
+
     }
-    */
+    
 
 }

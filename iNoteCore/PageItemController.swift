@@ -65,9 +65,9 @@ class PageItemController: UIViewController {
     
     // 向上向下滑动事件
     func swipe(recognizer:UISwipeGestureRecognizer){
-        let sb = UIStoryboard(name: "Storyboard", bundle:nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("settingStoryBoard") as! SettingViewController
-        self.presentViewController(vc, animated:true, completion:nil)
+//        let sb = UIStoryboard(name: "Storyboard", bundle:nil)
+//        let vc = sb.instantiateViewControllerWithIdentifier("settingStoryBoard") as! SettingViewController
+//        self.presentViewController(vc, animated:true, completion:nil)
 
     }
     

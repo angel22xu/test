@@ -10,6 +10,8 @@
 "HELP" = "ヘルプ";
 "REVIEW" = "レビューをする";
 "THEME" = "テーマを変更";
+"SETTING_TITLE" = "設定";
+
 
 "SETTING" = "設定";
 "NEW" = "新規";
