@@ -63,20 +63,43 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     
     // 分享应用给好用
     @IBAction func shareToFriend(sender: AnyObject) {
-        let alertController:UIAlertController=UIAlertController(title: "\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
- 
         
-        let imageViewBackground = UIImageView(frame: CGRectMake(0, 20, 50, 50))
-
-        imageViewBackground.image = UIImage(named: "mail")
-        imageViewBackground.userInteractionEnabled = true
-        imageViewBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(SettingViewController.mailTapped(_:))))
-
-        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel,handler:nil))
+        // 共有する項目
+        let shareText = "Apple - Apple Watch"
+        let shareWebsite = NSURL(string: "https://www.apple.com/jp/watch/")!
+        let shareImage = UIImage(named: "pen.png")!
         
-        alertController.view.addSubview(imageViewBackground)
+        let activityItems = [shareText, shareWebsite, shareImage]
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        // 初期化処理
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        
+        // 使用しないアクティビティタイプ
+        let excludedActivityTypes = [
+            UIActivityTypePostToWeibo,
+            UIActivityTypeSaveToCameraRoll,
+            UIActivityTypePrint
+        ]
+        
+        activityVC.excludedActivityTypes = excludedActivityTypes
+        
+        // UIActivityViewControllerを表示
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        
+//        let alertController:UIAlertController=UIAlertController(title: "\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+// 
+//        
+//        let imageViewBackground = UIImageView(frame: CGRectMake(0, 20, 50, 50))
+//
+//        imageViewBackground.image = UIImage(named: "mail")
+//        imageViewBackground.userInteractionEnabled = true
+//        imageViewBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(SettingViewController.mailTapped(_:))))
+//
+//        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel,handler:nil))
+//        
+//        alertController.view.addSubview(imageViewBackground)
+//        
+//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     // 通过发邮件分享给好友
