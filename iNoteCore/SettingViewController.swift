@@ -61,11 +61,40 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // 分享应用给好用
     @IBAction func shareToFriend(sender: AnyObject) {
-        print("shareToFriend")
+        let alertController:UIAlertController=UIAlertController(title: "\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+ 
+        
+        let imageViewBackground = UIImageView(frame: CGRectMake(0, 20, 50, 50))
+
+        imageViewBackground.image = UIImage(named: "mail")
+        imageViewBackground.userInteractionEnabled = true
+        imageViewBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(SettingViewController.mailTapped(_:))))
+
+        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel,handler:nil))
+        
+        alertController.view.addSubview(imageViewBackground)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
+    // 通过发邮件分享给好友
+    func mailTapped(sender:UITapGestureRecognizer){
+        let body = NSLocalizedString("INVITE_BODY", comment: "邮件内容")
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setSubject(NSLocalizedString("INVITE_SUBJECT", comment: "邮件标题"))
+        mailComposerVC.setMessageBody(body as String, isHTML: false)
+        
+        // A view controller can only present one other view controller at a time
+        if self.presentedViewController != nil{
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        self.presentViewController(mailComposerVC, animated: true, completion: nil)
 
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

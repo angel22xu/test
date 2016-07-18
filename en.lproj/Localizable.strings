@@ -34,4 +34,7 @@
 "THEME_ALERT_CANCEL" = "Cancel";
 "THEME_ALERT_OK" = "OK";
 
+"INVITE_BODY" = "I want to download it.\nClick the following link .\nhttps://itunes.apple.com/app/id980864870";
+"INVITE_SUBJECT" = "Download the iNote, come on!";
+
 

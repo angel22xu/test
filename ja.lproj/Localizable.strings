@@ -33,3 +33,6 @@
 "THEME_ALERT_MSG" = "テーマを変更しましょうか?";
 "THEME_ALERT_CANCEL" = "キャンセール";
 "THEME_ALERT_OK" = "確認";
+
+"INVITE_BODY" = "マイノートは良いツールですので、ダウンロードしましょう!\n以下のリンクを押すとダウンロードできす！\nhttps://itunes.apple.com/app/id980864870";
+"INVITE_SUBJECT" = "マイノートを利用しましょう!";

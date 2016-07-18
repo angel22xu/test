@@ -32,3 +32,6 @@
 "THEME_ALERT_MSG" = "确定要更换吗?";
 "THEME_ALERT_CANCEL" = "取消";
 "THEME_ALERT_OK" = "确定";
+
+"INVITE_BODY" = "超级笔记很好用哦!一块使用吧!\n点击下面的链接可以下载。\nhttps://itunes.apple.com/app/id980864870";
+"INVITE_SUBJECT" = "来下载超级笔记吧!";
