@@ -72,24 +72,25 @@ class TodoListTableViewController: UITableViewController {
         SQLiteManager.sharedManager.openDB()
 
 
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.refresh()
+//            return
+//        })
         
-//        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: <#T##String#>)
-//            .setStrin("1", forKey: "theme")
+        refresh()
         
         // 刷新主界面
-        refresh()
-        self.tableView.rowHeight = 66
-
-        itemSetting.title = NSLocalizedString("SETTING", comment: "设定")
-        itemNew.title = NSLocalizedString("NEW", comment: "写日记")
-
-        noteNaviItem.title = NSLocalizedString("TITLE", comment: "日记标题")
-        
-        // 设定背景主题
-//        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-//        Tool.addBackground(self.view, named: "main_bk\(theme)")
+        initPage()
     }
 
+    // 初始化界面
+    private func initPage(){
+        self.tableView.rowHeight = 66
+        itemSetting.title = NSLocalizedString("SETTING", comment: "设定")
+        itemNew.title = NSLocalizedString("NEW", comment: "写日记")
+        noteNaviItem.title = NSLocalizedString("TITLE", comment: "日记标题")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -179,7 +180,6 @@ class TodoListTableViewController: UITableViewController {
             let t = todoItems[path!.row] as! Title
             
             destinationController.vigSegue = String(t.noteID)
-//            destinationController.noteUpdateTime.text! = "2016年12月03日 16:38"
             destinationController.noteTime = t.dt!
 
             

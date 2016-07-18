@@ -63,20 +63,25 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let path = NSBundle.mainBundle().pathForResource("bk", ofType: "jpeg")
-        print("path:\(path)")
-
+        noteUpdateTime.text = Tool.formatDt1(noteTime)
+        
+        //初始化编辑框
         initTextView()
     
-        // 键盘上追加一个完成Done按钮
-        initToolBar()
-     
         //设置格式
         resetTextStyle()
-        
+
         finishBtn.title = NSLocalizedString("SAVE", comment: "保存")
         photeBtn.title = NSLocalizedString("PHOTE", comment: "拍照")
+        
+        // 键盘上追加一个完成Done按钮
+        initToolBar()
 
+        // 添加监听事件
+        let centerDefault = NSNotificationCenter.defaultCenter()
+        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+        
     }
     
     // 键盘上追加一个完成Done按钮
@@ -103,8 +108,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
 
     
-    
-    
     func initTextView(){
         gString  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
         var arrayM = [Content]()
@@ -124,15 +127,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.selectedRange = NSMakeRange(0, 0)
         
         // 设定背景主题
-        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-        Tool.addBackground(self.view, named: "note_bk\(theme)")
-        
-        noteUpdateTime.text = Tool.formatDt1(noteTime)
-        
-        // 添加监听事件
-        let centerDefault = NSNotificationCenter.defaultCenter()
-        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-        centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+//        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
+//        Tool.addBackground(self.view, named: "note_bk\(theme)")
+
     }
     
     
@@ -554,15 +551,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         //设置字体大小
         detailTextView.textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: wholeRange)
-        
-        //设置背景颜色
-//        detailTextView.backgroundColor = UIColor.grayColor()
-        
-//        detailTextView.translatesAutoresizingMaskIntoConstraints = false
-        
-        /// top, left, bottom, right
-//        detailTextView.contentInset = UIEdgeInsetsMake(-5.0, 0, -5.0, 50.0)
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -582,18 +570,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func textViewDidChange(textView: UITextView) {
-        
-        
-//        var  cursorPosition: CGFloat;
-
-//        if ((detailTextView.selectedTextRange) != nil) {
-////            cursorPosition = detaicaretRectForPosition:textView.selectedTextRange.start].origin.y;
-//            cursorPosition = detailTextView.caretRectForPosition(detailTextView.selectedTextRange!.start).origin.y
-//        } else {
-//            cursorPosition = 0;
-//        }
-        
-//        print("cursorPosition: \(cursorPosition)")
         
     }
     
