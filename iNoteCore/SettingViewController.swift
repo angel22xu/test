@@ -18,11 +18,15 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var btnReview: UIButton!
     @IBOutlet weak var btnTheme: UIButton!
     
+    @IBOutlet weak var btnAboutUs: UIButton!
     @IBAction func changeTheme(sender: AnyObject) {
         print ("changeTheme")
     }
     
     
+    @IBAction func aboutUs(sender: AnyObject) {
+        print("about us")
+    }
     @IBAction func help(sender: AnyObject) {
         print("help")
     }
@@ -134,6 +138,8 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         btnHelp.setTitle(NSLocalizedString("HELP", comment: "帮助"), forState: UIControlState.Normal)
         btnTheme.setTitle(NSLocalizedString("THEME", comment: "主题"), forState: UIControlState.Normal)
         btnReview.setTitle(NSLocalizedString("REVIEW", comment: "评分"), forState: UIControlState.Normal)
+        btnAboutUs.setTitle(NSLocalizedString("ABOUTUS", comment: "关于我们"), forState: UIControlState.Normal)
+
         
         btnShare.backgroundColor = UIColor.whiteColor()
         btnShare.layer.cornerRadius = 5
@@ -149,7 +155,10 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         
         btnReview.backgroundColor = UIColor.whiteColor()
         btnReview.layer.cornerRadius = 5
-        
+
+        btnAboutUs.backgroundColor = UIColor.whiteColor()
+        btnAboutUs.layer.cornerRadius = 5
+
         // 设定背景图片
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
 //        Tool.addBackground(self.view, named: "setting_bk\(theme)")
