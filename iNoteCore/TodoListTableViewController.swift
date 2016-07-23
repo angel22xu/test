@@ -173,8 +173,6 @@ class TodoListTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if(segue.identifier == "noteSegue"){
-            print("identifier1:  \(segue.identifier)")
-
             let destinationController = segue.destinationViewController as! NoteViewController
             let path = self.tableView.indexPathForSelectedRow
             let t = todoItems[path!.row] as! Title
@@ -184,8 +182,6 @@ class TodoListTableViewController: UITableViewController {
 
             
         }else if(segue.identifier == "settingSegue"){
-            print("identifier2:  \(segue.identifier)")
-
             _ = segue.destinationViewController as! SettingViewController
 
         }

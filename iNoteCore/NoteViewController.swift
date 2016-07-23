@@ -63,6 +63,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        detailTextView.setContentOffset(CGPointZero, animated: false)
+//        self.automaticallyAdjustsScrollViewInsets = false
+
+        
         noteUpdateTime.text = Tool.formatDt1(noteTime)
         
         //初始化编辑框
@@ -123,13 +127,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
         
-        detailTextView.scrollEnabled = true
-        detailTextView.selectedRange = NSMakeRange(0, 0)
-        
-        // 设定背景主题
-//        let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-//        Tool.addBackground(self.view, named: "note_bk\(theme)")
-
+//        detailTextView.scrollEnabled = true
+//        detailTextView.selectedRange = NSMakeRange(0, 0)
+ 
+//        detailTextView.setContentOffset(CGPointZero, animated: false)
+//        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     
@@ -140,55 +142,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    func keyBoardWillShow(note:NSNotification) {
-        
-        let userInfo  = note.userInfo
-        let keyBoardBounds = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let deltaY = keyBoardBounds.size.height
-        let animations:(() -> Void) = {
-            
-            self.detailTextView.transform = CGAffineTransformMakeTranslation(0,-deltaY)
-        }
-        
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
-            
-            UIView.animateWithDuration(duration, delay: 0, options:options, animations: animations, completion: nil)
-            
-        }else {
-            
-            animations()
-        }
-        
-    }
-    
-    
-    func keyBoardWillHide1(note:NSNotification) {
-        
-        let userInfo  = note.userInfo
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        
-        let animations:(() -> Void) = {
-            
-            self.detailTextView.transform = CGAffineTransformIdentity
-            
-        }
-        
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
-            
-            UIView.animateWithDuration(duration, delay: 0, options:options, animations: animations, completion: nil)
-            
-        }else{
-            
-            animations()
-        }
-        
-    }
-    
     
     // 监听键盘显示事件
     func keyboardWillShow(aNotification: NSNotification){
@@ -201,22 +154,18 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
         let keyboardRec = nsValue?.CGRectValue()
         let height = keyboardRec?.size.height
+       
         print("keybord height:\(height)")
-//        print("self.view.frame height:\(self.view.frame.origin.y)")
-//        print("self.detailTextView.selectedRange.location:\(self.detailTextView.selectedRange.location)")
-//        print("self.detailTextView.selectedRange.length:\(self.detailTextView.selectedRange.length)")
-
-//        print("self.detailTextView.selectedRange.start:\(self.detailTextView.selectedTextRange?.start)")
-
-
-        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
-        print("y:\(cursorY)")
 
         
-        print("size: \(detailTextView.textStorage.size().height)")
+        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
+        print("keyboardWillShow y:\(cursorY)")
+        
+        let options = UIViewAnimationOptions(rawValue: UInt((userinfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
+
         
         self.keyHeight = height!
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.1, options:options, animations: {
             if(cursorY > self.keyHeight - 70){
                 var frame = self.view.frame
                 frame.origin.y = -self.keyHeight
@@ -241,16 +190,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }, completion: nil)
     }
 
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
     //拍视频
     @IBAction func takeVideo(sender: AnyObject) {
     }
@@ -264,11 +203,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         detailTextView.resignFirstResponder()
         var sheet: UIActionSheet
         
-//        "SAVE" = "Save"
-//        "PHOTE" = "Phote"
-//        "FROM_ALBUM" = "From album"
-//        "TAKE_PHOTE" = "Take phote"
-        
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             sheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: NSLocalizedString("CANCEL", comment: "取消"), destructiveButtonTitle: nil,otherButtonTitles: NSLocalizedString("FROM_ALBUM", comment: "从相册选择"), NSLocalizedString("TAKE_PHOTE", comment: "拍照"))
         }else{
@@ -280,7 +214,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         var sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
-        print("buttonIndex:\(buttonIndex)")
         // 创建图片控制器
         let picker = UIImagePickerController()
 
@@ -294,7 +227,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }else{   // 视频
                 sourceType = UIImagePickerControllerSourceType.Camera
                 picker.mediaTypes = [kUTTypeMovie as String]
-//                picker.showsCameraControls = true
             }
             // 设置代理
             picker.delegate = self
@@ -344,18 +276,16 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
             // 判断，图片是否允许修改
             if (picker.allowsEditing){
-                print("裁剪后图片")
                 //裁剪后图片
                 image = info[UIImagePickerControllerEditedImage] as! UIImage
             }else{
-                print("原始图片")
                 //原始图片
                 image = info[UIImagePickerControllerOriginalImage] as! UIImage
             }
             
             
             // 设图片标志（这里设置图片标志，主要是为了：表情转换字符串时 操作更简单）
-            gTextAttachment.mediaTag = "![" + imageName + "]"
+            gTextAttachment.mediaTag = "![" + imageName + "]\n"
             
             // 设置图片
             gTextAttachment.image = scaleImage(image)
@@ -363,7 +293,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let selectedRange = detailTextView.selectedRange
             
             detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
-
+            
+            print("imagePickerController 插入换行符")
+            
             detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
             
             // 重置格式
@@ -373,7 +305,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             // 计算新的光标位置，并恢复光标的位置
             let newSelectedRange = NSMakeRange(selectedRange.location+1, 0)
             detailTextView.selectedRange = newSelectedRange
-        
+            
             
             //  TODO 跟画质有没有关系保存图片
             self.saveImage(image, newSize: CGSize(width: image.size.width, height: image.size.height), percent: 1, imageName: imageName)
@@ -429,8 +361,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // 解析内容，是图片的话显示图片
     func analysis_adv(content: String){
-        print("analysis_adv: \(content)")
-        
+        print("analysis_adv content : \(content)")
         // 存储内容的字符
         var mojiStr = String()
         var imageNameStr = String()
@@ -478,7 +409,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     rangeStr = getSubstring(content, iStart: index + 2, iEnd: index + 22)
 
                     imageNameStr = rangeStr
-                    print ("there is a picture imageNameStr: \(imageNameStr)")
+//                    print ("there is a picture imageNameStr: \(imageNameStr)")
 
                     // 页面上显示图片
                     fullPath = documentPath.stringByAppendingPathComponent(imageNameStr)
@@ -559,6 +490,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // 打开UITextView，默认显示最顶部（只有文字的时候没有问题，有图片的时候不好使）
+        self.detailTextView.setContentOffset(CGPoint(x: 0, y: -100), animated: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -573,7 +507,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-    
+    func textViewDidChangeSelection(textView: UITextView){
+        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
+//        print("textViewDidChangeSelection y:\(cursorY)")
+    }
 
     
     

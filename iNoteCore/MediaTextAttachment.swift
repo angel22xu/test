@@ -42,6 +42,8 @@ extension NSAttributedString {
                 if value is MediaTextAttachment{
                     let makeRange = NSMakeRange(range.location+base, range.length)
                     let  media = value as! MediaTextAttachment
+                    
+                    print("getPlainString media.mediaTag : \(media.mediaTag)")
                     plainString.replaceCharactersInRange(makeRange, withString: media.mediaTag as! String)
                     base = base + (media.mediaTag?.length)!-1
                 }
