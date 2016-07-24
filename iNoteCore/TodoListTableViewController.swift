@@ -19,10 +19,14 @@ class TodoListTableViewController: UITableViewController {
 
     @IBAction func insertNewItem(sender: AnyObject) {
     
-        let dt: String = Tool.getCurrentDateStr()
+        let dt = Tool.getCurrentDateStr()
         
-        var noteID: Int = Int(arc4random()) % 1000000
-        noteID = noteID + Int(dt)!
+        var noteID: Int = Int(arc4random() % 1000000)
+        
+        if(Int(dt) != nil){
+            noteID = noteID + Int(dt)!
+        }
+        
         let t = Title(dict: ["noteID": noteID, "title": "", "dt": dt ])
         
         if t.insertTtile() {

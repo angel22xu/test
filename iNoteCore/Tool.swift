@@ -17,7 +17,6 @@ class Tool: NSObject {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyyMMddHHmmss"
         let dateString = formatter.stringFromDate(nowDate)
-        print(dateString)
         return dateString
     }
     
