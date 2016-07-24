@@ -67,6 +67,9 @@ class TodoListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 为了多显示一会launch image，主页面延长3秒
+        NSThread.sleepForTimeInterval(1.0)
         SQLiteManager.sharedManager.openDB()
 
 //        itemSetting.setBackgroundImage(UIImage(named: "setting")?.resizableImageWithCapInsets(UIEdgeInsetsMake(0, 0, 0, 0)), forState: UIControlState.Normal, barMetrics:UIBarMetrics.Default)
