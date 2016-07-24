@@ -38,7 +38,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let weather: String = "sunshine"
         
-        let ct = Content(dict: ["noteID": vigSegue, "content": content, "weather": weather ])
+        let ct = Content(dict: ["noteID": Int(vigSegue)!, "content": content, "weather": weather ])
         ct.updateContent()
         
         // 获取第一行文字，作为标题保存在 indexConfig表里
@@ -50,7 +50,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             title = (title as NSString).substringToIndex(15) +  "・・・"
         }
         
-        let t = Title(dict: ["noteID": vigSegue, "title": title, "dt": dt ])
+        let t = Title(dict: ["noteID": Int(vigSegue)!, "title": title, "dt": dt ])
         t.updateTitle()
         
         // 收起输入键盘

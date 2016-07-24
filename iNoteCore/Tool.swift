@@ -21,6 +21,15 @@ class Tool: NSObject {
     }
     
     
+    //获取当前日期时间
+    static func getCurrentHH()->String{
+        let nowDate = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyyMMddHH"
+        let dateString = formatter.stringFromDate(nowDate)
+        return dateString
+    }
+    
     //字符串转换日期时间
     static func getCurrentDate(dateString1: String) -> NSDate {
         let formatter1 = NSDateFormatter()
