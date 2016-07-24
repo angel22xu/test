@@ -65,23 +65,36 @@ class TodoListTableViewController: UITableViewController {
     }
 
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         SQLiteManager.sharedManager.openDB()
 
+//        itemSetting.setBackgroundImage(UIImage(named: "setting")?.resizableImageWithCapInsets(UIEdgeInsetsMake(0, 0, 0, 0)), forState: UIControlState.Normal, barMetrics:UIBarMetrics.Default)
+//        itemSetting.width = 50
 
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.refresh()
-//            return
-//        })
+        
+        // 导航栏设置颜色
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
+//        self.navigationController?.navigationBar.barTintColor = UIColor.purpleColor()
+        
+//        let leftItem = UIBarButtonItem()
+//        let settingBtn = UIButton()
+//        settingBtn.setImage(UIImage(named: "setting"), forState: UIControlState.Normal)
+//        settingBtn.frame = CGRectMake(0, 0, 40, 40)
+//        settingBtn.addTarget(self, action: #selector(TodoListTableViewController.settingAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        leftItem.customView = settingBtn
+//        self.navigationItem.leftBarButtonItems = [leftItem]
         
         refresh()
         
         // 刷新主界面
         initPage()
     }
+    
+//    func settingAction(sender: UIBarButtonItem){
+//        
+//    }
+    
 
     // 初始化界面
     private func initPage(){
