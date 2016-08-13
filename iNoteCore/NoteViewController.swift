@@ -31,6 +31,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var keyHeight = CGFloat()
     
     var cursorY: CGFloat = 0
+    var cursorR: CGFloat = 0
     
     @IBAction func saveContent(sender: AnyObject) {
         
@@ -477,13 +478,21 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.keyHeight = height!
         
+        self.cursorR = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
+
+        
         // 延迟执行， 这里不延迟执行的话，每次获取到的光标位置是上一次的位置
         let time: NSTimeInterval = 0.1
         let delay = dispatch_time(DISPATCH_TIME_NOW,
                                   Int64(time * Double(NSEC_PER_SEC)))
         dispatch_after(delay, dispatch_get_main_queue()) {
             UIView.animateWithDuration(0.5, delay: 0.1, options:options, animations: {
-//                print("keyboardWillShow y:\(self.cursorY)")
+//                print("keyboardWillShow y1:\(self.cursorY)")
+                if(self.cursorY == 0){
+                    self.cursorY = self.cursorR
+                }
+//                print("keyboardWillShow y2:\(self.cursorY)")
+
                 if(self.cursorY > self.keyHeight - 70){
                     var frame = self.view.frame
                     frame.origin.y = -self.keyHeight
@@ -506,6 +515,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 点击UITextView的时候，获取当前航坐在的坐标位置
         textView.scrollRangeToVisible(textView.selectedRange)
         self.cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
+//        print("textViewDidChangeSelection:\(self.cursorY)")
+
     }
 
     func textViewDidChange(textView: UITextView){
