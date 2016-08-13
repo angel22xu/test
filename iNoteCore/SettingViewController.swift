@@ -33,8 +33,9 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
 
     //商店评分
     @IBAction func review(sender: AnyObject) {
-        let url : NSURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=980864870&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!
-
+//        let url : NSURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=980864870&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!
+        let url: NSURL = NSURL(string: "http://app-adforce.jp/ad/p/r?_site=34588&_article=210800&_link=5344483&_image=4920534&adid=&sad=4niwtn726aa")!
+        
         if(UIApplication.sharedApplication().canOpenURL(url)){
             UIApplication.sharedApplication().openURL(url)
         }

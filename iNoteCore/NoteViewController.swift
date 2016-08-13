@@ -30,6 +30,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // 键盘高度
     var keyHeight = CGFloat()
     
+    var cursorY: CGFloat = 0
+    
     @IBAction func saveContent(sender: AnyObject) {
         
         //  TODO    这行代码会有bug，不能直接这样获取文本
@@ -62,16 +64,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        detailTextView.setContentOffset(CGPointZero, animated: false)
-//        self.automaticallyAdjustsScrollViewInsets = false
 
-        
         noteUpdateTime.text = Tool.formatDt1(noteTime)
         
-        //初始化编辑框
-        initTextView()
-    
+        self.initTextView()
+        
         //设置格式
         resetTextStyle()
 
@@ -143,52 +140,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Dispose of any resources that can be recreated.
     }
     
-    // 监听键盘显示事件
-    func keyboardWillShow(aNotification: NSNotification){
-        
-        print("keyboardWillShow")
-        //将通知的用户信息取出,转化为字典类型，里面所存的就是我们所需的信息:键盘动画的时长、时间曲线;键盘的位置、高度信息
-        let userinfo: NSDictionary = aNotification.userInfo!
-        
-        //取出键盘位置信息
-        let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
-        let keyboardRec = nsValue?.CGRectValue()
-        let height = keyboardRec?.size.height
-       
-        print("keybord height:\(height)")
 
-        
-        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
-        print("keyboardWillShow y:\(cursorY)")
-        
-        let options = UIViewAnimationOptions(rawValue: UInt((userinfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
-
-        
-        self.keyHeight = height!
-        UIView.animateWithDuration(0.5, delay: 0.1, options:options, animations: {
-            if(cursorY > self.keyHeight - 70){
-                var frame = self.view.frame
-                frame.origin.y = -self.keyHeight
-                self.view.frame = frame
-            }
-            }, completion: nil)
-    }
-    
-    // 监听键盘隐藏事件
-    func keyboardWillHide(aNotification: NSNotification){
-        
-        print("keyboardWillHide")
-//        let userinfo: NSDictionary = aNotification.userInfo!
-//        let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
-//        let keyboardRec = nsValue?.CGRectValue()
-//        let height = keyboardRec?.size.height
-//        self.keyHeight = height!
-        UIView.animateWithDuration(0.5, animations: {
-            var frame = self.view.frame
-            frame.origin.y = 0
-            self.view.frame = frame
-            }, completion: nil)
-    }
 
     //拍视频
     @IBAction func takeVideo(sender: AnyObject) {
@@ -248,6 +200,10 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
             
             
+//            if self.presentedViewController != nil{
+//                self.dismissViewControllerAnimated(true, completion: nil)
+//            }
+
             //打开相机
             self.presentViewController(picker, animated: true, completion:{()-> Void in })
 
@@ -348,7 +304,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         UIGraphicsEndImageContext()
         //高保真压缩图片质量
         //UIImageJPEGRepresentation此方法可将图片压缩，但是图片质量基本不变，第二个参数即图片质量参数。
-        let imageData: NSData = UIImageJPEGRepresentation(newImage, percent)!
+//        let imageData: NSData = UIImageJPEGRepresentation(newImage, percent)!
+        let imageData: NSData = UIImagePNGRepresentation(newImage)!
         // 获取沙盒目录,这里将图片放在沙盒的documents文件夹中
         
         // 获取沙盒路径
@@ -462,7 +419,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func getSubstring(content: String, iStart: Int, iEnd: Int) -> String{
         let startIndex = content.startIndex.advancedBy(iStart)
         let endIndex = content.startIndex.advancedBy(iEnd)
-        let range = Range<String.Index>(start: startIndex, end: endIndex)
+//        let range = Range<String.Index>(start: startIndex, end: endIndex)
+        let range: Range<String.Index> = startIndex ..< endIndex
         return content.substringWithRange(range)
     }
     
@@ -503,15 +461,58 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidDisappear(animated)
     }
     
-    func textViewDidChange(textView: UITextView) {
+    
+    // 监听键盘显示事件
+    func keyboardWillShow(aNotification: NSNotification){
+        //将通知的用户信息取出,转化为字典类型，里面所存的就是我们所需的信息:键盘动画的时长、时间曲线;键盘的位置、高度信息
+        let userinfo: NSDictionary = aNotification.userInfo!
         
+        //取出键盘高度
+        let nsValue = userinfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
+        let keyboardRec = nsValue?.CGRectValue()
+        let height = keyboardRec?.size.height
+        
+        
+        let options = UIViewAnimationOptions(rawValue: UInt((userinfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).integerValue << 16))
+        
+        self.keyHeight = height!
+        
+        // 延迟执行， 这里不延迟执行的话，每次获取到的光标位置是上一次的位置
+        let time: NSTimeInterval = 0.1
+        let delay = dispatch_time(DISPATCH_TIME_NOW,
+                                  Int64(time * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+            UIView.animateWithDuration(0.5, delay: 0.1, options:options, animations: {
+//                print("keyboardWillShow y:\(self.cursorY)")
+                if(self.cursorY > self.keyHeight - 70){
+                    var frame = self.view.frame
+                    frame.origin.y = -self.keyHeight
+                    self.view.frame = frame
+                }
+                }, completion: nil)
+        }
+    }
+    
+    // 监听键盘隐藏事件
+    func keyboardWillHide(aNotification: NSNotification){
+        UIView.animateWithDuration(0.5, animations: {
+            var frame = self.view.frame
+            frame.origin.y = 0
+            self.view.frame = frame
+            }, completion: nil)
     }
     
     func textViewDidChangeSelection(textView: UITextView){
-        let cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
-//        print("textViewDidChangeSelection y:\(cursorY)")
+        // 点击UITextView的时候，获取当前航坐在的坐标位置
+        textView.scrollRangeToVisible(textView.selectedRange)
+        self.cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
     }
 
+    func textViewDidChange(textView: UITextView){
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+    }
     
     
 }

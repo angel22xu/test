@@ -28,6 +28,7 @@
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
+		9FED29AE1D4C93F000F710A7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9FE886061D27855200B10091 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886071D27B26000B10091 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				9FE886071D27B26000B10091 /* Constant.swift */,
 				9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */,
 				9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */,
+				9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
 				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
 				9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */,
+				9FED29AE1D4C93F000F710A7 /* HelpViewController.swift in Sources */,
 				9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */,
 				9F142DC61CE816CA00470E7C /* Content.swift in Sources */,
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,

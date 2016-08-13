@@ -74,6 +74,24 @@
             </objects>
             <point key="canvasLocation" x="-388.125" y="-521.83098591549287"/>
         </scene>
+        <!--Help View Controller-->
+        <scene sceneID="1YK-1A-77L">
+            <objects>
+                <viewController id="xFM-NE-1pw" customClass="HelpViewController" customModule="iNoteCore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZZw-Pd-m6Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="K6o-Mb-wz4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VqF-78-VR5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iEx-Se-Ckb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1174.5" y="-1590"/>
+        </scene>
         <!--Theme Page View Controller-->
         <scene sceneID="Uwj-eF-I1P">
             <objects>
@@ -187,6 +205,7 @@
                                 <state key="normal" title="help"/>
                                 <connections>
                                     <action selector="help:" destination="CJe-vm-Tjn" eventType="touchUpInside" id="O6W-zL-zHE"/>
+                                    <segue destination="xFM-NE-1pw" kind="show" id="Als-pa-DCB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90c-fR-jOV">
