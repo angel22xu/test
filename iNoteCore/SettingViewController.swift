@@ -19,6 +19,9 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var btnTheme: UIButton!
     
     @IBOutlet weak var btnAboutUs: UIButton!
+    
+    @IBOutlet var imageViwe: UIImageView?
+    
     @IBAction func changeTheme(sender: AnyObject) {
         print ("changeTheme")
     }
@@ -91,20 +94,6 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
         // UIActivityViewControllerを表示
         self.presentViewController(activityVC, animated: true, completion: nil)
         
-//        let alertController:UIAlertController=UIAlertController(title: "\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-// 
-//        
-//        let imageViewBackground = UIImageView(frame: CGRectMake(0, 20, 50, 50))
-//
-//        imageViewBackground.image = UIImage(named: "mail")
-//        imageViewBackground.userInteractionEnabled = true
-//        imageViewBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(SettingViewController.mailTapped(_:))))
-//
-//        alertController.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel,handler:nil))
-//        
-//        alertController.view.addSubview(imageViewBackground)
-//        
-//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     // 通过发邮件分享给好友
@@ -162,9 +151,10 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
 
         // 设定背景图片
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-//        Tool.addBackground(self.view, named: "setting_bk\(theme)")
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "setting_bk\(theme)")!)
-
+        imageViwe = UIImageView(frame: CGRect(origin: CGPointZero, size: self.view.frame.size))
+        imageViwe!.image = UIImage(named:  "setting_bk\(theme)")
+        self.view.addSubview(imageViwe!)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -192,8 +182,7 @@ class SettingViewController: UIViewController, MFMailComposeViewControllerDelega
 
         // 设定背景图片
         let theme: Int = NSUserDefaults.standardUserDefaults().valueForKey("theme") as! Int
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "setting_bk\(theme)")!)
-
+        imageViwe!.image = UIImage(named:  "setting_bk\(theme)")
 
     }
 }
