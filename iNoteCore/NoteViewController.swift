@@ -125,7 +125,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
         
-//        detailTextView.scrollEnabled = true
+        detailTextView.scrollEnabled = true
 //        detailTextView.selectedRange = NSMakeRange(0, 0)
  
 //        detailTextView.setContentOffset(CGPointZero, animated: false)
@@ -188,7 +188,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             picker.sourceType = sourceType
             
             //允许编辑
-            picker.allowsEditing = true
+            picker.showsCameraControls = true
+
+//            picker.allowsEditing = true
             
             let version = UIDevice.currentDevice().systemVersion
            
@@ -376,14 +378,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     gTextAttachment.mediaTag = "![" + imageNameStr + "]"
                     gTextAttachment.image = scaleImage(UIImage(named:  fullPath)!)
                     
-                    detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: detailTextView.selectedRange.location)
+
+                    self.detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: self.detailTextView.selectedRange.location)
                                         
-                    detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+                    self.detailTextView.selectedRange = NSMakeRange(self.detailTextView.selectedRange.location+1, self.detailTextView.selectedRange.length)
                     
                     showMediaFlag = true
                     index += 23
                     mediaCnt += 1
-                    
                     
                 }
                 else{ // 是文本内容
@@ -406,11 +408,14 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             if (showTextFlag && showMediaFlag) || (showTextFlag && txtCnt > 0) {
                 
-                detailTextView.textStorage.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: detailTextView.selectedRange.location)
-                detailTextView.selectedRange = NSMakeRange(detailTextView.selectedRange.location+1, detailTextView.selectedRange.length)
+                
+                self.detailTextView.textStorage.insertAttributedString(NSAttributedString.init(string: mojiStr), atIndex: self.detailTextView.selectedRange.location)
+                self.detailTextView.selectedRange = NSMakeRange(self.detailTextView.selectedRange.location+1, self.detailTextView.selectedRange.length)
+                
                 mojiStr = ""
                 showTextFlag = false
                 showMediaFlag = false
+                
             }
         }
         
