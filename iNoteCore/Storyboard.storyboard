@@ -434,15 +434,15 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Delete" id="ihO-EM-qCa">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LfB-ed-V7X"/>
                         <barButtonItem title="Photo" id="mLD-DV-jDL">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="OGh-ta-EHT"/>
                         <barButtonItem title="New" id="BUa-Kq-s5i">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
