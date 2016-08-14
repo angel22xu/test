@@ -77,6 +77,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // 键盘上追加一个完成Done按钮
         initToolBar()
+        
+        // 页面底部显示工具条
+        self.navigationController?.toolbarHidden = false
 
         // 添加监听事件
         let centerDefault = NSNotificationCenter.defaultCenter()
@@ -176,6 +179,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 detailTextView.resignFirstResponder()
             }else if(buttonIndex == 2){   //  相机
                 sourceType = UIImagePickerControllerSourceType.Camera
+
             }else{   // 视频
                 sourceType = UIImagePickerControllerSourceType.Camera
                 picker.mediaTypes = [kUTTypeMovie as String]
@@ -186,9 +190,13 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             // 只是来源
             picker.sourceType = sourceType
             
-            //允许编辑
-            picker.showsCameraControls = true
-
+            
+            if(buttonIndex == 1){
+                picker.allowsEditing = true
+            }else if(buttonIndex == 2){
+                picker.showsCameraControls = true
+            }
+            
             let version = UIDevice.currentDevice().systemVersion
            
             if(Float(version) >= 8.0){
