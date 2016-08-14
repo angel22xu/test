@@ -19,12 +19,15 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var gString =  NSMutableAttributedString()
     
-    @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
     
-    @IBOutlet weak var photeBtn: UIBarButtonItem!
     @IBOutlet weak var noteUpdateTime: UILabel!
+    
+    @IBOutlet weak var photo: UIBarButtonItem!
+    @IBOutlet weak var delete: UIBarButtonItem!
+    
+    @IBOutlet weak var new: UIBarButtonItem!
     let size:Float = 64.0
     
     // 键盘高度
@@ -73,14 +76,23 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         resetTextStyle()
 
         finishBtn.title = NSLocalizedString("SAVE", comment: "保存")
-        photeBtn.title = NSLocalizedString("PHOTE", comment: "拍照")
         
         // 键盘上追加一个完成Done按钮
         initToolBar()
         
         // 页面底部显示工具条
         self.navigationController?.toolbarHidden = false
-
+        
+        
+        photo.image = UIImage(named: "photo")
+        photo.style = UIBarButtonItemStyle.Plain
+        photo.target = self
+        photo.action = #selector(NoteViewController.fromPhotograph)
+        
+        
+        delete.image = UIImage(named: "delete")
+        new.image = UIImage(named: "new")
+        
         // 添加监听事件
         let centerDefault = NSNotificationCenter.defaultCenter()
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
@@ -88,16 +100,23 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-    // 键盘上追加一个完成Done按钮
+    // 键盘上追加一个完成Done按钮和拍照功能
     func initToolBar(){
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.Default
         toolBar.translucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        let doneButton = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "完成"), style: UIBarButtonItemStyle.Done, target: self, action: #selector(NoteViewController.donePressed))
+        toolBar.tintColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        
+        let photoButton = UIBarButtonItem(image: UIImage(named: "photo"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NoteViewController.fromPhotograph))
+
+        let doneButton = UIBarButtonItem(image: UIImage(named: "done"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NoteViewController.donePressed))
+
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        
+        toolBar.setItems([cancelButton, spaceButton, spaceButton, spaceButton, photoButton, spaceButton, doneButton], animated: false)
+
         toolBar.userInteractionEnabled = true
         toolBar.sizeToFit()
         
@@ -128,14 +147,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         detailTextView.scrollEnabled = true
-//        detailTextView.selectedRange = NSMakeRange(0, 0)
- 
-//        detailTextView.setContentOffset(CGPointZero, animated: false)
-//        self.automaticallyAdjustsScrollViewInsets = false
     }
-    
-    
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -143,17 +155,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Dispose of any resources that can be recreated.
     }
     
-
-
-    //拍视频
-    @IBAction func takeVideo(sender: AnyObject) {
-    }
-    
     
     /*
      拍照功能
      */
-    @IBAction func fromPhotograph(sender: AnyObject) {
+    func fromPhotograph() {
         
         detailTextView.resignFirstResponder()
         var sheet: UIActionSheet

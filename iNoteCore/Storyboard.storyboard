@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Note-->
@@ -433,26 +432,33 @@
                             </mask>
                         </variation>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Delete" id="ihO-EM-qCa">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LfB-ed-V7X"/>
+                        <barButtonItem title="Photo" id="mLD-DV-jDL">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="OGh-ta-EHT"/>
+                        <barButtonItem title="New" id="BUa-Kq-s5i">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Save" id="J90-Ix-kpm">
-                                <connections>
-                                    <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Photo" width="60" id="WKp-YD-UyH">
-                                <connections>
-                                    <action selector="fromPhotograph:" destination="Lez-pQ-SQw" id="47Z-Or-GYk"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="J90-Ix-kpm">
+                            <connections>
+                                <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="delete" destination="ihO-EM-qCa" id="ald-fH-pVX"/>
                         <outlet property="detailTextView" destination="K2M-hD-Gvm" id="zVg-eE-jSI"/>
                         <outlet property="finishBtn" destination="J90-Ix-kpm" id="qLV-CT-jtv"/>
+                        <outlet property="new" destination="BUa-Kq-s5i" id="Dum-u8-6SX"/>
                         <outlet property="noteUpdateTime" destination="nsl-dV-EBe" id="qmv-VF-REv"/>
-                        <outlet property="photeBtn" destination="WKp-YD-UyH" id="iyz-4W-ias"/>
+                        <outlet property="photo" destination="mLD-DV-jDL" id="0gq-Sh-xBd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xd6-I3-w3o" userLabel="First Responder" sceneMemberID="firstResponder"/>
