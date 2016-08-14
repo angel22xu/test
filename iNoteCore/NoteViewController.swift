@@ -47,10 +47,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 获取第一行文字，作为标题保存在 indexConfig表里
         let dt: String = Tool.getCurrentDateStr()
         var title = detailTextView.text
-
-        if title.characters.count < 15{
-        }else{
-            title = (title as NSString).substringToIndex(15) +  "・・・"
+        
+        if title.characters.count >= 40{
+            title = (title as NSString).substringToIndex(Int(40))
         }
         
         let t = Title(dict: ["noteID": Int(vigSegue)!, "title": title, "dt": dt ])
@@ -190,11 +189,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //允许编辑
             picker.showsCameraControls = true
 
-//            picker.allowsEditing = true
-            
             let version = UIDevice.currentDevice().systemVersion
            
-            if(Float(version) > 8.0){
+            if(Float(version) >= 8.0){
                 print("version:\(version)")
                 
                 ////bug：Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.  未解决
@@ -202,11 +199,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 picker.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
             }
             
-            
-//            if self.presentedViewController != nil{
-//                self.dismissViewControllerAnimated(true, completion: nil)
-//            }
-
             //打开相机
             self.presentViewController(picker, animated: true, completion:{()-> Void in })
 
@@ -307,7 +299,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         UIGraphicsEndImageContext()
         //高保真压缩图片质量
         //UIImageJPEGRepresentation此方法可将图片压缩，但是图片质量基本不变，第二个参数即图片质量参数。
-//        let imageData: NSData = UIImageJPEGRepresentation(newImage, percent)!
+//        let imageData: NSData = UIImageJPEGRepresentation(newImage, 0.9)!
         let imageData: NSData = UIImagePNGRepresentation(newImage)!
         // 获取沙盒目录,这里将图片放在沙盒的documents文件夹中
         
@@ -321,7 +313,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // 解析内容，是图片的话显示图片
     func analysis_adv(content: String){
-        print("analysis_adv content : \(content)")
+//        print("analysis_adv content : \(content)")
         // 存储内容的字符
         var mojiStr = String()
         var imageNameStr = String()
