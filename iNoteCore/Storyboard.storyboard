@@ -15,9 +15,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="fLD-sU-qlc">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ToDoCell" textLabel="WqS-7s-W0M" detailTextLabel="I02-p1-naB" rowHeight="35" style="IBUITableViewCellStyleSubtitle" id="SwF-ls-8XB">
-                                <rect key="frame" x="0.0" y="92" width="600" height="35"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SwF-ls-8XB" id="Yv6-mO-gB7">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="34.5"/>
@@ -67,6 +72,7 @@
                         <outlet property="itemNew" destination="6a7-c9-Mcy" id="dsA-t2-goS"/>
                         <outlet property="itemSetting" destination="p7U-As-tLf" id="JCN-rR-8fg"/>
                         <outlet property="noteNaviItem" destination="RCI-wX-2PF" id="Gd1-3D-8c5"/>
+                        <outlet property="searchBar" destination="fLD-sU-qlc" id="pLh-Ln-wUP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3UH-Yq-edU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -387,7 +393,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="note time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsl-dV-EBe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="note time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="nsl-dV-EBe">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -446,6 +452,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
+                        <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="J90-Ix-kpm">
                             <connections>
                                 <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>

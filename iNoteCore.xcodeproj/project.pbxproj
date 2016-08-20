@@ -29,6 +29,8 @@
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
 		9FED29AE1D4C93F000F710A7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */; };
+		9FEEF3411D685D1C007377A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEF3401D685D1C007377A2 /* LaunchScreen.storyboard */; };
+		9FEEF3471D686FE7007377A2 /* launchimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FEEF3461D686FE7007377A2 /* launchimage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		9FE886061D27855200B10091 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886071D27B26000B10091 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		9FEEF3401D685D1C007377A2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9FEEF3461D686FE7007377A2 /* launchimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchimage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 		9F7CB5511CE6F6EF008030E4 /* iNoteCore */ = {
 			isa = PBXGroup;
 			children = (
+				9FEEF3461D686FE7007377A2 /* launchimage.png */,
 				9F72F0EA1D338D9400B24555 /* InfoPlist.strings */,
 				9F72F0E41D338CFE00B24555 /* Info.plist */,
 				9FE886041D27854C00B10091 /* Localizable.strings */,
@@ -153,6 +158,7 @@
 				9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */,
 				9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */,
 				9FED29AD1D4C93F000F710A7 /* HelpViewController.swift */,
+				9FEEF3401D685D1C007377A2 /* LaunchScreen.storyboard */,
 			);
 			path = iNoteCore;
 			sourceTree = "<group>";
@@ -287,10 +293,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FEEF3471D686FE7007377A2 /* launchimage.png in Resources */,
 				9F0585AE1D1FD54800FD592C /* todolist in Resources */,
 				9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */,
 				9FE886021D27854C00B10091 /* Localizable.strings in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
+				9FEEF3411D685D1C007377A2 /* LaunchScreen.storyboard in Resources */,
 				9F72F0E51D338CFE00B24555 /* Info.plist in Resources */,
 				9F7CB5831CE6FA9A008030E4 /* Storyboard.storyboard in Resources */,
 			);
@@ -479,7 +487,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iNoteCore/Info.plist;
@@ -496,7 +503,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iNoteCore/Info.plist;
