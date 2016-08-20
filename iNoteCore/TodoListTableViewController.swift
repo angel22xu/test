@@ -107,8 +107,14 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
         self.searchBar.delegate = self
         self.searchBar.placeholder = "serach"
     }
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool{
+        self.searchBar.showsCancelButton = true
+        return true
+    }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchBar.showsCancelButton = true
         
         // 没有搜索内容时显示全部内容
         if searchText == "" {
@@ -124,9 +130,7 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
                     self.result.insertObject(arr, atIndex: index)
                     index += 1
                 }
-            }
-            
-            print("index = \(index)")
+            }            
         }
         
         // 刷新tableView 数据显示
@@ -135,22 +139,25 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
     
     // 搜索触发事件，点击虚拟键盘上的search按钮时触发此方法
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
-        searchBar.resignFirstResponder()
+        self.searchBar.showsCancelButton = false
+        self.searchBar.resignFirstResponder()
     }
     
     // 书签按钮触发事件
     func searchBarBookmarkButtonClicked(searchBar: UISearchBar) {
-        
-        print("搜索历史")
     }
     
     // 取消按钮触发事件
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        
         // 搜索内容置空
-        searchBar.text = ""
+        self.searchBar.text = ""
+        self.searchBar.showsCancelButton = false
+        self.searchBar.resignFirstResponder()
+
         self.result = self.todoItems
+        
         
         self.tableView.reloadData()
     }
