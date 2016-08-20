@@ -37,3 +37,5 @@
 
 "INVITE_BODY" = "マイノートは良いツールですので、ダウンロードしましょう!\n以下のリンクを押すとダウンロードできす！\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "マイノートを利用しましょう!";
+"SEARCH_PLACEHOLDER" = "検索";
+

@@ -105,7 +105,8 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
         initPage()
         
         self.searchBar.delegate = self
-        self.searchBar.placeholder = "serach"
+        self.searchBar.placeholder = NSLocalizedString("SEARCH_PLACEHOLDER", comment: "搜索")
+
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool{

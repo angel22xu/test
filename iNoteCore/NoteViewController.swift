@@ -98,6 +98,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
         
+        
+        // TODO 定时之行保存 
+        //http://www.hangge.com/blog/cache/detail_702.html
+        
+        
+        
     }
     
     // 键盘上追加一个完成Done按钮和拍照功能
