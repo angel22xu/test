@@ -8,14 +8,21 @@
 
 import UIKit
 
-class TodoListTableViewController: UITableViewController {
+class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var itemSetting: UIBarButtonItem!
     @IBOutlet weak var noteNaviItem: UINavigationItem!
 
     @IBOutlet weak var itemNew: UIBarButtonItem!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var todoItems = NSMutableArray()
-    var arrayM = [Title]()
+    var titles = [Title]()
 
+    
+    // 显示的内容
+    var result = NSMutableArray()
+    
+    
 
     @IBAction func insertNewItem(sender: AnyObject) {
     
@@ -31,7 +38,8 @@ class TodoListTableViewController: UITableViewController {
         let t = Title(dict: ["noteID": noteID, "title": "", "dt": dt ])
         
         if t.insertTtile() {
-            todoItems.insertObject(t, atIndex: 0);
+            self.result.insertObject(t, atIndex: 0);
+
             let indexPath = NSIndexPath(forRow: 0, inSection: 0);
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic );
 
@@ -42,68 +50,111 @@ class TodoListTableViewController: UITableViewController {
     }
     // 清数据
     func clear(){
-        todoItems.removeAllObjects()
-        arrayM.removeAll()
+        self.todoItems.removeAllObjects()
+        
+        // 0820
+        self.result.removeAllObjects()
+        
+        self.titles.removeAll()
         
         self.tableView.reloadData()
     }
     
     // 刷新主场景
     func refresh(){
-        arrayM = Title.loadTitles()!
         
-        if arrayM.isEmpty {
-            print ("没有数据")
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
+
+        
+        self.titles = Title.loadTitles()!
+        
+        if self.titles.isEmpty {
         }else{
-//            print ("有数据呦")
         }
+        
+        // 不加beginupdates 和 endupdates，点击搜索之后的结果，返回会报错
+        self.tableView.beginUpdates()
  
         var index = 0
-        for tobj in arrayM{
-            todoItems.insertObject(tobj, atIndex: index);
+        for tobj in self.titles{
+            self.todoItems.insertObject(tobj, atIndex: index);
             let indexPath = NSIndexPath(forRow: index, inSection: 0);
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic);
             index += 1
             
         }
         
+        self.result = self.todoItems
+        self.tableView.endUpdates()
     }
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 为了多显示一会launch image，主页面延长3秒
+        // 为了多显示一会launch image，主页面延长1秒
         NSThread.sleepForTimeInterval(1.0)
+        
+        // 打开数据库
         SQLiteManager.sharedManager.openDB()
-
-//        itemSetting.setBackgroundImage(UIImage(named: "setting")?.resizableImageWithCapInsets(UIEdgeInsetsMake(0, 0, 0, 0)), forState: UIControlState.Normal, barMetrics:UIBarMetrics.Default)
-//        itemSetting.width = 50
-
-        
-        // 导航栏设置颜色
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
-//        self.navigationController?.navigationBar.barTintColor = UIColor.purpleColor()
-        
-//        let leftItem = UIBarButtonItem()
-//        let settingBtn = UIButton()
-//        settingBtn.setImage(UIImage(named: "setting"), forState: UIControlState.Normal)
-//        settingBtn.frame = CGRectMake(0, 0, 40, 40)
-//        settingBtn.addTarget(self, action: #selector(TodoListTableViewController.settingAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        leftItem.customView = settingBtn
-//        self.navigationItem.leftBarButtonItems = [leftItem]
-        
+    
         refresh()
         
         // 刷新主界面
         initPage()
+        
+        self.searchBar.delegate = self
+        self.searchBar.placeholder = "serach"
+    }
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        // 没有搜索内容时显示全部内容
+        if searchText == "" {
+            self.result = self.todoItems
+        } else {
+            
+            self.result = NSMutableArray()
+            
+            // 匹配用户输入的前缀，不区分大小写
+            var index = 0
+            for arr in self.titles {
+                if ((arr.title?.lowercaseString.hasPrefix(searchText.lowercaseString)) == true){
+                    self.result.insertObject(arr, atIndex: index)
+                    index += 1
+                }
+            }
+            
+            print("index = \(index)")
+        }
+        
+        // 刷新tableView 数据显示
+        self.tableView.reloadData()
     }
     
-//    func settingAction(sender: UIBarButtonItem){
-//        
-//    }
+    // 搜索触发事件，点击虚拟键盘上的search按钮时触发此方法
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        searchBar.resignFirstResponder()
+    }
     
-
+    // 书签按钮触发事件
+    func searchBarBookmarkButtonClicked(searchBar: UISearchBar) {
+        
+        print("搜索历史")
+    }
+    
+    // 取消按钮触发事件
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        // 搜索内容置空
+        searchBar.text = ""
+        self.result = self.todoItems
+        
+        self.tableView.reloadData()
+    }
+    
     // 初始化界面
     private func initPage(){
         self.tableView.rowHeight = 66
@@ -114,7 +165,6 @@ class TodoListTableViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -125,7 +175,7 @@ class TodoListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return todoItems.count
+        return self.result.count
     }
 
     
@@ -133,7 +183,7 @@ class TodoListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ToDoCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        let item = todoItems[indexPath.row] as! Title
+        let item = self.result[indexPath.row] as! Title
     
         cell.textLabel!.text = item.title
         cell.detailTextLabel?.text = Tool.formatDt(item.dt!)
@@ -155,12 +205,13 @@ class TodoListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            let t = todoItems[indexPath.row] as! Title
+            let t = self.result[indexPath.row] as! Title
+
             // 删除标志改为1，表示扔进垃圾桶，方便恢复
             t.delFlag = 1
             t.updateStaus()
-            
-            todoItems.removeObjectAtIndex(indexPath.row)
+
+            self.result.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
             
@@ -196,7 +247,8 @@ class TodoListTableViewController: UITableViewController {
         if(segue.identifier == "noteSegue"){
             let destinationController = segue.destinationViewController as! NoteViewController
             let path = self.tableView.indexPathForSelectedRow
-            let t = todoItems[path!.row] as! Title
+          
+            let t = self.result[path!.row] as! Title
             
             destinationController.vigSegue = String(t.noteID)
             destinationController.noteTime = t.dt!
