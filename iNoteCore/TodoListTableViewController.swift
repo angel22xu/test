@@ -126,7 +126,7 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
             // 匹配用户输入的前缀，不区分大小写
             var index = 0
             for arr in self.titles {
-                if ((arr.title?.lowercaseString.hasPrefix(searchText.lowercaseString)) == true){
+                if(((arr.title?.lowercaseString)! as NSString).containsString(searchText.lowercaseString)){
                     self.result.insertObject(arr, atIndex: index)
                     index += 1
                 }
