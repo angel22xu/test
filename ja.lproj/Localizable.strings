@@ -32,10 +32,15 @@
 
 "THEME_ALERT_TITLE" = "テーマ変更";
 "THEME_ALERT_MSG" = "テーマを変更しましょうか?";
-"THEME_ALERT_CANCEL" = "キャンセール";
-"THEME_ALERT_OK" = "確認";
+"DELETENOTE_ALERT_TITLE" = "ノート削除";
+"DELETENOTE_ALERT_MSG" = "削除してもよろしいでしょうか?";
+"COMMON_ALERT_CANCEL" = "キャンセール";
+"COMMON_ALERT_OK" = "確認";
 
 "INVITE_BODY" = "マイノートは良いツールですので、ダウンロードしましょう!\n以下のリンクを押すとダウンロードできす！\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "マイノートを利用しましょう!";
 "SEARCH_PLACEHOLDER" = "検索";
+
+
+
 

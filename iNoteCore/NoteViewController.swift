@@ -165,19 +165,47 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // 删除日志
     @IBAction func deleteNote(sender: AnyObject) {
         
-        let t = Title.loadTitle(Int(self.vigSegue)!)
+        let alertView = UIAlertView()
+        alertView.title = NSLocalizedString("DELETENOTE_ALERT_TITLE", comment: "标题")
+        alertView.message = NSLocalizedString("DELETENOTE_ALERT_MSG", comment: "内容")
+        alertView.addButtonWithTitle(NSLocalizedString("COMMON_ALERT_CANCEL", comment: "取消"))
+        alertView.addButtonWithTitle(NSLocalizedString("COMMON_ALERT_OK", comment: "确定"))
+        alertView.cancelButtonIndex=0
+        alertView.delegate=self;
+        alertView.show()
         
-        // 删除标志改为1，表示扔进垃圾桶，方便恢复
-        t!.delFlag = 1
-        t!.updateStaus()
         
-        //TODO 退回到主页
-        self.navigationController?.popViewControllerAnimated(true)
+
     }
+    
+    func alertView(alertView:UIAlertView, clickedButtonAtIndex buttonIndex: Int){
+        if(buttonIndex==alertView.cancelButtonIndex){
+        }
+        else
+        {
+            let t = Title.loadTitle(Int(self.vigSegue)!)
+            
+            // 删除标志改为1，表示扔进垃圾桶，方便恢复
+            t!.delFlag = 1
+            t!.updateStaus()
+            
+            //退回到主页
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
+    
     
     // 新建日志
     @IBAction func newNote(sender: AnyObject) {
         print("newNote")
+        
+        // 保存
+        
+        // 创建Title
+        
+        // 创建日志
+        
     }
     
     /*

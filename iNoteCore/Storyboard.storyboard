@@ -119,30 +119,17 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UkQ-Ro-dQU">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="rAB-Ag-qtU"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="rAB-Ag-qtU"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="rAB-Ag-qtU"/>
-                                    </mask>
-                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="DmL-yO-ILk" firstAttribute="top" secondItem="UkQ-Ro-dQU" secondAttribute="bottom" constant="100" id="IyD-Sx-FcV"/>
+                            <constraint firstItem="DmL-yO-ILk" firstAttribute="top" secondItem="UkQ-Ro-dQU" secondAttribute="bottom" constant="10" id="IyD-Sx-FcV"/>
                             <constraint firstItem="UkQ-Ro-dQU" firstAttribute="centerY" secondItem="cCn-qe-J1r" secondAttribute="centerY" id="fbH-oy-ELX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UkQ-Ro-dQU" secondAttribute="trailing" constant="40" id="gHf-uq-IhP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UkQ-Ro-dQU" secondAttribute="trailing" constant="10" id="gHf-uq-IhP"/>
                             <constraint firstItem="UkQ-Ro-dQU" firstAttribute="centerX" secondItem="cCn-qe-J1r" secondAttribute="centerX" id="iHb-we-r9g"/>
-                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="top" secondItem="G5t-6f-xe3" secondAttribute="bottom" constant="100" id="mPw-GW-24b"/>
-                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="leading" secondItem="cCn-qe-J1r" secondAttribute="leadingMargin" constant="40" id="whU-xv-2mN"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="top" secondItem="G5t-6f-xe3" secondAttribute="bottom" constant="10" id="mPw-GW-24b"/>
+                            <constraint firstItem="UkQ-Ro-dQU" firstAttribute="leading" secondItem="cCn-qe-J1r" secondAttribute="leadingMargin" constant="10" id="whU-xv-2mN"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">

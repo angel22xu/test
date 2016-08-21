@@ -32,8 +32,10 @@
 
 "THEME_ALERT_TITLE" = "Change the theme";
 "THEME_ALERT_MSG" = "It will change the theme ?";
-"THEME_ALERT_CANCEL" = "Cancel";
-"THEME_ALERT_OK" = "OK";
+"DELETENOTE_ALERT_TITLE" = "Delete the note";
+"DELETENOTE_ALERT_MSG" = "Would you like to delete the note?";
+"COMMON_ALERT_CANCEL" = "Cancel";
+"COMMON_ALERT_OK" = "OK";
 
 "INVITE_BODY" = "I want to download it.\nClick the following link .\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "Download the iNote, come on!";

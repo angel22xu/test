@@ -54,8 +54,8 @@ class PageItemController: UIViewController {
             let alertView = UIAlertView()
             alertView.title = NSLocalizedString("THEME_ALERT_TITLE", comment: "标题")
             alertView.message = NSLocalizedString("THEME_ALERT_MSG", comment: "内容")
-            alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_CANCEL", comment: "取消"))
-            alertView.addButtonWithTitle(NSLocalizedString("THEME_ALERT_OK", comment: "确定"))
+            alertView.addButtonWithTitle(NSLocalizedString("COMMON_ALERT_CANCEL", comment: "取消"))
+            alertView.addButtonWithTitle(NSLocalizedString("COMMON_ALERT_OK", comment: "确定"))
             alertView.cancelButtonIndex=0
             alertView.delegate=self;
             alertView.show()
