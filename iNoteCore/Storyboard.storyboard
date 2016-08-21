@@ -446,16 +446,10 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="J90-Ix-kpm">
-                            <connections>
-                                <action selector="saveContent:" destination="Lez-pQ-SQw" id="MkT-fw-TZx"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="delete" destination="ihO-EM-qCa" id="ald-fH-pVX"/>
                         <outlet property="detailTextView" destination="K2M-hD-Gvm" id="zVg-eE-jSI"/>
-                        <outlet property="finishBtn" destination="J90-Ix-kpm" id="qLV-CT-jtv"/>
                         <outlet property="new" destination="BUa-Kq-s5i" id="Dum-u8-6SX"/>
                         <outlet property="noteUpdateTime" destination="nsl-dV-EBe" id="qmv-VF-REv"/>
                         <outlet property="photo" destination="mLD-DV-jDL" id="0gq-Sh-xBd"/>

@@ -19,7 +19,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var gString =  NSMutableAttributedString()
     
-    @IBOutlet weak var finishBtn: UIBarButtonItem!
     @IBOutlet weak var detailTextView: UITextView!
     
     @IBOutlet weak var noteUpdateTime: UILabel!
@@ -35,20 +34,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var cursorY: CGFloat = 0
     var cursorR: CGFloat = 0
-    
-    // 定时器
-    var timer:NSTimer!
-
-    
-    @IBAction func saveContent(sender: AnyObject) {
-        
-        autoSaveContent()
-        
-        // 收起输入键盘
-        detailTextView.resignFirstResponder()
-        
-    }
-    
     
     func autoSaveContent(){
         let content: String = detailTextView.textStorage.getPlainString()
@@ -81,8 +66,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         //设置格式
         resetTextStyle()
-
-        finishBtn.title = NSLocalizedString("SAVE", comment: "保存")
         
         // 键盘上追加一个完成Done按钮
         initToolBar()
@@ -105,10 +88,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         centerDefault.addObserver(self, selector: #selector(NoteViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
         
-        // 启用计时器，定时之行保存
-        timer = NSTimer.scheduledTimerWithTimeInterval(30,
-                                                       target:self,selector: #selector(NoteViewController.autoSaveContent),
-                                                       userInfo:nil,repeats:true)
     }
     
     // 键盘上追加一个完成Done按钮和拍照功能
@@ -524,11 +503,11 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        autoSaveContent()
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        timer.invalidate()
     }
     
     
