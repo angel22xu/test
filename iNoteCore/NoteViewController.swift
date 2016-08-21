@@ -162,6 +162,24 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
+    // 删除日志
+    @IBAction func deleteNote(sender: AnyObject) {
+        
+        let t = Title.loadTitle(Int(self.vigSegue)!)
+        
+        // 删除标志改为1，表示扔进垃圾桶，方便恢复
+        t!.delFlag = 1
+        t!.updateStaus()
+        
+        //TODO 退回到主页
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // 新建日志
+    @IBAction func newNote(sender: AnyObject) {
+        print("newNote")
+    }
+    
     /*
      拍照功能
      */

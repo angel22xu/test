@@ -212,4 +212,82 @@ class SQLiteManager {
         return recordSet
     }
     
+    
+    /**
+     获取单条记录
+     - parameter stmt: 准备语句对象
+     - returns: 单条记录对应的字典
+     */
+    func recordDictBySQL(sql: String) -> [String: AnyObject] {
+        
+        // 准备语句对象
+        var stmt: COpaquePointer = nil
+        
+        /*
+         准备sql语句,返回准备语句对象(preapred_statement)
+         
+         参数:
+         1.db: 数据库句柄
+         2.zSql: sql语句
+         3.nByte: sql语句的字节长度, -1 能够自动计算长度
+         4.ppStmt: 准备语句对象,通过这个对象可以获取到记录.需要释放的
+         5.pzTail: 未执行的sql语句,通常为nil
+         */
+        if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) != SQLITE_OK {
+            print("sql语句有错误,准备失败")
+            return [:]
+        }
+
+        
+        // 定义字典, 存放一条记录
+        var dict = [String: AnyObject]()
+
+        while sqlite3_step(stmt) == SQLITE_ROW{
+            // 获取记录的字段数
+            let columnCount = sqlite3_column_count(stmt)
+            // 获取每个字段的名称,类型和内容
+            for i in 0..<columnCount {
+                // 获取字段的名称
+                let cName = sqlite3_column_name(stmt, i)
+                let name = String(CString: cName, encoding: NSUTF8StringEncoding)!
+//                print("字段\(i): 名称:\(name)")
+                
+                // 获取字段类型
+                let type = sqlite3_column_type(stmt, i)
+//                print("字段\(i): 类型:\(type)")
+                
+                
+                // 根据字段类型,获取字段的值
+                var value: AnyObject? = nil
+                switch type {
+                case SQLITE_INTEGER:
+                    value = Int(sqlite3_column_int64(stmt, i))
+                case SQLITE_FLOAT:
+                    value = sqlite3_column_double(stmt, i)
+                case SQLITE_TEXT:
+                    // UnsafePointer<Uint8> -> UnsafePointer<CChar>
+                    let cValue = UnsafePointer<CChar>(sqlite3_column_text(stmt, i))
+                    value = String(CString: cValue, encoding: NSUTF8StringEncoding)
+                case SQLITE_NULL:
+                    // OC的字典和数组对象中不允许插入nil.可以插入NSNull
+                    value = NSNull()
+                default:
+                    print("不支持的类型")
+                }
+                // 将获取到的字段存放到字典中
+                dict[name] = value ?? NSValue()
+//                print("字段\(i): 名称:\(name), 值:\(value)")
+            }
+            
+        }
+        
+//        print("dict:    \(dict)")
+//        print("-------")
+
+        // 释放准备语句对象
+        sqlite3_finalize(stmt)
+
+        return dict
+    }
+    
 }

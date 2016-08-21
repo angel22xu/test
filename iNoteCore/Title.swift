@@ -117,6 +117,23 @@ class Title : NSObject {
         
         return arrayM
     }
+    
+    /**
+     查找对象
+     - returns: Title
+     */
+    class func loadTitle(nid: Int) -> Title? {
+        // 1. 成成sql语句
+        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=0 and noteID=\(nid)"
+        
+        // 2.执行sql语句,返回查询结果
+        
+        let rt = SQLiteManager.sharedManager.recordDictBySQL(sql)
+        
+        return Title(dict: rt)
+    }
+
+    
     /**
      查找已经被删除的对象
      - returns: Title数组

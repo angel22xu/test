@@ -441,6 +441,9 @@
                     <toolbarItems>
                         <barButtonItem title="Delete" id="ihO-EM-qCa">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="deleteNote:" destination="Lez-pQ-SQw" id="ddt-o3-XUo"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LfB-ed-V7X"/>
                         <barButtonItem title="Photo" id="mLD-DV-jDL">
@@ -449,6 +452,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="OGh-ta-EHT"/>
                         <barButtonItem title="New" id="BUa-Kq-s5i">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="newNote:" destination="Lez-pQ-SQw" id="V2h-fx-HoN"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="LOY-uz-cCC">
