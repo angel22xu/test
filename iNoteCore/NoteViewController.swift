@@ -60,7 +60,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        noteUpdateTime.text = Tool.formatDt1(noteTime)
+        self.noteUpdateTime.text = Tool.formatDt1(noteTime)
         
         self.initTextView()
         
@@ -184,12 +184,60 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func newNote(sender: AnyObject) {
         print("newNote")
         
-        // 保存
+        // １、保存
+        autoSaveContent()
         
-        // 创建Title
+        // ２、创建Title
+        let dt: String = Tool.getCurrentDateStr()
+        let hh: String = Tool.getCurrentHH()
         
-        // 创建日志
+        var noteID: Int = Int(arc4random() % 1000000)
         
+        if( Int(hh) > 0){
+            noteID = noteID + Int(hh)!
+        }
+        let t = Title(dict: ["noteID": noteID, "title": "", "dt": dt ])
+        t.insertTtile()
+
+        
+        // ３、对
+        self.vigSegue = String(noteID)
+        self.noteTime = dt
+        self.noteUpdateTime.text = Tool.formatDt1(self.noteTime)
+
+        
+        /*
+        1，公开动画效果：
+        kCATransitionFade：翻页
+        kCATransitionMoveIn：弹出
+        kCATransitionPush：推出
+        kCATransitionReveal：移除
+        
+        2，非公开动画效果：
+        "cube"：立方体
+        "suckEffect"：吸收
+        "oglFlip"：翻转
+        "rippleEffect"：波纹
+        "pageCurl"：卷页
+        "cameraIrisHollowOpen"：镜头开
+        "cameraIrisHollowClose"：镜头关
+        
+        3，动画方向类型：
+        kCATransitionFromRight：从右侧开始实现过渡动画
+        kCATransitionFromLeft：从左侧开始实现过渡动画
+        kCATransitionFromTop：从顶部开始实现过渡动画
+        kCATransitionFromBottom：从底部开始实现过渡动画
+         */
+        
+        let transition = CATransition()
+        transition.duration = 1
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.layer.addAnimation(transition, forKey: nil)
+        
+        // 4、创建日志
+        self.initTextView()
+
     }
     
     /*
