@@ -33,7 +33,7 @@
 "THEME_ALERT_TITLE" = "更换主题";
 "THEME_ALERT_MSG" = "确定要更换吗?";
 "DELETENOTE_ALERT_TITLE" = "删除日记";
-"DELETENOTE_ALERT_MSG" = "真的要删除日记吗";
+"DELETENOTE_ALERT_MSG" = "真的要删除日记吗?";
 "COMMON_ALERT_CANCEL" = "取消";
 "COMMON_ALERT_OK" = "确定";
 
