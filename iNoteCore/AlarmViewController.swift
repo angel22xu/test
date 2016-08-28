@@ -10,12 +10,14 @@ import UIKit
 
 class AlarmViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var notificationSetting: UIButton!
     @IBOutlet weak var tips: UILabel!
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var alarmSwitch: UISwitch!
     @IBOutlet weak var dtLabel: UILabel!
     @IBOutlet weak var deadlinePicker: UIDatePicker!
     
+    @IBOutlet weak var notificationView: UIView!
     //日志ID, 主键, 从上个页面传过来
     var vigSegue = ""
 
@@ -30,12 +32,27 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         titleText.font = UIFont.systemFontOfSize(16)
         tips.hidden = true
         
+        if (isAllowedNotification() == false){
+            notificationView.hidden = false
+        }else{
+            notificationView.hidden = true
+        }
+        
         
         deadlinePicker.addTarget(self, action: #selector(AlarmViewController.datePickerChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         
     }
 
+    // 去系统设定通知页面
+    @IBAction func notificationSettingAction(sender: AnyObject) {
+        let settingUrl = NSURL(string:"prefs:root=NOTIFICATIONS_ID")!
+        if UIApplication.sharedApplication().canOpenURL(settingUrl)
+        {
+            UIApplication.sharedApplication().openURL(settingUrl)
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,8 +64,7 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         let dt: String = Tool.getCurrentDateStr()
         let title = titleText.text
         
-
-        
+        // 内容为空时不让设定提醒
         if (title?.compare("") == NSComparisonResult.OrderedSame){
             tips.hidden = false
             tips.text = "Please input the alarm content"
@@ -57,15 +73,10 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        
         let t = Title(dict: ["noteID": Int(vigSegue)!, "title": title!, "dt": dt ])
         t.updateTitle()
 
-        
-        print("datelinePicker: \(deadlinePicker.date)")
-
         let UUID: String = NSUUID().UUIDString
-        print("NSUUID().UUIDString: \(UUID)")
         
         let todoItem = TodoItem(deadline: deadlinePicker.date, title: title!, UUID: UUID)
         TodoList.sharedInstance.addItem(todoItem) // schedule a local notification to persist this item
@@ -115,5 +126,33 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         dtLabel.text = formatter.stringFromDate(datePicker.date)
     }
-
+    
+    
+    // 判断是否开启了系统通知
+    func isAllowedNotification() -> Bool
+    {
+        let setting: UIUserNotificationSettings = UIApplication.sharedApplication().currentUserNotificationSettings()!
+        
+        if(UIUserNotificationType.None != setting.types){
+            return true
+        }
+        return false
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
 }

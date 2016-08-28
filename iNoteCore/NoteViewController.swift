@@ -180,8 +180,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // 新建日志
     @IBAction func newNote(sender: AnyObject) {
-        print("newNote")
-        
         // １、保存
         autoSaveContent()
         
@@ -288,8 +286,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let version = UIDevice.currentDevice().systemVersion
            
             if(Float(version) >= 8.0){
-                print("version:\(version)")
-                
                 ////bug：Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.  未解决
 
                 picker.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
@@ -311,7 +307,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker.dismissViewControllerAnimated(true, completion: nil)
        
-        print("picker.mediaTypes: \(picker.mediaTypes)")
         let gTextAttachment = MediaTextAttachment()
         let currentDateStr: String = Tool.getCurrentDateStr()
         let randStr: String = Tool.getRandomStringOfLength(2)
@@ -341,8 +336,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             detailTextView.textStorage.insertAttributedString(NSAttributedString(attachment: gTextAttachment), atIndex: selectedRange.location)
             
-            print("imagePickerController 插入换行符")
-            
             detailTextView.selectedRange = NSMakeRange(selectedRange.location+1, selectedRange.length)
             
             // 重置格式
@@ -361,11 +354,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             if let url = info[UIImagePickerControllerMediaURL] as? NSURL {
                 // 端末のカメラロールに保存する
                 UISaveVideoAtPathToSavedPhotosAlbum(url.path!, self, #selector(NoteViewController.video(_:didFinishSavingWithError:contextInfo:)), nil)
-                
-                
-                print("url: \(url.path)")
-                
-                
             }
         }else{
             print("picker.mediaTypes: \(picker.mediaTypes) is not found")
@@ -373,7 +361,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func video(videoPath: String, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutablePointer<Void>) {
-        print("video: \(videoPath)")
         if (error != nil) {
             print("動画の保存に失敗しました。")
         } else {

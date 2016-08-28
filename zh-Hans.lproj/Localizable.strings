@@ -40,3 +40,13 @@
 "INVITE_BODY" = "超级笔记很好用哦!一块使用吧!\n点击下面的链接可以下载。\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "来下载超级笔记吧!";
 "SEARCH_PLACEHOLDER" = "搜索";
+
+"REMINDER" = "提醒详细";
+"REMINDER_WARING" = "请输入标题";
+"REMINDER_TITLE" = "标题";
+"REMINDER_LB1" = "在指定的日期提醒我";
+"REMINDER_LB2" = "提醒时间";
+"REMINDER_LB3" = "";
+"REMINDER_BTNOK" = "確定";
+"REMINDER_SETTING_TIPS" = "★设置 ⇨ 通知 ⇨ 超级日志 ⇨ 选择［允许通］";
+"REMINDER_SETTING_BTNPUSH" = "允许通知";

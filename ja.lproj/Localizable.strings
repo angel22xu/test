@@ -41,6 +41,16 @@
 "INVITE_SUBJECT" = "マイノートを利用しましょう!";
 "SEARCH_PLACEHOLDER" = "検索";
 
+"REMINDER" = "リマインダー詳細";
+"REMINDER_WARING" = "リマインダ-タイトルを入力してください";
+"REMINDER_TITLE" = "リマインダータイトル";
+"REMINDER_LB1" = "指定日時で通知";
+"REMINDER_LB2" = "アラーム";
+"REMINDER_LB3" = "";
+"REMINDER_BTNOK" = "確定";
+"REMINDER_SETTING_TIPS" = "★設定 ⇨ 通知 ⇨ マイノート ⇨ 「追加を許可」をチェックする";
+"REMINDER_SETTING_BTNPUSH" = "通知を許可";
+
 
 
 

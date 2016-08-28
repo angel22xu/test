@@ -41,4 +41,13 @@
 "INVITE_SUBJECT" = "Download the iNote, come on!";
 "SEARCH_PLACEHOLDER" = "Search";
 
+"REMINDER" = "Reminder details";
+"REMINDER_WARING" = "Please input the title of the reminder";
+"REMINDER_TITLE" = "title";
+"REMINDER_LB1" = "Remind me on a day";
+"REMINDER_LB2" = "Alarm";
+"REMINDER_LB3" = "";
+"REMINDER_BTNOK" = "OK";
+"REMINDER_SETTING_TIPS" = "★Settings ⇨ Notification ⇨ iNote ⇨ Check the [Allow Notifications]";
+"REMINDER_SETTING_BTNPUSH" = "Allow Notifications";
 
