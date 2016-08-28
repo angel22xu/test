@@ -25,6 +25,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var photo: UIBarButtonItem!
     @IBOutlet weak var delete: UIBarButtonItem!
+    @IBOutlet weak var alarm: UIBarButtonItem!
     
     @IBOutlet weak var new: UIBarButtonItem!
     let size:Float = 64.0
@@ -157,9 +158,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alertView.cancelButtonIndex=0
         alertView.delegate=self;
         alertView.show()
-        
-        
-
     }
     
     func alertView(alertView:UIAlertView, clickedButtonAtIndex buttonIndex: Int){
@@ -622,5 +620,16 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func textViewDidBeginEditing(textView: UITextView) {
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        let destinationController = segue.destinationViewController as! AlarmViewController
+        
+        destinationController.vigSegue = vigSegue
+            
+            
+    }
+
     
 }

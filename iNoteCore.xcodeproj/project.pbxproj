@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F0585AE1D1FD54800FD592C /* todolist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0585AD1D1FD54800FD592C /* todolist */; };
+		9F0F9F411D699B6600CBF3F8 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F9F401D699B6600CBF3F8 /* AlarmViewController.swift */; };
 		9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */; };
 		9F142DC21CE8146200470E7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC11CE8146200470E7C /* Tool.swift */; };
 		9F142DC41CE816BD00470E7C /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC31CE816BD00470E7C /* Title.swift */; };
@@ -25,6 +26,8 @@
 		9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5881CE70650008030E4 /* NoteViewController.swift */; };
 		9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */; };
 		9F9CC9261D3B8D4F008C400B /* ThemePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */; };
+		9FAA462C1D72B41E00D5BA1B /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */; };
+		9FAA462E1D72B50000D5BA1B /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA462D1D72B50000D5BA1B /* TodoList.swift */; };
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
@@ -52,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		9F0585AD1D1FD54800FD592C /* todolist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todolist; sourceTree = "<group>"; };
+		9F0F9F401D699B6600CBF3F8 /* AlarmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		9F142DC11CE8146200470E7C /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		9F142DC31CE816BD00470E7C /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 		9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9F7CB58C1CE75255008030E4 /* sqlite-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite-bridging-Header.h"; path = "../sqlite-bridging-Header.h"; sourceTree = "<group>"; };
 		9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePageViewController.swift; sourceTree = "<group>"; };
+		9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		9FAA462D1D72B50000D5BA1B /* TodoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTextAttachment.swift; sourceTree = "<group>"; };
 		9FE886031D27854C00B10091 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -146,6 +152,9 @@
 				9F142DC11CE8146200470E7C /* Tool.swift */,
 				9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */,
 				9F7CB5821CE6FA9A008030E4 /* Storyboard.storyboard */,
+				9F0F9F401D699B6600CBF3F8 /* AlarmViewController.swift */,
+				9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */,
+				9FAA462D1D72B50000D5BA1B /* TodoList.swift */,
 				9F7CB5881CE70650008030E4 /* NoteViewController.swift */,
 				9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */,
 				9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */,
@@ -327,6 +336,7 @@
 			files = (
 				9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */,
 				9F7CB5891CE70650008030E4 /* NoteViewController.swift in Sources */,
+				9F0F9F411D699B6600CBF3F8 /* AlarmViewController.swift in Sources */,
 				9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */,
 				9FED29AE1D4C93F000F710A7 /* HelpViewController.swift in Sources */,
 				9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */,
@@ -334,6 +344,8 @@
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,
 				9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */,
 				9F142DC21CE8146200470E7C /* Tool.swift in Sources */,
+				9FAA462C1D72B41E00D5BA1B /* TodoItem.swift in Sources */,
+				9FAA462E1D72B50000D5BA1B /* TodoList.swift in Sources */,
 				9FE886081D27B26000B10091 /* Constant.swift in Sources */,
 				9F142DC41CE816BD00470E7C /* Title.swift in Sources */,
 				9F7CB5871CE70589008030E4 /* TodoListTableViewController.swift in Sources */,
