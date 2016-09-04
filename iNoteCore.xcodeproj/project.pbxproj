@@ -28,6 +28,7 @@
 		9F9CC9261D3B8D4F008C400B /* ThemePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */; };
 		9FAA462C1D72B41E00D5BA1B /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */; };
 		9FAA462E1D72B50000D5BA1B /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA462D1D72B50000D5BA1B /* TodoList.swift */; };
+		9FB0ED2A1D7C1F8E00D1D19E /* notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FB0ED2C1D7C1F8E00D1D19E /* notification.png */; };
 		9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */; };
 		9FE886021D27854C00B10091 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FE886041D27854C00B10091 /* Localizable.strings */; };
 		9FE886081D27B26000B10091 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE886071D27B26000B10091 /* Constant.swift */; };
@@ -83,6 +84,9 @@
 		9F9CC9251D3B8D4F008C400B /* ThemePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePageViewController.swift; sourceTree = "<group>"; };
 		9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		9FAA462D1D72B50000D5BA1B /* TodoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		9FB0ED2E1D7C1F9000D1D19E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/notification.png"; sourceTree = "<group>"; };
+		9FB0ED2F1D7C1F9200D1D19E /* ja */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ja; path = ja.lproj/notification.png; sourceTree = "<group>"; };
+		9FB0ED301D7C1FA800D1D19E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/notification.png; sourceTree = "<group>"; };
 		9FB7D8591CFA752B003125EC /* MediaTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTextAttachment.swift; sourceTree = "<group>"; };
 		9FE886031D27854C00B10091 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FE886051D27855000B10091 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 		9F7CB5511CE6F6EF008030E4 /* iNoteCore */ = {
 			isa = PBXGroup;
 			children = (
+				9FB0ED2C1D7C1F8E00D1D19E /* notification.png */,
 				9FEEF3461D686FE7007377A2 /* launchimage.png */,
 				9F72F0EA1D338D9400B24555 /* InfoPlist.strings */,
 				9F72F0E41D338CFE00B24555 /* Info.plist */,
@@ -304,6 +309,7 @@
 			files = (
 				9FEEF3471D686FE7007377A2 /* launchimage.png in Resources */,
 				9F0585AE1D1FD54800FD592C /* todolist in Resources */,
+				9FB0ED2A1D7C1F8E00D1D19E /* notification.png in Resources */,
 				9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */,
 				9FE886021D27854C00B10091 /* Localizable.strings in Resources */,
 				9F7CB55A1CE6F6EF008030E4 /* Assets.xcassets in Resources */,
@@ -394,6 +400,16 @@
 			);
 			name = InfoPlist.strings;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		9FB0ED2C1D7C1F8E00D1D19E /* notification.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9FB0ED2E1D7C1F9000D1D19E /* zh-Hans */,
+				9FB0ED2F1D7C1F9200D1D19E /* ja */,
+				9FB0ED301D7C1FA800D1D19E /* en */,
+			);
+			name = notification.png;
 			sourceTree = "<group>";
 		};
 		9FE886041D27854C00B10091 /* Localizable.strings */ = {

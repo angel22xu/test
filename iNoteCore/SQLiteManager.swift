@@ -57,7 +57,7 @@ class SQLiteManager {
 //        print("打开数据库成功")
         
         // 创建一个索引表，有2个字段，日记ID，标题, 日期
-        let sql1 = "CREATE TABLE IF  NOT EXISTS  IndexConfig (noteID INTEGER PRIMARY KEY, title TEXT, dt TEXT, delFlag INTEGER)"
+        let sql1 = "CREATE TABLE IF  NOT EXISTS  IndexConfig (noteID INTEGER PRIMARY KEY, title TEXT, dt TEXT, delFlag INTEGER, subtitle TEXT, redminderFlag INTEGER, redminerDT TEXT)"
 
         
         //创建一个数据表，有3个字段，分别是 日记ID、内容，天气
@@ -69,7 +69,7 @@ class SQLiteManager {
 //        //创建一个数据表，有3个字段，分别是 日记ID、内容，天气
 //        let sql2 = "CREATE TABLE IF NOT EXISTS  DataConfig (noteID INTEGER PRIMARY KEY, content TEXT ,  weather TEXT)"
 
-        
+
         if createTable(sql1) && createTable(sql2){
             print("打开数据表成功")
         } else {

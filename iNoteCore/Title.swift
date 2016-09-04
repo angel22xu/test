@@ -22,6 +22,15 @@ class Title : NSObject {
     //删除标志, 0默认值，1表示扔进垃圾箱的数据
     var delFlag: Int = 0
     
+    // 提醒标题
+    var subtitle: String = ""
+    
+    // 提醒标记，0默认值，1表示开启
+    var redminderFlag: Int = 0
+    
+    // 提醒时间
+    var redminerDT: String  = ""
+    
     // 字典转模型
     init(dict: [String: AnyObject]) {
         super.init()
@@ -37,7 +46,7 @@ class Title : NSObject {
      */
     func insertTtile() -> Bool {
         // 拼接sql语句, String类型需要用''引起来
-        let sql = "INSERT INTO IndexConfig (noteID, title, dt, delFlag) VALUES (\(noteID), '\(title!)', '\(dt!)', \(delFlag));"
+        let sql = "INSERT INTO IndexConfig (noteID, title, dt, delFlag, subtitle, redminderFlag, redminerDT) VALUES (\(noteID), '\(title!)', '\(dt!)', \(delFlag), '\(subtitle)', \(redminderFlag), '\(redminerDT)');"
         
         // 使用单例插入数据
         return SQLiteManager.sharedManager.execSQL(sql)
@@ -58,6 +67,22 @@ class Title : NSObject {
         return SQLiteManager.sharedManager.execSQL(sql)
     }
 
+    /**
+     更新模型数据到数据库
+     returns:  是否更新成功
+     */
+    func updateSubtitle() -> Bool {
+        // 断言
+        assert(noteID > 0, "noteID 不正确")
+        
+        // 生成sql语句
+        let sql = "UPDATE IndexConfig set subtitle = '\(subtitle)', redminderFlag = \(redminderFlag), redminerDT='\(redminerDT)' WHERE noteID = \(noteID)"
+        
+        // 执行sql
+        return SQLiteManager.sharedManager.execSQL(sql)
+    }
+
+    
     /**
      更新模型数据到数据库, 改变删除标志
      returns:  是否更新成功
@@ -96,7 +121,7 @@ class Title : NSObject {
      */
     class func loadTitles() -> [Title]? {
         // 1. 成成sql语句
-        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=0 ORDER BY dt DESC;"
+        let sql = "SELECT noteID, title, dt, subtitle,redminderFlag, redminerDT FROM IndexConfig WHERE delFlag=0 ORDER BY dt DESC;"
         
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
@@ -124,7 +149,7 @@ class Title : NSObject {
      */
     class func loadTitle(nid: Int) -> Title? {
         // 1. 成成sql语句
-        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=0 and noteID=\(nid)"
+        let sql = "SELECT noteID, title, dt, subtitle, redminderFlag, redminerDT FROM IndexConfig WHERE delFlag=0 and noteID=\(nid)"
         
         // 2.执行sql语句,返回查询结果
         
@@ -140,7 +165,7 @@ class Title : NSObject {
      */
     class func loadDeletedTitles() -> [Title]? {
         // 1. 成成sql语句
-        let sql = "SELECT noteID, title, dt FROM IndexConfig WHERE delFlag=1;"
+        let sql = "SELECT noteID, title, dt, subtitle, redminderFlag, redminerDT FROM IndexConfig WHERE delFlag=1;"
         
         // 2.执行sql语句,返回查询结果
         guard let array = SQLiteManager.sharedManager.execRecordSet(sql) else {
@@ -164,7 +189,7 @@ class Title : NSObject {
 
     // 对象打印方法
     override var description: String {
-        let properties = ["noteID", "title", "dt"]
+        let properties = ["noteID", "title", "dt", "subtitle"]
         return "title: \n \t \(dictionaryWithValuesForKeys(properties)) \n"
     }
 }

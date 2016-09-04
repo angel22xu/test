@@ -36,6 +36,9 @@
 "DELETENOTE_ALERT_MSG" = "Would you like to delete the note?";
 "COMMON_ALERT_CANCEL" = "Cancel";
 "COMMON_ALERT_OK" = "OK";
+"ALARM" = "Alarm";
+"ALARMDETAIL" = "Alarm detail";
+
 
 "INVITE_BODY" = "I want to download it.\nClick the following link .\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "Download the iNote, come on!";
@@ -48,6 +51,7 @@
 "REMINDER_LB2" = "Alarm";
 "REMINDER_LB3" = "";
 "REMINDER_BTNOK" = "OK";
+"REMINDER_BTNMODIFY" = "Update";
 "REMINDER_SETTING_TIPS" = "★Settings ⇨ Notification ⇨ iNote ⇨ Check the [Allow Notifications]";
 "REMINDER_SETTING_BTNPUSH" = "Allow Notifications";
 

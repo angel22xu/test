@@ -36,8 +36,21 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var cursorY: CGFloat = 0
     var cursorR: CGFloat = 0
     
+    // 原始内容
+    var originContent: String = ""
+    
     func autoSaveContent(){
         let content: String = detailTextView.textStorage.getPlainString()
+        
+        // 如果内容没有发生变化就不要保存
+        if ( content.compare(originContent) == NSComparisonResult.OrderedSame){
+            
+            // 如果内容为空就删掉
+            if(content.compare("") == NSComparisonResult.OrderedSame){
+                Title(dict: ["noteID": Int(vigSegue)!]).deleteTitle()
+            }
+            return
+        }
         
         let weather: String = "sunshine"
         
@@ -83,6 +96,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         delete.image = UIImage(named: "delete")
         new.image = UIImage(named: "new")
+        
+        alarm.title = NSLocalizedString("ALARM", comment: "提醒")
+
         
         // 添加监听事件
         let centerDefault = NSNotificationCenter.defaultCenter()
@@ -130,10 +146,17 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }else{
             arrayM = Content.loadContents(Int(vigSegue)!)!
             if arrayM.isEmpty{
+                // 没有内容的时候，提醒功能不可使用
+                self.alarm.enabled = false
+
                 detailTextView.text = ""
             }else{
+                // 有内容的时候，打开提醒功能
+                self.alarm.enabled = true
                 // 解析数据库读取出来的内容
-                analysis_adv(arrayM[0].content!)
+                originContent = arrayM[0].content!
+                
+                analysis_adv(originContent)
             }
         }
         
@@ -434,6 +457,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             rangeStr = getSubstring(content, iStart: index, iEnd: index + 1)
             // 叹号
             if (rangeStr == exclamationMark){
+                print("index=\(index)")
                 rangeStr = getSubstring(content, iStart: index + 1, iEnd: index + 2)
                 rightRangeStr = getSubstring(content, iStart: index + 22, iEnd: index + 23)
                 // 判断是否左括号右括号
@@ -498,9 +522,27 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     //  获取字符串中的某个字符
     func getSubstring(content: String, iStart: Int, iEnd: Int) -> String{
-        let startIndex = content.startIndex.advancedBy(iStart)
-        let endIndex = content.startIndex.advancedBy(iEnd)
-//        let range = Range<String.Index>(start: startIndex, end: endIndex)
+        
+        let len = (content as NSString).length
+        
+        var start: Int
+        var end: Int
+        
+        if(iStart > len){
+            start = len as Int
+        }else{
+            start = iStart
+        }
+            
+        if(iEnd > len){
+            end = (len as Int) + 1
+        }else{
+            end = iEnd
+        }
+        
+        
+        let startIndex = content.startIndex.advancedBy(start)
+        let endIndex = content.startIndex.advancedBy(end)
         let range: Range<String.Index> = startIndex ..< endIndex
         return content.substringWithRange(range)
     }

@@ -193,9 +193,15 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
         // Configure the cell...
         let item = self.result[indexPath.row] as! Title
     
-        cell.textLabel!.text = item.title
-        cell.detailTextLabel?.text = Tool.formatDt(item.dt!)
-        
+        if item.redminderFlag == Constant.REMINDER_OFF{           // 普通日志, 未开启提醒功能
+            cell.textLabel!.text = item.title
+            cell.detailTextLabel?.text = Tool.formatDt(item.dt!)
+        }else{   //提醒功能
+            cell.textLabel!.text = item.title
+            cell.detailTextLabel?.text = item.subtitle + "      " + item.redminerDT
+            cell.accessoryView = UIImageView(image: UIImage(named: "bell.png"))
+        }
+
         return cell
     }
     

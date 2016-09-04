@@ -11,3 +11,7 @@
 
 １２、文件目录会不会发生变化
 db path: /var/mobile/Containers/Data/Application/C228F796-FE82-4F4C-BA3A-EE472CB1578F/Documents/psList.sqlite3
+
+
+１３、提醒页面默认显示标题，修改，不是确认， 要是已经定了提醒
+１４、

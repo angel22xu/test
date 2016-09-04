@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         remindAction.activationMode = .Background
         remindAction.destructive = false
         
+        let language = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages")
+        print("language: \(language?.objectAtIndex(0))")
+        
+        
         let todoCategory = UIMutableUserNotificationCategory() // notification categories allow us to create groups of actions that we can associate with a notification
         todoCategory.identifier = "TODO_CATEGORY"
         todoCategory.setActions([remindAction, completeAction], forContext: .Default) // UIUserNotificationActionContext.Default (4 actions max)

@@ -36,6 +36,8 @@
 "DELETENOTE_ALERT_MSG" = "真的要删除日记吗?";
 "COMMON_ALERT_CANCEL" = "取消";
 "COMMON_ALERT_OK" = "确定";
+"ALARM" = "提醒";
+"ALARMDETAIL" = "提醒详细";
 
 "INVITE_BODY" = "超级笔记很好用哦!一块使用吧!\n点击下面的链接可以下载。\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "来下载超级笔记吧!";
@@ -48,5 +50,6 @@
 "REMINDER_LB2" = "提醒时间";
 "REMINDER_LB3" = "";
 "REMINDER_BTNOK" = "確定";
-"REMINDER_SETTING_TIPS" = "★设置 ⇨ 通知 ⇨ 超级日志 ⇨ 选择［允许通］";
+"REMINDER_BTNMODIFY" = "修改";
+"REMINDER_SETTING_TIPS" = "［警告］由于您在设置里关闭了改应用的提醒通知，需要先按如下步骤先打开才可以使用。\n★设置 ⇨ 通知 ⇨ 超级日志 ⇨ 选择［允许通知］\n参考下图";
 "REMINDER_SETTING_BTNPUSH" = "允许通知";

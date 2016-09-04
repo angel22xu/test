@@ -36,6 +36,9 @@
 "DELETENOTE_ALERT_MSG" = "削除してもよろしいでしょうか?";
 "COMMON_ALERT_CANCEL" = "キャンセール";
 "COMMON_ALERT_OK" = "確認";
+"ALARM" = "アラーム";
+"ALARMDETAIL" = "アラーム詳細";
+
 
 "INVITE_BODY" = "マイノートは良いツールですので、ダウンロードしましょう!\n以下のリンクを押すとダウンロードできす！\nhttps://itunes.apple.com/app/id980864870";
 "INVITE_SUBJECT" = "マイノートを利用しましょう!";
@@ -48,6 +51,7 @@
 "REMINDER_LB2" = "アラーム";
 "REMINDER_LB3" = "";
 "REMINDER_BTNOK" = "確定";
+"REMINDER_BTNMODIFY" = "更新";
 "REMINDER_SETTING_TIPS" = "★設定 ⇨ 通知 ⇨ マイノート ⇨ 「追加を許可」をチェックする";
 "REMINDER_SETTING_BTNPUSH" = "通知を許可";
 
