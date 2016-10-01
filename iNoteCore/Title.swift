@@ -100,6 +100,21 @@ class Title : NSObject {
     
     
     /**
+     更新模型数据到数据库, 改变删除标志
+     returns:  是否更新成功
+     */
+    static func closeReminder(nid: Int) -> Bool {
+        
+        // 生成sql语句
+        let sql = "UPDATE IndexConfig set redminderFlag = \(Constant.REMINDER_OFF), redminerDT = '' WHERE noteID = \(nid)"
+        
+        // 执行sql
+        return SQLiteManager.sharedManager.execSQL(sql)
+    }
+
+    
+    
+    /**
      删除模型对应数据库中的记录
      returns: 是否删除成功
      */

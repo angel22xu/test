@@ -130,6 +130,10 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
             
         }
         
+        // 不使用这2个标签
+        dtLabel.hidden = true
+        alarmLable.hidden = true
+
         
         
     }
@@ -139,9 +143,9 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         
         if(alarmSwitch.on){   //开启
             deadlinePicker.hidden = false
-            dtLabel.hidden = false
+//            dtLabel.hidden = false
             okBtn.hidden = false
-            alarmLable.hidden = false
+//            alarmLable.hidden = false
             
             // 设置提醒标签的默认时间
             let formatter = NSDateFormatter()
@@ -155,7 +159,14 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
             alarmLable.hidden = true
             
             
-            // TODO  关闭数据库，本地提醒数据删除
+            // 关闭数据库，本地提醒数据删除
+            Title.closeReminder(Int(vigSegue)!)
+            
+            let todoItem = TodoItem(deadline: deadlinePicker.date, title: "", UUID: vigSegue)
+            TodoList.sharedInstance.removeItem(todoItem) // schedule a local notification to persist this item
+            
+            
+            
         }
     }
     
@@ -192,14 +203,11 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
-        let t = Title(dict: ["noteID": Int(vigSegue)!, "subtitle": title!, "redminderFlag": 1, "redminerDT":  dtLabel.text!, "dt": dt])
+        let t = Title(dict: ["noteID": Int(vigSegue)!, "subtitle": title!, "redminderFlag": Constant.REMINDER_ON, "redminerDT":  dtLabel.text!, "dt": dt])
         t.updateSubtitle()
 
-//        let UUID: String = NSUUID().UUIDString
-        
         let todoItem = TodoItem(deadline: deadlinePicker.date, title: title!, UUID: vigSegue)
         TodoList.sharedInstance.addItem(todoItem) // schedule a local notification to persist this item
-//        self.navigationController?.popToRootViewControllerAnimated(true) // return to list view
         self.navigationController?.popViewControllerAnimated(true)
     }
 

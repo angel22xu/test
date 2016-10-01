@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import MGSwipeTableCell
 
 class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var itemSetting: UIBarButtonItem!
@@ -106,6 +107,7 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.searchBar.delegate = self
         self.searchBar.placeholder = NSLocalizedString("SEARCH_PLACEHOLDER", comment: "搜索")
+//        self.tableView.registerClass(MGSwipeTableCell.self, forCellReuseIdentifier: "ToDoCell")
 
     }
     
@@ -188,18 +190,59 @@ class TodoListTableViewController: UITableViewController, UISearchBarDelegate {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ToDoCell", forIndexPath: indexPath)
+        
+        let reuseIdentifier = "ToDoCell"
+//        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MGSwipeTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
 
+
+//        if cell == nil
+//        {
+//            cell = MGSwipeTableCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
+//        }
+        
+        
         // Configure the cell...
         let item = self.result[indexPath.row] as! Title
     
         if item.redminderFlag == Constant.REMINDER_OFF{           // 普通日志, 未开启提醒功能
             cell.textLabel!.text = item.title
             cell.detailTextLabel?.text = Tool.formatDt(item.dt!)
+            cell.accessoryView = nil
         }else{   //提醒功能
             cell.textLabel!.text = item.title
             cell.detailTextLabel?.text = item.subtitle + "      " + item.redminerDT
             cell.accessoryView = UIImageView(image: UIImage(named: "bell.png"))
+
+            let formatter1 = NSDateFormatter()
+            formatter1.dateFormat = "yyyy-MM-dd HH:mm"
+   
+            
+            // 如果当前时间大于提醒时间, 文字颜色为红
+            if(item.redminerDT.compare("") != NSComparisonResult.OrderedSame){
+                print(item.redminerDT)
+
+                if(NSDate().compare(formatter1.dateFromString(item.redminerDT)!) == NSComparisonResult.OrderedDescending){
+                    cell.detailTextLabel?.textColor = UIColor.redColor()
+                }
+            }
+            
+            
+            
+            
+//            //configure left buttons
+//            cell.leftButtons = [MGSwipeButton(title: "", icon: UIImage(named:"photo.png"), backgroundColor: UIColor.greenColor())
+//                ,MGSwipeButton(title: "", icon: UIImage(named:"done.png"), backgroundColor: UIColor.blueColor())]
+//            cell.leftSwipeSettings.transition = MGSwipeTransition.Rotate3D
+//            
+//            //configure right buttons
+//            cell.rightButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor())
+//                ,MGSwipeButton(title: "More",backgroundColor: UIColor.lightGrayColor())]
+//            cell.rightSwipeSettings.transition = MGSwipeTransition.Rotate3D
+            
+            
+            
+
         }
 
         return cell

@@ -15,6 +15,7 @@
 		9F142DC61CE816CA00470E7C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DC51CE816CA00470E7C /* Content.swift */; };
 		9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */; };
 		9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */; };
+		9F6923911D843CF100448C62 /* MGSwipeTableCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6923901D843CF100448C62 /* MGSwipeTableCell.framework */; };
 		9F72F0E51D338CFE00B24555 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0E41D338CFE00B24555 /* Info.plist */; };
 		9F72F0E81D338D9400B24555 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F72F0EA1D338D9400B24555 /* InfoPlist.strings */; };
 		9F7CB5531CE6F6EF008030E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7CB5521CE6F6EF008030E4 /* AppDelegate.swift */; };
@@ -63,6 +64,7 @@
 		9F142DC51CE816CA00470E7C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		9F28BCBE1D3A2F0A007EF53C /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		9F6923901D843CF100448C62 /* MGSwipeTableCell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MGSwipeTableCell.framework; path = Carthage/Build/iOS/MGSwipeTableCell.framework; sourceTree = "<group>"; };
 		9F72F0E41D338CFE00B24555 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F72F0E91D338D9400B24555 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F72F0EB1D338D9500B24555 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F7CB58B1CE733C3008030E4 /* libsqlite3.tbd in Frameworks */,
+				9F6923911D843CF100448C62 /* MGSwipeTableCell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +129,7 @@
 		9F7CB5461CE6F6EF008030E4 = {
 			isa = PBXGroup;
 			children = (
+				9F6923901D843CF100448C62 /* MGSwipeTableCell.framework */,
 				9F0585AD1D1FD54800FD592C /* todolist */,
 				9F7CB58A1CE733C3008030E4 /* libsqlite3.tbd */,
 				9F7CB5511CE6F6EF008030E4 /* iNoteCore */,
@@ -205,6 +209,7 @@
 				9F7CB54B1CE6F6EF008030E4 /* Sources */,
 				9F7CB54C1CE6F6EF008030E4 /* Frameworks */,
 				9F7CB54D1CE6F6EF008030E4 /* Resources */,
+				9F6923921D843D2400448C62 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -334,6 +339,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9F6923921D843D2400448C62 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/MGSwipeTableCell.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9F7CB54B1CE6F6EF008030E4 /* Sources */ = {
@@ -517,6 +539,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = iNoteCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -533,6 +559,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = iNoteCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
