@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9657ABBE1DB5F411000E5BA9 /* SwiftColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9657ABBD1DB5F411000E5BA9 /* SwiftColorPickerViewController.swift */; };
 		9F0585AE1D1FD54800FD592C /* todolist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0585AD1D1FD54800FD592C /* todolist */; };
 		9F0F9F411D699B6600CBF3F8 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F9F401D699B6600CBF3F8 /* AlarmViewController.swift */; };
 		9F142DC01CE8143C00470E7C /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9657ABBD1DB5F411000E5BA9 /* SwiftColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftColorPickerViewController.swift; sourceTree = "<group>"; };
 		9F0585AD1D1FD54800FD592C /* todolist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todolist; sourceTree = "<group>"; };
 		9F0F9F401D699B6600CBF3F8 /* AlarmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9FAA462B1D72B41E00D5BA1B /* TodoItem.swift */,
 				9FAA462D1D72B50000D5BA1B /* TodoList.swift */,
 				9F7CB5881CE70650008030E4 /* NoteViewController.swift */,
+				9657ABBD1DB5F411000E5BA9 /* SwiftColorPickerViewController.swift */,
 				9F2D3A741CF148E800AD7A86 /* SettingViewController.swift */,
 				9F7CB5861CE70589008030E4 /* TodoListTableViewController.swift */,
 				9F142DBF1CE8143C00470E7C /* SQLiteManager.swift */,
@@ -367,6 +370,7 @@
 				9F0F9F411D699B6600CBF3F8 /* AlarmViewController.swift in Sources */,
 				9FB7D85A1CFA752B003125EC /* MediaTextAttachment.swift in Sources */,
 				9FED29AE1D4C93F000F710A7 /* HelpViewController.swift in Sources */,
+				9657ABBE1DB5F411000E5BA9 /* SwiftColorPickerViewController.swift in Sources */,
 				9F28BCBF1D3A2F0A007EF53C /* PageItemController.swift in Sources */,
 				9F142DC61CE816CA00470E7C /* Content.swift in Sources */,
 				9F2D3A751CF148E800AD7A86 /* SettingViewController.swift in Sources */,
