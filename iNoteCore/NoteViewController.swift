@@ -10,7 +10,9 @@ import UIKit
 import MobileCoreServices
 import AssetsLibrary
 
-class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextViewDelegate{
+class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextViewDelegate,UIPopoverPresentationControllerDelegate,SwiftColorPickerDelegate{
+    
+    
 
     //日志ID, 主键, 从上个页面传过来
     var vigSegue = ""
@@ -28,6 +30,7 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var alarm: UIBarButtonItem!
     
     @IBOutlet weak var new: UIBarButtonItem!
+
     let size:Float = 64.0
     
     // 键盘高度
@@ -76,7 +79,9 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         self.noteUpdateTime.text = Tool.formatDt1(noteTime)
         
-        self.initTextView()
+        self.initContent();
+        
+//        self.initTextView()
         
         //设置格式
         resetTextStyle()
@@ -129,6 +134,12 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.detailTextView.delegate = self
         self.detailTextView.inputAccessoryView = toolBar
+        
+        //设置颜色和字体菜单
+        let colorselect = UIMenuItem(title: "Color", action: #selector(NoteViewController.onSelectColor))
+        let fontselect = UIMenuItem(title: "Font", action: #selector(NoteViewController.onFontSelect))
+        let menu = UIMenuController()
+        menu.menuItems = [colorselect,fontselect]
         
     }
     
@@ -255,7 +266,8 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.view.layer.addAnimation(transition, forKey: nil)
         
         // 4、创建日志
-        self.initTextView()
+//        self.initTextView()
+        self.initContent();
 
     }
     
@@ -574,11 +586,18 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // 打开UITextView，默认显示最顶部（只有文字的时候没有问题，有图片的时候不好使）
         self.detailTextView.setContentOffset(CGPoint(x: 0, y: -100), animated: false)
+        let temp  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
+        temp.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(0, temp.length));
+        temp.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 30)!, range: NSMakeRange(0, 2));
+
+
+        self.detailTextView.attributedText = temp;
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        autoSaveContent()
+//        autoSaveContent()
+        saveContent();
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -638,7 +657,6 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // 点击UITextView的时候，获取当前航坐在的坐标位置
         textView.scrollRangeToVisible(textView.selectedRange)
         self.cursorY = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y
-//        print("textViewDidChangeSelection:\(self.cursorY)")
 
     }
 
@@ -659,6 +677,62 @@ class NoteViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             
     }
+    
+    // this enables pop over on iphones
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        return UIModalPresentationStyle.None
+    }
+    
+    func colorSelectionChanged(selectedColor color: UIColor) {
+//        self.view.backgroundColor = color
+        let range = detailTextView.selectedRange;
+        let temp  = NSMutableAttributedString(attributedString: detailTextView.attributedText)
+        temp.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
+        self.detailTextView.attributedText = temp
+        self.detailTextView.selectedRange = range
+    }
+    
+    func onSelectColor(){
+        let colorPickerVC = SwiftColorPickerViewController()
+        colorPickerVC.delegate = self
+        colorPickerVC.modalPresentationStyle = .Popover
+        let popVC = colorPickerVC.popoverPresentationController!;
+        let tempx = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.x;
+        //获得光标的位置
+        let tempy = self.detailTextView.caretRectForPosition(self.detailTextView.selectedTextRange!.start).origin.y + self.detailTextView.frame.origin.y;
+//        print("the find result: %f, %f",tempx,tempy);
+        popVC.sourceRect = CGRectMake(tempx, tempy, 125, 30);
+        popVC.sourceView = self.view
+        popVC.permittedArrowDirections = .Any;
+        popVC.delegate = self;
+        
+        self.presentViewController(colorPickerVC, animated: true, completion: {
+            print("Reade<");
+        })
+    }
+    
+    func onFontSelect(){
+        print("font select")
+    }
+    
+    func saveContent(){
+        let temp  = NSMutableAttributedString(attributedString: detailTextView.attributedText);
+        let a = NSKeyedArchiver.archivedDataWithRootObject(temp);
+        a.writeToFile(NSHomeDirectory().stringByAppendingString("/test.tmp"), atomically: true);
+    }
+    
+    func initContent(){
+        let url: NSURL = NSURL(string: NSHomeDirectory().stringByAppendingString("/test.tmp"))!
+        if let readData = NSData(contentsOfFile: url.path!) {
+            //如果内容存在 则用readData创建文字列
+            let newString = NSKeyedUnarchiver.unarchiveObjectWithData(readData) as! NSAttributedString;
+            self.detailTextView.attributedText = newString;
+        } else {
+            //nil的话，输出空
+            
+        }
 
+    }
     
 }
